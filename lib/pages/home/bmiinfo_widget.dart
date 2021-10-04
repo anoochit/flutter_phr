@@ -10,7 +10,7 @@ import 'package:phr/models/chartdata.dart';
 import 'package:phr/pages/bmi/bmi.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
-import 'package:phr/widgets/splinechart.dart';
+import 'package:phr/widgets/spline_chart.dart';
 
 class BmiInfoWidget extends StatelessWidget {
   const BmiInfoWidget({Key? key}) : super(key: key);
@@ -56,9 +56,9 @@ class BmiInfoWidget extends StatelessWidget {
                                   final List<ChartData> chartDataHeight = [];
                                   final List<ChartData> chartDataBMI = [];
                                   for (var item in box.values) {
-                                    chartDataWeight.add(ChartData(dateTime: item.dateTime, value: item.weight));
-                                    chartDataHeight.add(ChartData(dateTime: item.dateTime, value: item.height));
-                                    chartDataBMI.add(ChartData(dateTime: item.dateTime, value: item.bmi));
+                                    chartDataWeight.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.weight));
+                                    chartDataHeight.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.height));
+                                    chartDataBMI.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.bmi));
                                   }
                                   final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
 

@@ -16,6 +16,10 @@ class SplineChartWidget extends StatelessWidget {
         intervalType: DateTimeIntervalType.auto,
         //ateFormat: DateFormat('E d MMM y, HH:mm'),
         dateFormat: DateFormat('d MMM y, HH:mm'),
+        autoScrollingDeltaType: DateTimeIntervalType.months,
+      ),
+      primaryYAxis: NumericAxis(
+        autoScrollingMode: AutoScrollingMode.start,
       ),
       tooltipBehavior: TooltipBehavior(
         enable: true,
@@ -26,10 +30,11 @@ class SplineChartWidget extends StatelessWidget {
       series: <ChartSeries>[
         for (int series = 0; series < chartData.length; series++)
           SplineSeries<ChartData, DateTime>(
+            name: chartData[series].first.name,
             dataSource: chartData[series],
             xValueMapper: (ChartData data, _) => data.dateTime,
             yValueMapper: (ChartData data, _) => data.value,
-            color: chartColor[series],
+            //color: chartColor[series],
             enableTooltip: true,
             markerSettings: const MarkerSettings(
               isVisible: true,

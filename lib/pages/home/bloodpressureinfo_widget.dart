@@ -8,7 +8,7 @@ import 'package:phr/models/chartdata.dart';
 import 'package:phr/pages/bloodpressure/bloodpressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
-import 'package:phr/widgets/splinechart.dart';
+import 'package:phr/widgets/spline_chart.dart';
 
 class BloodPressureWidget extends StatelessWidget {
   const BloodPressureWidget({Key? key}) : super(key: key);
@@ -53,8 +53,8 @@ class BloodPressureWidget extends StatelessWidget {
                                   final List<ChartData> chartDataSystolic = [];
                                   final List<ChartData> chartDataDiastolic = [];
                                   for (var item in box.values) {
-                                    chartDataSystolic.add(ChartData(dateTime: item.dateTime, value: item.systolic.toDouble()));
-                                    chartDataDiastolic.add(ChartData(dateTime: item.dateTime, value: item.diastolic.toDouble()));
+                                    chartDataSystolic.add(ChartData(name: 'Systolic', dateTime: item.dateTime, value: item.systolic.toDouble()));
+                                    chartDataDiastolic.add(ChartData(name: 'Diastolic', dateTime: item.dateTime, value: item.diastolic.toDouble()));
                                   }
                                   final List<List<ChartData>> chartData = [chartDataSystolic, chartDataDiastolic];
 

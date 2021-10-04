@@ -8,7 +8,7 @@ import 'package:phr/models/glucose.dart';
 import 'package:phr/pages/glucose/gluecose.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
-import 'package:phr/widgets/splinechart.dart';
+import 'package:phr/widgets/spline_chart.dart';
 
 class GlucoseInfoWidget extends StatelessWidget {
   const GlucoseInfoWidget({Key? key}) : super(key: key);
@@ -52,7 +52,7 @@ class GlucoseInfoWidget extends StatelessWidget {
                                 if (box!.values.isNotEmpty) {
                                   final List<ChartData> chartDataGlucose = [];
                                   for (var item in box.values) {
-                                    chartDataGlucose.add(ChartData(dateTime: item.dateTime, value: item.unit.toDouble()));
+                                    chartDataGlucose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
                                   }
                                   final List<List<ChartData>> chartData = [chartDataGlucose];
 
