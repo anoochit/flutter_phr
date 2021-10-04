@@ -8,13 +8,16 @@ class Bmi extends HiveObject {
   DateTime dateTime;
 
   @HiveField(1)
-  int height;
+  double height;
 
   @HiveField(2)
-  int weight;
+  double weight;
 
   @HiveField(3)
   double bmi;
 
-  Bmi(this.dateTime, this.height, this.weight, this.bmi);
+  @HiveField(4)
+  int type;
+
+  Bmi(this.dateTime, this.height, this.weight, this.bmi, this.type);
 }

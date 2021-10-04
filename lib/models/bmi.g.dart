@@ -18,16 +18,17 @@ class BmiAdapter extends TypeAdapter<Bmi> {
     };
     return Bmi(
       fields[0] as DateTime,
-      fields[1] as int,
-      fields[2] as int,
+      fields[1] as double,
+      fields[2] as double,
       fields[3] as double,
+      fields[4] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Bmi obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.dateTime)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class BmiAdapter extends TypeAdapter<Bmi> {
       ..writeByte(2)
       ..write(obj.weight)
       ..writeByte(3)
-      ..write(obj.bmi);
+      ..write(obj.bmi)
+      ..writeByte(4)
+      ..write(obj.type);
   }
 
   @override

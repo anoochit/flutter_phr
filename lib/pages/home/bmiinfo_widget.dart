@@ -1,0 +1,124 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/const.dart';
+import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/models/bmi.dart';
+import 'package:phr/models/chartdata.dart';
+import 'package:phr/pages/bmi/bmi.dart';
+import 'package:phr/themes/theme.dart';
+import 'package:phr/widgets/boxcolumndata_widget.dart';
+import 'package:phr/widgets/splinechart.dart';
+
+class BmiInfoWidget extends StatelessWidget {
+  const BmiInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GestureDetector(
+          child: Card(
+            child: SizedBox(
+              width: constraints.maxWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    // title
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text("Body Mass Index (BMI)", style: textTitleStyle),
+                      ],
+                    ),
+
+                    // statistic
+                    GetBuilder<AppController>(
+                        init: AppController(),
+                        builder: (controller) {
+                          return FutureBuilder(
+                            future: controller.loadBMI(),
+                            builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Error"),
+                                );
+                              }
+                              // has data
+                              if (snapshot.hasData) {
+                                final box = snapshot.data;
+
+                                if (box!.values.isNotEmpty) {
+                                  final List<ChartData> chartDataWeight = [];
+                                  final List<ChartData> chartDataHeight = [];
+                                  final List<ChartData> chartDataBMI = [];
+                                  for (var item in box.values) {
+                                    chartDataWeight.add(ChartData(dateTime: item.dateTime, value: item.weight));
+                                    chartDataHeight.add(ChartData(dateTime: item.dateTime, value: item.height));
+                                    chartDataBMI.add(ChartData(dateTime: item.dateTime, value: item.bmi));
+                                  }
+                                  final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
+
+                                  return Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          BoxColumnDataWidget(
+                                            title: "Weight",
+                                            value: '${box.values.last.weight}',
+                                            subTitle: "kg.",
+                                          ),
+                                          BoxColumnDataWidget(
+                                            title: "Height",
+                                            value: '${box.values.last.height}',
+                                            subTitle: "cm.",
+                                          ),
+                                          BoxColumnDataWidget(
+                                            title: "BMI",
+                                            value: box.values.last.bmi.toStringAsFixed(2),
+                                            subTitle: "kg./m^2",
+                                          ),
+                                        ],
+                                      ),
+
+                                      // graph
+                                      SizedBox(
+                                        width: constraints.maxWidth,
+                                        height: constraints.maxWidth / 2,
+                                        child: SplineChartWidget(
+                                          chartData: chartData,
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text("No data, tap to add data."),
+                                  );
+                                }
+                              }
+                              // loading
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          onTap: () {
+            // Navigation to bmi page
+            Get.to(() => const BmiPage());
+          },
+        );
+      },
+    );
+  }
+}

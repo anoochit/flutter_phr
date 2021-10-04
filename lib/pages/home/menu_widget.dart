@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phr/const.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -11,7 +10,7 @@ class MenuWidget extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Wrap(
         children: mainMenu.map((item) {
-          // Todo: add menu icon
+          // Menu icon
           return GestureDetector(
             child: SizedBox(
               width: (constraints.maxWidth / 3),
@@ -19,21 +18,21 @@ class MenuWidget extends StatelessWidget {
               child: Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: (constraints.maxWidth / 3) * 0.6,
-                      height: (constraints.maxWidth / 3) * 0.6,
-                      color: Colors.grey.shade200,
+                    Icon(
+                      item.image,
+                      size: (constraints.maxWidth / 3) * 0.4,
+                      color: Colors.grey.shade600,
                     ),
-                    const SizedBox(height: 4.0),
                     Text(item.title)
                   ],
                 ),
               ),
             ),
             onTap: () {
-              // Todo : add navigation here
+              // Navigate to target page
+              Get.to(() => item.widget);
             },
           );
         }).toList(),

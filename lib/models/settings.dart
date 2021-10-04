@@ -7,5 +7,8 @@ class Settings extends HiveObject {
   @HiveField(0)
   String name;
 
-  Settings(this.name);
+  @HiveField(1)
+  String photo;
+
+  Settings(this.name, this.photo);
 }

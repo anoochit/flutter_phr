@@ -72,17 +72,22 @@ class AppController extends GetxController {
 
   // load profile data
   Future<void> loadSettings() async {
-    var box = await Hive.openBox<Settings>('Settings');
-    var settings = box.get(0) ?? Settings("");
+    log("load -> settings");
+    final box = await Hive.openBox<Settings>('Settings');
+    final settings = box.get(0) ?? Settings("", "");
     yourName = RxString(settings.name);
+    yourImage = RxString(settings.photo);
     update();
   }
 
+  // set profile to controller
   setProfile({required String name, required String photo}) {
     yourName = RxString(name);
     yourImage = RxString(photo);
+    update();
   }
 
+  // register hive adaptor
   hiveRegisterAdapter() {
     if (!Hive.isAdapterRegistered(3)) {
       Hive.registerAdapter(SettingsAdapter());
@@ -101,48 +106,82 @@ class AppController extends GetxController {
     }
   }
 
+  // load bmi
   Future<Box<Bmi>> loadBMI() async {
-    var box = await Hive.openBox<Bmi>('Bmi');
+    final box = await Hive.openBox<Bmi>('Bmi');
     return box;
   }
 
+  // load blood pressure
   Future<Box<BloodPressure>> loadBloodPressure() async {
-    var box = await Hive.openBox<BloodPressure>('BloodPressure');
+    final box = await Hive.openBox<BloodPressure>('BloodPressure');
     return box;
   }
 
+  // load glucose
   Future<Box<Glucose>> loadGlucose() async {
-    var box = await Hive.openBox<Glucose>('Glucose');
+    final box = await Hive.openBox<Glucose>('Glucose');
     return box;
+  }
+
+  // add user profile
+  addProfile({required String name, required String photo}) async {
+    final box = await Hive.openBox<Settings>('Settings');
+    box.put(0, Settings(name, photo));
+    setProfile(name: name, photo: photo);
+  }
+
+  // add bmi
+  addBmi({required DateTime dateTime, required double height, required double weight}) async {
+    final box = await Hive.openBox<Bmi>('Bmi');
+    final bmi = bmiCalculation(weight: weight, height: height);
+    final level = bmiDecode(bmi: bmi);
+    box.add(Bmi(dateTime, height, weight, bmi, level));
+    update();
   }
 
   // sample data
   Future<void> addSampleData() async {
-    var currentDateTime = DateTime.now();
-
     // user profile
-    var boxProfile = await Hive.openBox<Settings>('Settings');
-    boxProfile.put(0, Settings('Dave'));
-    log('sample profile -> ${boxProfile.values.first.name}');
+    //var boxProfile = await Hive.openBox<Settings>('Settings');
+    //boxProfile.put(0, Settings('Dave', ''));
+    //log('sample profile -> ${boxProfile.values.first.name}');
 
-    // bmi
-    var boxBmi = await Hive.openBox<Bmi>('Bmi');
-    boxBmi.put(0, Bmi(currentDateTime, 163, 77, bmiCalculation(weight: 77, height: 163)));
-    log('sample bmi -> ${boxBmi.values.first.bmi}');
+    for (int i = 0; i < 10; i++) {
+      final dateTime = DateTime.now().subtract(Duration(days: i));
+      final random = math.Random().nextInt(5);
 
-    // blood pressure
-    var boxBp = await Hive.openBox<BloodPressure>('BloodPressure');
-    boxBp.put(0, BloodPressure(currentDateTime, 109, 74, 80, bloodPressureCalculation(systolic: 109, diastolic: 74), []));
-    log('sample blood pressure sys -> ${boxBp.values.first.systolic}');
+      // bmi
+      final boxBmi = await Hive.openBox<Bmi>('Bmi');
+      final bmiValue = bmiCalculation(weight: 77 - random.toDouble(), height: 165);
+      final bmiLevel = bmiDecode(bmi: bmiValue);
+      boxBmi.add(Bmi(dateTime, 165, 77 - random.toDouble(), bmiValue, bmiLevel));
+      log('sample bmi -> ${boxBmi.values.first.bmi}');
 
-    // blood pressure
-    var boxGl = await Hive.openBox<Glucose>('Glucose');
-    boxGl.put(0, Glucose(currentDateTime, 154, []));
-    log('sample glucose -> ${boxGl.values.first.unit}');
+      // blood pressure
+      final boxBp = await Hive.openBox<BloodPressure>('BloodPressure');
+      final bpLevel = bloodPressureCalculation(systolic: 109 - random, diastolic: 74 - random);
+      boxBp.add(BloodPressure(dateTime, 109 - random, 74 - random, 80 - random, bpLevel, []));
+      log('sample blood pressure sys -> ${boxBp.values.first.systolic}');
+
+      // blood pressure
+      final boxGl = await Hive.openBox<Glucose>('Glucose');
+      boxGl.add(Glucose(dateTime, 154 - random, []));
+      log('sample glucose -> ${boxGl.values.first.unit}');
+    }
   }
 
+  // Clear sample data
   Future<void> clearSampleData() async {
     // user profile
-    var box = await Hive.openBox<Settings>('Settings');
+    final boxSetting = await Hive.openBox<Settings>('Settings');
+    final boxBmi = await Hive.openBox<Bmi>('Bmi');
+    final boxBloodPressure = await Hive.openBox<BloodPressure>('BloodPressure');
+    final boxGlucose = await Hive.openBox<Glucose>('Glucose');
+    boxSetting.clear();
+    boxBmi.clear();
+    boxBloodPressure.clear();
+    boxGlucose.clear();
+    update();
   }
 }

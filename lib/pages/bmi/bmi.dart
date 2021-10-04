@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BmiPage extends StatefulWidget {
-  BmiPage({Key? key}) : super(key: key);
+  const BmiPage({Key? key}) : super(key: key);
 
   @override
   _BmiPageState createState() => _BmiPageState();
@@ -10,6 +10,11 @@ class BmiPage extends StatefulWidget {
 class _BmiPageState extends State<BmiPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("BMI"),
+      ),
+      body: Container(),
+    );
   }
 }

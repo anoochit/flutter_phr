@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BloodPressurePage extends StatefulWidget {
-  BloodPressurePage({Key? key}) : super(key: key);
+  const BloodPressurePage({Key? key}) : super(key: key);
 
   @override
   _BloodPressurePageState createState() => _BloodPressurePageState();
@@ -10,6 +10,11 @@ class BloodPressurePage extends StatefulWidget {
 class _BloodPressurePageState extends State<BloodPressurePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Blood Pressure"),
+      ),
+      body: Container(),
+    );
   }
 }

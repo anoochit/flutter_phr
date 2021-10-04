@@ -1,11 +1,15 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:phr/controllers/appcontroller.dart';
-import 'package:phr/widgets/bloodpressureinfo_widget.dart';
-import 'package:phr/widgets/bmiinfo_widget.dart';
+import 'package:phr/pages/home/bloodpressureinfo_widget.dart';
+import 'package:phr/pages/home/bmiinfo_widget.dart';
 import 'package:phr/widgets/footer_widget.dart';
-import 'package:phr/widgets/glucoseinfo_widget.dart';
-import 'package:phr/widgets/menu_widget.dart';
+import 'package:phr/pages/home/glucoseinfo_widget.dart';
+import 'package:phr/pages/home/menu_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,6 +24,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // set orientation
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     // load profile settings
     appController.loadSettings();
   }
@@ -31,19 +40,31 @@ class _HomePageState extends State<HomePage> {
         title: GetBuilder<AppController>(
           init: AppController(),
           builder: (controller) {
-            return Text('${controller.yourName}');
+            log(controller.yourImage.toString());
+            return Row(
+              children: [
+                (controller.yourImage.isNotEmpty)
+                    ? CircleAvatar(
+                        backgroundImage: FileImage(File(controller.yourImage.toString())),
+                      )
+                    : Container(),
+                const SizedBox(
+                  width: 8.0,
+                ),
+                Text('${controller.yourName}'),
+              ],
+            );
           },
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: const [
               // your info
               //YourInfoWidget(),
-
               SizedBox(height: 8.0),
 
               // menu pane
@@ -59,7 +80,7 @@ class _HomePageState extends State<HomePage> {
               GlucoseInfoWidget(),
 
               // footer widget
-              FooterWidget()
+              FooterWidget(),
             ],
           ),
         ),

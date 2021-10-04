@@ -1,13 +1,24 @@
+import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/models/settings.dart';
+import 'package:phr/pages/settings/settings.dart';
+import 'package:phr/themes/theme.dart';
+import 'const.dart';
 import 'controllers/appcontroller.dart';
-import 'pages/home.dart';
+import 'pages/home/home.dart';
 
 Future<void> main() async {
   // initial boxes
   await Hive.initFlutter();
+  // register adaptor
+  Hive.registerAdapter(SettingsAdapter());
+  // open setting box
+  boxSettings = await Hive.openBox<Settings>('Settings');
   // run app
   runApp(const MyApp());
 }
@@ -25,8 +36,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // Todo: add sample data
-    appController.addSampleData();
+    // Add sample data
+    //appController.addSampleData();
+    // clear sample data
+    //appController.clearSampleData();
+    // Load settingd
+    appController.loadSettings();
   }
 
   @override
@@ -34,28 +49,10 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Personal Health Record',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        canvasColor: Colors.grey.shade200,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          //elevation: 0.0,
-          titleTextStyle: TextStyle(
-            color: Theme.of(context).textTheme.headline5!.color,
-            fontSize: Theme.of(context).textTheme.headline5!.fontSize,
-          ),
-        ),
-        cardTheme: const CardTheme(
-          color: Colors.white,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-        ),
-      ),
-      // Todo : check setting has data if not goto setting page
-      //home: (boxSettings.values.isEmpty) ? SettingPage() : HomePage(),
-      home: HomePage(),
+      theme: themeData,
+      darkTheme: darkTheme,
+      // Check setting has data if not goto setting page
+      home: (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),
     );
   }
 }
