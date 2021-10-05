@@ -24,4 +24,4 @@ final ThemeData themeData = ThemeData(
 
 final ThemeData darkTheme = ThemeData.dark();
 
-const TextStyle textTitleStyle = TextStyle(fontWeight: FontWeight.bold);
+const TextStyle textTitleStyle = TextStyle(fontWeight: FontWeight.w500);

@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class ChartData {
   String name;
   DateTime dateTime;

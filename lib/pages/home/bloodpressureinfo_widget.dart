@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
@@ -93,7 +92,10 @@ class BloodPressureWidget extends StatelessWidget {
                                   );
                                 } else {
                                   return const Center(
-                                    child: Text("No data, tap to add data."),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 32.0),
+                                      child: Text("No data, tap to add data."),
+                                    ),
                                   );
                                 }
                               }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phr/const.dart';
+import 'package:phr/themes/theme.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class MenuWidget extends StatelessWidget {
                       size: (constraints.maxWidth / 3) * 0.4,
                       color: Colors.grey.shade600,
                     ),
-                    Text(item.title)
+                    Text(item.title, style: textTitleStyle)
                   ],
                 ),
               ),

@@ -13,7 +13,7 @@ import 'package:phr/pages/glucose/gluecose.dart';
 final List<TypeItem> bloodPressureTypeList = [
   TypeItem(Colors.lightBlue, "Hypotension", "< 90", "< 60"),
   TypeItem(Colors.green, "Normal", "91-120", "61-80"),
-  TypeItem(Colors.yellow, "Prehypertension", "121-140", "81-90"),
+  TypeItem(Colors.yellow, "Pre-Hypertension", "121-140", "81-90"),
   TypeItem(Colors.orange, "Stage 1 Hypertension", "141-160", "91-100"),
   TypeItem(Colors.red, "Stage 2 Hypertension", "> 160", "> 100"),
 ];
@@ -27,7 +27,7 @@ final bloodPressureTypeLable = [
 ];
 
 final mainMenu = [
-  Menu("BMI", FontAwesomeIcons.weight, const BmiPage()),
+  Menu("Body Mass Index", FontAwesomeIcons.weight, const BmiPage()),
   Menu("Blood Pressure", FontAwesomeIcons.heartbeat, const BloodPressurePage()),
   Menu("Blood Glucose", FontAwesomeIcons.candyCane, const GlucosePage()),
 ];

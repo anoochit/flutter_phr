@@ -12,7 +12,7 @@ class _BmiPageState extends State<BmiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BMI"),
+        title: const Text("Body Mass Index"),
       ),
       body: Container(),
     );
