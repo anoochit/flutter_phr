@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:phr/const.dart';
@@ -64,7 +63,7 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               // fillColor: Colors.grey.shade200,
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                               hintText: 'Date',
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.calendar_today,
                               ),
                             ),

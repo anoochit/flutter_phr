@@ -56,7 +56,7 @@ const List<Color> listColor = [
   Colors.red,
 ];
 
-const List<Color> chartColor = [
+const List<Color> listChartColor = [
   Colors.red,
   Colors.orange,
   Colors.green,

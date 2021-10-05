@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:phr/const.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -11,6 +12,7 @@ class SplineChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      palette: listChartColor,
       primaryXAxis: DateTimeAxis(
         intervalType: DateTimeIntervalType.auto,
         //ateFormat: DateFormat('E d MMM y, HH:mm'),
