@@ -49,10 +49,14 @@ class BmiInfoWidget extends StatelessWidget {
                                 final box = snapshot.data;
 
                                 if (box!.values.isNotEmpty) {
+                                  // convert to list and sort
+                                  final boxList = box.values.toList();
+                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
                                   final List<ChartData> chartDataWeight = [];
                                   final List<ChartData> chartDataHeight = [];
                                   final List<ChartData> chartDataBMI = [];
-                                  for (var item in box.values) {
+                                  for (var item in boxList) {
                                     chartDataWeight.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.weight));
                                     chartDataHeight.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.height));
                                     chartDataBMI.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.bmi));
@@ -65,17 +69,17 @@ class BmiInfoWidget extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           BoxColumnDataWidget(
-                                            title: "Weight",
+                                            title: "Weight".toUpperCase(),
                                             value: '${box.values.last.weight}',
                                             subTitle: "kg.",
                                           ),
                                           BoxColumnDataWidget(
-                                            title: "Height",
+                                            title: "Height".toUpperCase(),
                                             value: '${box.values.last.height}',
                                             subTitle: "cm.",
                                           ),
                                           BoxColumnDataWidget(
-                                            title: "BMI",
+                                            title: "BMI".toUpperCase(),
                                             value: box.values.last.bmi.toStringAsFixed(2),
                                             subTitle: "kg./m^2",
                                           ),

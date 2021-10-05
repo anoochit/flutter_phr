@@ -49,8 +49,12 @@ class GlucoseInfoWidget extends StatelessWidget {
                                 final box = snapshot.data;
 
                                 if (box!.values.isNotEmpty) {
+                                  // convert to list and sort
+                                  final boxList = box.values.toList();
+                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
                                   final List<ChartData> chartDataGlucose = [];
-                                  for (var item in box.values) {
+                                  for (var item in boxList) {
                                     chartDataGlucose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
                                   }
                                   final List<List<ChartData>> chartData = [chartDataGlucose];
@@ -62,7 +66,7 @@ class GlucoseInfoWidget extends StatelessWidget {
                                         children: [
                                           BoxColumnDataWidget(
                                             title: "GLUCOSE",
-                                            value: '${box.values.last.unit}',
+                                            value: '${boxList.last.unit}',
                                             subTitle: "mg/dL",
                                           ),
                                         ],

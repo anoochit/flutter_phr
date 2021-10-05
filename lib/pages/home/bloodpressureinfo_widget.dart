@@ -49,9 +49,13 @@ class BloodPressureWidget extends StatelessWidget {
                                 final box = snapshot.data;
 
                                 if (box!.values.isNotEmpty) {
+                                  // convert to list and sort
+                                  final boxList = box.values.toList();
+                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
                                   final List<ChartData> chartDataSystolic = [];
                                   final List<ChartData> chartDataDiastolic = [];
-                                  for (var item in box.values) {
+                                  for (var item in boxList) {
                                     chartDataSystolic.add(ChartData(name: 'Systolic', dateTime: item.dateTime, value: item.systolic.toDouble()));
                                     chartDataDiastolic.add(ChartData(name: 'Diastolic', dateTime: item.dateTime, value: item.diastolic.toDouble()));
                                   }
@@ -64,17 +68,17 @@ class BloodPressureWidget extends StatelessWidget {
                                         children: [
                                           BoxColumnDataWidget(
                                             title: "SYS",
-                                            value: '${box.values.last.systolic}',
+                                            value: '${boxList.last.systolic}',
                                             subTitle: "mm Hg",
                                           ),
                                           BoxColumnDataWidget(
                                             title: "DIA",
-                                            value: '${box.values.last.diastolic}',
+                                            value: '${boxList.last.diastolic}',
                                             subTitle: "mm Hg",
                                           ),
                                           BoxColumnDataWidget(
                                             title: "PUL",
-                                            value: box.values.last.pulse.toStringAsFixed(2),
+                                            value: boxList.last.pulse.toStringAsFixed(2),
                                             subTitle: "bpm",
                                           ),
                                         ],

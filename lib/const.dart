@@ -26,6 +26,13 @@ final bloodPressureTypeLable = [
   "Stage 2 Hypertension",
 ];
 
+final bmiTypeLable = [
+  "Underweight",
+  "Normal weight",
+  "Overweight",
+  "Obesity",
+];
+
 final mainMenu = [
   Menu("Body Mass Index", FontAwesomeIcons.weight, const BmiPage()),
   Menu("Blood Pressure", FontAwesomeIcons.heartbeat, const BloodPressurePage()),
@@ -34,12 +41,19 @@ final mainMenu = [
 
 late final Box<Settings> boxSettings;
 
-const List<Color> listColor = [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
-  Colors.green,
+const List<Color> listBmiColor = [
   Colors.lightBlue,
+  Colors.green,
+  Colors.orange,
+  Colors.red,
+];
+
+const List<Color> listColor = [
+  Colors.lightBlue,
+  Colors.green,
+  Colors.yellow,
+  Colors.orange,
+  Colors.red,
 ];
 
 const List<Color> chartColor = [

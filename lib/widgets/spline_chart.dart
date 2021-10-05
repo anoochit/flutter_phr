@@ -14,7 +14,7 @@ class SplineChartWidget extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         intervalType: DateTimeIntervalType.auto,
         //ateFormat: DateFormat('E d MMM y, HH:mm'),
-        dateFormat: DateFormat('d MMM y, HH:mm'),
+        dateFormat: DateFormat('d MMM'),
         autoScrollingDeltaType: DateTimeIntervalType.months,
       ),
       primaryYAxis: NumericAxis(
@@ -24,11 +24,11 @@ class SplineChartWidget extends StatelessWidget {
         enable: true,
       ),
       zoomPanBehavior: ZoomPanBehavior(
-        enablePinching: true,
+        enablePinching: false,
       ),
       series: <ChartSeries>[
         for (int series = 0; series < chartData.length; series++)
-          SplineSeries<ChartData, DateTime>(
+          LineSeries<ChartData, DateTime>(
             name: chartData[series].first.name,
             dataSource: chartData[series],
             xValueMapper: (ChartData data, _) => data.dateTime,
@@ -36,7 +36,7 @@ class SplineChartWidget extends StatelessWidget {
             //color: chartColor[series],
             enableTooltip: true,
             markerSettings: const MarkerSettings(
-              isVisible: true,
+              isVisible: false,
               height: 4,
               width: 4,
             ),
