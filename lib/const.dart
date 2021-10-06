@@ -37,6 +37,7 @@ final glucoseTypeLabel = [
   "Normal",
   "Impaired Glucose",
   "Diabetic",
+  "Unknow",
 ];
 
 final glucoseWhenLabel = [

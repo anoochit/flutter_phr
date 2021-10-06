@@ -34,9 +34,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     // Add sample data
-    //appController.addSampleData();
+    appController.addSampleData();
+
     // clear sample data
     //appController.clearSampleData();
+
     // Load settingd
     appController.loadSettings();
   }

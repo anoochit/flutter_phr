@@ -35,7 +35,7 @@ class SplineChartWidget extends StatelessWidget {
             dataSource: chartData[series],
             xValueMapper: (ChartData data, _) => data.dateTime,
             yValueMapper: (ChartData data, _) => data.value,
-            //color: chartColor[series],
+            //color: listChartColor[series],
             enableTooltip: true,
             markerSettings: const MarkerSettings(
               isVisible: false,

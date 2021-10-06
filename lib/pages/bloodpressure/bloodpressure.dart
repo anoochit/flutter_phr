@@ -7,6 +7,7 @@ import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
+import 'package:phr/pages/bloodpressure/add_bloodpressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/bar_chart.dart';
 import 'package:phr/widgets/spline_chart.dart';
@@ -32,7 +33,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
             icon: const Icon(Icons.add),
             onPressed: () {
               // navigate tp add bmi page
-              //Get.to(() => const AddBloodPressurePage());
+              Get.to(() => const AddBloodPressurePage());
             },
           )
         ],

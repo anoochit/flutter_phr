@@ -97,7 +97,8 @@ class AppController extends GetxController {
 
     // calculate after eating
     if (when == 1) {
-      if ((unit >= 170) && (unit <= 200)) {
+      //if ((unit >= 170) && (unit <= 200)) {
+      if ((unit >= 80) && (unit <= 200)) {
         // normal
         return 0;
       } else if ((unit >= 190) && (unit <= 230)) {
@@ -114,7 +115,8 @@ class AppController extends GetxController {
 
     // calculate 2-3 hrs after eating
     if (when == 2) {
-      if ((unit >= 120) && (unit <= 140)) {
+      //if ((unit >= 120) && (unit <= 140)) {
+      if ((unit >= 80) && (unit <= 140)) {
         // normal
         return 0;
       } else if ((unit >= 140) && (unit <= 160)) {
@@ -205,6 +207,22 @@ class AppController extends GetxController {
     final bmi = bmiCalculation(weight: weight, height: height);
     final level = bmiDecode(bmi: bmi);
     box.put(dateTime.microsecondsSinceEpoch.toString(), Bmi(dateTime, height, weight, bmi, level));
+    update();
+  }
+
+  // add blood pressure
+  addBloodPressure({required DateTime dateTime, required int systolic, required int diastolic, required int pulse}) async {
+    final box = await Hive.openBox<BloodPressure>('BloodPressure');
+    final type = bloodPressureCalculation(systolic: systolic, diastolic: diastolic);
+    box.put(dateTime.microsecondsSinceEpoch.toString(), BloodPressure(dateTime, systolic, diastolic, pulse, type, []));
+    update();
+  }
+
+  addGluecose({required DateTime dateTime, required int glucose, required int when}) async {
+    final box = await Hive.openBox<Glucose>('Glucose');
+    final level = glucoseCalculation(when: when, unit: glucose);
+    //log('lv -> ' + level.toString());
+    box.put(dateTime.microsecondsSinceEpoch.toString(), Glucose(dateTime, glucose, [], when, level));
     update();
   }
 

@@ -7,6 +7,7 @@ import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/models/glucose.dart';
+import 'package:phr/pages/glucose/add_bloodpressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
@@ -31,7 +32,7 @@ class _GlucosePageState extends State<GlucosePage> {
             icon: const Icon(Icons.add),
             onPressed: () {
               // navigate tp add bmi page
-              //Get.to(() => const AddGlucosePage());
+              Get.to(() => const AddGlucosePage());
             },
           )
         ],
@@ -68,6 +69,10 @@ class _GlucosePageState extends State<GlucosePage> {
                         }
 
                         final List<List<ChartData>> chartData = [chartDataGlocose];
+
+                        // boxList.forEach((i) {
+                        //   log(i.level.toString());
+                        // });
 
                         // return bmi info
                         return Column(

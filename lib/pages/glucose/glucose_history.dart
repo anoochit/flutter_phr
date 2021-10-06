@@ -60,7 +60,7 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
                           ),
                           child: BoxColumnDataWidget(
                             title: 'Gluecose',
-                            value: myBox[index].unit.toStringAsFixed(2),
+                            value: myBox[index].unit.toStringAsFixed(0),
                             valueColor: Colors.white,
                             textColor: Colors.white,
                             subTitle: 'mg/dL',

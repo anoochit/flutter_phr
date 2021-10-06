@@ -19,7 +19,7 @@ final ThemeData themeData = ThemeData(
     color: Colors.white,
     clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
     ),
   ),
 );
@@ -45,7 +45,7 @@ final buttonStyleRed = ButtonStyle(
   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
     RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(12.0),
       side: const BorderSide(color: Colors.red),
     ),
   ),
@@ -57,7 +57,7 @@ final buttonStyleGreen = ButtonStyle(
   backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
     RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(12.0),
       side: const BorderSide(color: Colors.green),
     ),
   ),
