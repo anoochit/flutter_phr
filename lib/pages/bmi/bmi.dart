@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -8,6 +6,7 @@ import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/pages/bmi/add_bmi.dart';
+import 'package:phr/pages/bmi/bmi_history.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
@@ -30,7 +29,7 @@ class _BmiPageState extends State<BmiPage> {
             icon: const Icon(Icons.add),
             onPressed: () {
               // navigate tp add bmi page
-              Get.to(() => AddBMIPage());
+              Get.to(() => const AddBMIPage());
             },
           )
         ],
@@ -82,6 +81,7 @@ class _BmiPageState extends State<BmiPage> {
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'WEIGHT',
                                   value: boxList.last.weight.toStringAsFixed(2),
+                                  valueColor: listChartColor[0],
                                   subTitle: 'kg.',
                                 ),
                                 StatsBoxWidget(
@@ -89,6 +89,7 @@ class _BmiPageState extends State<BmiPage> {
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'HEIGHT',
                                   value: boxList.last.height.toStringAsFixed(1),
+                                  valueColor: listChartColor[1],
                                   subTitle: 'cm.',
                                 ),
                                 StatsBoxWidget(
@@ -96,6 +97,7 @@ class _BmiPageState extends State<BmiPage> {
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'BMI',
                                   value: boxList.last.bmi.toStringAsFixed(2),
+                                  valueColor: listChartColor[2],
                                   subTitle: 'kg./m^2',
                                 ),
                               ],
@@ -150,7 +152,23 @@ class _BmiPageState extends State<BmiPage> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+
+                            // history button
+                            SizedBox(height: 4.0),
+                            SizedBox(
+                              width: constraints.maxWidth - 16,
+                              child: ElevatedButton(
+                                style: buttonStyleRed,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                  child: Text("History"),
+                                ),
+                                onPressed: () {
+                                  Get.to(() => BMIHistoryPage());
+                                },
+                              ),
+                            ),
                           ],
                         );
                       } else {

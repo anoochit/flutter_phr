@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 final ThemeData themeData = ThemeData(
@@ -24,4 +26,37 @@ final ThemeData themeData = ThemeData(
 
 final ThemeData darkTheme = ThemeData.dark();
 
-const TextStyle textTitleStyle = TextStyle(fontWeight: FontWeight.w500);
+const TextStyle textTitleStyle = TextStyle(
+  fontWeight: FontWeight.w500,
+);
+
+const TextStyle textHistroryButton = TextStyle(
+  fontWeight: FontWeight.w500,
+  color: Colors.red,
+);
+
+final buttonStyleRed = ButtonStyle(
+  elevation: MaterialStateProperty.all(1),
+  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+      side: const BorderSide(color: Colors.red),
+    ),
+  ),
+);
+
+final buttonStyleGreen = ButtonStyle(
+  elevation: MaterialStateProperty.all(1),
+  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+      side: const BorderSide(color: Colors.green),
+    ),
+  ),
+);
+
+const chipTextStyle = TextStyle(color: Colors.white);

@@ -24,7 +24,7 @@ class MenuWidget extends StatelessWidget {
                     Icon(
                       item.image,
                       size: (constraints.maxWidth / 3) * 0.4,
-                      color: Colors.grey.shade600,
+                      color: item.color,
                     ),
                     Text(item.title, style: textTitleStyle)
                   ],

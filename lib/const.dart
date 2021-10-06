@@ -13,7 +13,7 @@ import 'package:phr/pages/glucose/gluecose.dart';
 final List<TypeItem> bloodPressureTypeList = [
   TypeItem(Colors.lightBlue, "Hypotension", "< 90", "< 60"),
   TypeItem(Colors.green, "Normal", "91-120", "61-80"),
-  TypeItem(Colors.yellow, "Pre-Hypertension", "121-140", "81-90"),
+  TypeItem(Colors.amber, "Pre-Hypertension", "121-140", "81-90"),
   TypeItem(Colors.orange, "Stage 1 Hypertension", "141-160", "91-100"),
   TypeItem(Colors.red, "Stage 2 Hypertension", "> 160", "> 100"),
 ];
@@ -34,9 +34,9 @@ final bmiTypeLable = [
 ];
 
 final mainMenu = [
-  Menu("Body Mass Index", FontAwesomeIcons.weight, const BmiPage()),
-  Menu("Blood Pressure", FontAwesomeIcons.heartbeat, const BloodPressurePage()),
-  Menu("Blood Glucose", FontAwesomeIcons.candyCane, const GlucosePage()),
+  Menu("Body Mass Index", FontAwesomeIcons.weight, listColor[1], const BmiPage()),
+  Menu("Blood Pressure", FontAwesomeIcons.heartbeat, listColor[2], const BloodPressurePage()),
+  Menu("Blood Glucose", FontAwesomeIcons.candyCane, listColor[4], const GlucosePage()),
 ];
 
 late final Box<Settings> boxSettings;
@@ -51,7 +51,7 @@ const List<Color> listBmiColor = [
 const List<Color> listColor = [
   Colors.lightBlue,
   Colors.green,
-  Colors.yellow,
+  Colors.amber,
   Colors.orange,
   Colors.red,
 ];

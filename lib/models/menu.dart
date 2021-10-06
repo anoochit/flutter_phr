@@ -4,5 +4,6 @@ class Menu {
   String title;
   IconData image;
   Widget widget;
-  Menu(this.title, this.image, this.widget);
+  Color color;
+  Menu(this.title, this.image, this.color, this.widget);
 }

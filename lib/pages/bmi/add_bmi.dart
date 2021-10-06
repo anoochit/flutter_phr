@@ -50,7 +50,10 @@ class _AddBMIPageState extends State<AddBMIPage> {
                         // title
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text("Enter weight and height"),
+                          child: Text(
+                            "Enter weight and height",
+                            style: textTitleStyle,
+                          ),
                         ),
 
                         // date
@@ -155,13 +158,17 @@ class _AddBMIPageState extends State<AddBMIPage> {
                         ),
 
                         // save button
-                        const SizedBox(height: 12.0),
+                        const SizedBox(height: 4.0),
                         SizedBox(
                           width: constraints.maxWidth,
                           child: ElevatedButton(
-                            child: const Text("Calculate & save data"),
+                            style: buttonStyleGreen,
+                            child: const Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Text("Calculate & save data"),
+                            ),
                             onPressed: () {
-                              if (formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
                                 final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
                                 final weight = double.parse(weightTextController.text.trim());
                                 final height = double.parse(heightTextController.text.trim());
@@ -172,6 +179,7 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                   bmiLabel = bmiTypeLable[level];
                                 });
                                 appController.addBmi(dateTime: dateTime, height: height, weight: weight);
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved!")));
                               }
                             },
                           ),

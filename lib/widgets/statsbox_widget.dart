@@ -8,6 +8,7 @@ class StatsBoxWidget extends StatelessWidget {
     required this.height,
     required this.title,
     required this.value,
+    required this.valueColor,
     required this.subTitle,
   }) : super(key: key);
 
@@ -15,6 +16,7 @@ class StatsBoxWidget extends StatelessWidget {
   final double height;
   final String title;
   final String value;
+  final Color valueColor;
   final String subTitle;
 
   @override
@@ -27,6 +29,7 @@ class StatsBoxWidget extends StatelessWidget {
           title: title,
           value: value,
           subTitle: subTitle,
+          valueColor: valueColor,
         ),
       ),
     );

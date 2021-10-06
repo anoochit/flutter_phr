@@ -44,9 +44,6 @@ class SplineChartWidget extends StatelessWidget {
             ),
           ),
       ],
-      // series: <ChartSeries>[
-
-      // ],
     );
   }
 }
