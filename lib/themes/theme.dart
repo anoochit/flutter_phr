@@ -30,6 +30,10 @@ const TextStyle textTitleStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
+const TextStyle textSubTitleStyle = TextStyle(
+  fontWeight: FontWeight.w400,
+);
+
 const TextStyle textHistroryButton = TextStyle(
   fontWeight: FontWeight.w500,
   color: Colors.red,
