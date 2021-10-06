@@ -229,8 +229,8 @@ class AppController extends GetxController {
 
       // blood pressure
       final boxBp = await Hive.openBox<BloodPressure>('BloodPressure');
-      final bpLevel = bloodPressureCalculation(systolic: 109 - random, diastolic: 74 - random);
-      boxBp.put(key, BloodPressure(dateTime, 109 - random, 74 - random, 80 - random, bpLevel, []));
+      final bpLevel = bloodPressureCalculation(systolic: 109 - random, diastolic: 85 - random);
+      boxBp.put(key, BloodPressure(dateTime, 109 - random, 85 - random, 80 - random, bpLevel, []));
       log('sample blood pressure sys -> ${boxBp.values.first.systolic}');
 
       // blood pressure

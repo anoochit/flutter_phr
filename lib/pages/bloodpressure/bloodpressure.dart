@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -6,6 +8,7 @@ import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/themes/theme.dart';
+import 'package:phr/widgets/bar_chart.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
 
@@ -61,6 +64,20 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                         // convert iterable to list and sort
                         final boxList = box.values.toList();
                         boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
+                        // generate type data
+                        final List<ChartDataType> chartType = [];
+                        final totalCount = boxList.length;
+
+                        for (int i = 0; i < 4; i++) {
+                          final count = boxList.where((element) => element.type == i);
+                          //log('x =>' + count.length.toString());
+                          final itemPercent = ((count.length / totalCount) * 100);
+                          //log('% =>' + itemPercent.toString());
+                          chartType.add(ChartDataType(name: bloodPressureTypeLabel[i], type: i, value: itemPercent, color: listBloodPressureColor[i]));
+                        }
+
+                        final List<List<ChartDataType>> chartDataType = [chartType];
 
                         for (var item in boxList) {
                           // add chart data
@@ -148,6 +165,32 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                       height: constraints.maxWidth,
                                       child: SplineChartWidget(
                                         chartData: chartData,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // graph type
+                            Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Text(
+                                      "State statistic",
+                                      style: textTitleStyle,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: constraints.maxWidth,
+                                      child: BarChartWidget(
+                                        chartData: chartDataType,
                                       ),
                                     ),
                                   ),

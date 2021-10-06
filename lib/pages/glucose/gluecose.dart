@@ -62,10 +62,6 @@ class _GlucosePageState extends State<GlucosePage> {
                         final boxList = box.values.toList();
                         boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
-                        boxList.forEach((element) {
-                          log(element.unit.toString());
-                        });
-
                         for (var item in boxList) {
                           // add chart data
                           chartDataGlocose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
@@ -106,8 +102,8 @@ class _GlucosePageState extends State<GlucosePage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        "Result",
+                                      Text(
+                                        "Result (" + glucoseWhenLabel[boxList.last.when] + ")",
                                         style: textTitleStyle,
                                       ),
                                       Text(
