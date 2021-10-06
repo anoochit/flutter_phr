@@ -70,6 +70,55 @@ class AppController extends GetxController {
     }
   }
 
+  // calculate glucose level ref - https://www.lark.com/blog/blood-sugar-chart/
+  // 0 = fasting, 1 = After Eating, 2 = 2-3 After Eating
+  int glucoseCalculation({required int when, required int unit}) {
+    var result = 0;
+    // calculate fasting
+    if (when == 0) {
+      if ((unit >= 80) && (unit <= 100)) {
+        // normal
+        return 0;
+      } else if ((unit >= 101) && (unit <= 125)) {
+        // impaired
+        return 1;
+      } else if (unit >= 126) {
+        // diabetic
+        return 2;
+      }
+    }
+
+    // calculate after eating
+    if (when == 1) {
+      if ((unit >= 170) && (unit <= 200)) {
+        // normal
+        return 0;
+      } else if ((unit >= 190) && (unit <= 230)) {
+        // impaired
+        return 1;
+      } else if ((unit >= 220) && (unit <= 300)) {
+        // diabetic
+        return 2;
+      }
+    }
+
+    // calculate 2-3 hrs after eating
+    if (when == 2) {
+      if ((unit >= 120) && (unit <= 140)) {
+        // normal
+        return 0;
+      } else if ((unit >= 140) && (unit <= 160)) {
+        // impaired
+        return 1;
+      } else if ((unit >= 200)) {
+        // diabetic
+        return 2;
+      }
+    }
+
+    return result;
+  }
+
   // load profile data
   Future<void> loadSettings() async {
     log("load -> settings");
@@ -167,8 +216,9 @@ class AppController extends GetxController {
 
       // blood pressure
       final boxGl = await Hive.openBox<Glucose>('Glucose');
-      boxGl.put(key, Glucose(dateTime, 154 - random, []));
-      log('sample glucose -> ${boxGl.values.first.unit}');
+      final glLevel = glucoseCalculation(when: 0, unit: (154 - random));
+      boxGl.put(key, Glucose(dateTime, (154 - random), [], 0, glLevel));
+      log('sample glucose -> ${boxGl.values.first.level}');
     }
   }
 

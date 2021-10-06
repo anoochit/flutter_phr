@@ -1,4 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/const.dart';
+import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/models/chartdata.dart';
+import 'package:phr/models/glucose.dart';
+import 'package:phr/themes/theme.dart';
+import 'package:phr/widgets/spline_chart.dart';
+import 'package:phr/widgets/statsbox_widget.dart';
 
 class GlucosePage extends StatefulWidget {
   const GlucosePage({Key? key}) : super(key: key);
@@ -13,8 +24,162 @@ class _GlucosePageState extends State<GlucosePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blood Glucose"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // navigate tp add bmi page
+              //Get.to(() => const AddGlucosePage());
+            },
+          )
+        ],
       ),
-      body: Container(),
+      body: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: GetBuilder<AppController>(
+              init: AppController(),
+              builder: (controller) {
+                return FutureBuilder(
+                  future: controller.loadGlucose(),
+                  builder: (BuildContext context, AsyncSnapshot<Box<Glucose>> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Error"),
+                      );
+                    }
+
+                    if (snapshot.hasData) {
+                      var box = snapshot.data!;
+                      if (box.values.isNotEmpty) {
+                        // chart data
+                        final List<ChartData> chartDataGlocose = [];
+
+                        // convert iterable to list and sort
+                        final boxList = box.values.toList();
+                        boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
+                        boxList.forEach((element) {
+                          log(element.unit.toString());
+                        });
+
+                        for (var item in boxList) {
+                          // add chart data
+                          chartDataGlocose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
+                        }
+
+                        final List<List<ChartData>> chartData = [chartDataGlocose];
+
+                        // return bmi info
+                        return Column(
+                          children: [
+                            // statistics
+                            Row(
+                              children: [
+                                StatsBoxWidget(
+                                  width: ((constraints.maxWidth - 8)),
+                                  height: (constraints.maxWidth / 3) * 0.8,
+                                  title: 'Glucose'.toUpperCase(),
+                                  value: boxList.last.unit.toStringAsFixed(0),
+                                  valueColor: listChartColor[0],
+                                  subTitle: 'mg/dL',
+                                ),
+                              ],
+                            ),
+
+                            // result
+                            SizedBox(
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Result",
+                                        style: textTitleStyle,
+                                      ),
+                                      Text(
+                                        glucoseTypeLabel[boxList.last.level],
+                                        style: TextStyle(
+                                          color: listGlucoseColor[boxList.last.level],
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // graph
+                            Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Text(
+                                      "Statistic",
+                                      style: textTitleStyle,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: constraints.maxWidth * 0.8,
+                                      child: SplineChartWidget(
+                                        chartData: chartData,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // history button
+                            const SizedBox(height: 4.0),
+                            SizedBox(
+                              width: constraints.maxWidth - 16,
+                              child: ElevatedButton(
+                                style: buttonStyleRed,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                  child: Text("History"),
+                                ),
+                                onPressed: () {
+                                  //Get.to(() => const BloodPressureHistoryPage());
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        // return add data text
+                        return SizedBox(
+                          width: constraints.maxWidth,
+                          child: const Card(
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Text("No data, please add your data"),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    }
+
+                    return Container();
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      }),
     );
   }
 }

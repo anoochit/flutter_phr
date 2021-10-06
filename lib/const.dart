@@ -18,7 +18,7 @@ final List<TypeItem> bloodPressureTypeList = [
   TypeItem(Colors.red, "Stage 2 Hypertension", "> 160", "> 100"),
 ];
 
-final bloodPressureTypeLable = [
+final bloodPressureTypeLabel = [
   "Hypotension",
   "Normal",
   "Pre-Hypertension",
@@ -26,11 +26,17 @@ final bloodPressureTypeLable = [
   "Stage 2 Hypertension",
 ];
 
-final bmiTypeLable = [
+final bmiTypeLabel = [
   "Underweight",
   "Normal weight",
   "Overweight",
   "Obesity",
+];
+
+final glucoseTypeLabel = [
+  "Normal",
+  "Impaired Glucose",
+  "Diabetic",
 ];
 
 final mainMenu = [
@@ -53,6 +59,12 @@ const List<Color> listBloodPressureColor = [
   Colors.green,
   Colors.amber,
   Colors.orange,
+  Colors.red,
+];
+
+const List<Color> listGlucoseColor = [
+  Colors.green,
+  Colors.amber,
   Colors.red,
 ];
 

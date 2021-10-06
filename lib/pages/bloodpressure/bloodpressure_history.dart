@@ -68,7 +68,7 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                bloodPressureTypeLable[appController.bloodPressureCalculation(systolic: myBox[index].systolic, diastolic: myBox[index].diastolic)],
+                                bloodPressureTypeLabel[myBox[index].type],
                                 style: textTitleStyle,
                               ),
                               const SizedBox(height: 4.0),

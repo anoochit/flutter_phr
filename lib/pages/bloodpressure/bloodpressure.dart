@@ -64,11 +64,9 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
 
                         for (var item in boxList) {
                           // add chart data
-                          chartDataSys.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.systolic.toDouble()));
-                          chartDataDia.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.diastolic.toDouble()));
-                          chartDataPul.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.pulse.toDouble()));
-
-                          // add chart data level
+                          chartDataSys.add(ChartData(name: 'Systolic', dateTime: item.dateTime, value: item.systolic.toDouble()));
+                          chartDataDia.add(ChartData(name: 'Diastolic', dateTime: item.dateTime, value: item.diastolic.toDouble()));
+                          chartDataPul.add(ChartData(name: 'Pluse', dateTime: item.dateTime, value: item.pulse.toDouble()));
                         }
 
                         final List<List<ChartData>> chartData = [chartDataSys, chartDataDia, chartDataPul];
@@ -83,23 +81,23 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                   width: ((constraints.maxWidth - 8) / 3),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'systolic'.toUpperCase(),
-                                  value: boxList.last.systolic.toStringAsFixed(2),
+                                  value: boxList.last.systolic.toStringAsFixed(0),
                                   valueColor: listChartColor[0],
-                                  subTitle: 'mm.Hg.',
+                                  subTitle: 'mm Hg',
                                 ),
                                 StatsBoxWidget(
                                   width: ((constraints.maxWidth - 8) / 3),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'diastolic'.toUpperCase(),
-                                  value: boxList.last.diastolic.toStringAsFixed(1),
+                                  value: boxList.last.diastolic.toStringAsFixed(0),
                                   valueColor: listChartColor[1],
-                                  subTitle: 'mm.Hg.',
+                                  subTitle: 'mm Hg',
                                 ),
                                 StatsBoxWidget(
                                   width: ((constraints.maxWidth - 8) / 3),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'pulse'.toUpperCase(),
-                                  value: boxList.last.pulse.toStringAsFixed(2),
+                                  value: boxList.last.pulse.toStringAsFixed(0),
                                   valueColor: listChartColor[2],
                                   subTitle: 'bmp',
                                 ),
@@ -119,9 +117,9 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                         style: textTitleStyle,
                                       ),
                                       Text(
-                                        bloodPressureTypeLable[controller.bloodPressureCalculation(systolic: boxList.last.systolic, diastolic: boxList.last.diastolic)],
+                                        bloodPressureTypeLabel[boxList.last.type],
                                         style: TextStyle(
-                                          color: listBloodPressureColor[controller.bloodPressureCalculation(systolic: boxList.last.systolic, diastolic: boxList.last.diastolic)],
+                                          color: listBloodPressureColor[boxList.last.type],
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

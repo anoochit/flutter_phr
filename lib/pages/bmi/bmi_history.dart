@@ -72,7 +72,7 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                bmiTypeLable[appController.bmiDecode(bmi: myBox[index].bmi)],
+                                bmiTypeLabel[myBox[index].type],
                                 style: textTitleStyle,
                               ),
                               const SizedBox(height: 4.0),

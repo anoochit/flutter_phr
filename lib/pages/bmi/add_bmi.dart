@@ -176,7 +176,7 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                 setState(() {
                                   bmi = appController.bmiCalculation(weight: weight, height: height);
                                   level = appController.bmiDecode(bmi: bmi);
-                                  bmiLabel = bmiTypeLable[level];
+                                  bmiLabel = bmiTypeLabel[level];
                                 });
                                 appController.addBmi(dateTime: dateTime, height: height, weight: weight);
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved!")));

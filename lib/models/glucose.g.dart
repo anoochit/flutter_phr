@@ -20,19 +20,25 @@ class GlucoseAdapter extends TypeAdapter<Glucose> {
       fields[0] as DateTime,
       fields[1] as int,
       (fields[2] as List).cast<String>(),
+      fields[3] as int,
+      fields[4] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Glucose obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.dateTime)
       ..writeByte(1)
       ..write(obj.unit)
       ..writeByte(2)
-      ..write(obj.tag);
+      ..write(obj.tag)
+      ..writeByte(3)
+      ..write(obj.when)
+      ..writeByte(4)
+      ..write(obj.level);
   }
 
   @override
