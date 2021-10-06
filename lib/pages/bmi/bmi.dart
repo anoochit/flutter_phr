@@ -155,7 +155,7 @@ class _BmiPageState extends State<BmiPage> {
                             ),
 
                             // history button
-                            SizedBox(height: 4.0),
+                            const SizedBox(height: 4.0),
                             SizedBox(
                               width: constraints.maxWidth - 16,
                               child: ElevatedButton(
@@ -165,7 +165,7 @@ class _BmiPageState extends State<BmiPage> {
                                   child: Text("History"),
                                 ),
                                 onPressed: () {
-                                  Get.to(() => BMIHistoryPage());
+                                  Get.to(() => const BMIHistoryPage());
                                 },
                               ),
                             ),

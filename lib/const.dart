@@ -39,6 +39,12 @@ final glucoseTypeLabel = [
   "Diabetic",
 ];
 
+final glucoseWhenLabel = [
+  "Fasting",
+  "After Eating",
+  "2-3 Hrs After Eating",
+];
+
 final mainMenu = [
   Menu("Body Mass Index", FontAwesomeIcons.weight, listColor[1], const BmiPage()),
   Menu("Blood Pressure", FontAwesomeIcons.heartbeat, listColor[2], const BloodPressurePage()),

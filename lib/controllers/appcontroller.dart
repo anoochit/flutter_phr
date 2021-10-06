@@ -70,7 +70,11 @@ class AppController extends GetxController {
     }
   }
 
-  // calculate glucose level ref - https://www.lark.com/blog/blood-sugar-chart/
+  // calculate glucose level
+  // ref
+  //  - https://www.lark.com/blog/blood-sugar-chart/
+  //  - https://ebmcalc.com/GlycemicAssessment.htm
+  //
   // 0 = fasting, 1 = After Eating, 2 = 2-3 After Eating
   int glucoseCalculation({required int when, required int unit}) {
     var result = 0;
@@ -85,6 +89,9 @@ class AppController extends GetxController {
       } else if (unit >= 126) {
         // diabetic
         return 2;
+      } else {
+        // unknow
+        return 3;
       }
     }
 
@@ -96,9 +103,12 @@ class AppController extends GetxController {
       } else if ((unit >= 190) && (unit <= 230)) {
         // impaired
         return 1;
-      } else if ((unit >= 220) && (unit <= 300)) {
+      } else if ((unit >= 220)) {
         // diabetic
         return 2;
+      } else {
+        // unknow
+        return 3;
       }
     }
 
@@ -113,9 +123,18 @@ class AppController extends GetxController {
       } else if ((unit >= 200)) {
         // diabetic
         return 2;
+      } else {
+        // unknow
+        return 3;
       }
     }
 
+    return result;
+  }
+
+  // (Estimated average glucose(mg/dL) + 46.7) / 28.7
+  double glucoseToA1C({required int unit}) {
+    double result = (unit + 46.7) / 28.7;
     return result;
   }
 

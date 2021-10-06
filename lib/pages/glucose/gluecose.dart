@@ -11,6 +11,8 @@ import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
 
+import 'glucose_history.dart';
+
 class GlucosePage extends StatefulWidget {
   const GlucosePage({Key? key}) : super(key: key);
 
@@ -78,12 +80,20 @@ class _GlucosePageState extends State<GlucosePage> {
                             Row(
                               children: [
                                 StatsBoxWidget(
-                                  width: ((constraints.maxWidth - 8)),
+                                  width: ((constraints.maxWidth - 8) / 2),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'Glucose'.toUpperCase(),
                                   value: boxList.last.unit.toStringAsFixed(0),
                                   valueColor: listChartColor[0],
                                   subTitle: 'mg/dL',
+                                ),
+                                StatsBoxWidget(
+                                  width: ((constraints.maxWidth - 8) / 2),
+                                  height: (constraints.maxWidth / 3) * 0.8,
+                                  title: 'A1C'.toUpperCase(),
+                                  value: controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1),
+                                  valueColor: listChartColor[0],
+                                  subTitle: '%',
                                 ),
                               ],
                             ),
@@ -150,7 +160,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                   child: Text("History"),
                                 ),
                                 onPressed: () {
-                                  //Get.to(() => const BloodPressureHistoryPage());
+                                  Get.to(() => const GlucoseHistoryPage());
                                 },
                               ),
                             ),
