@@ -9,10 +9,10 @@ TODO
  - [X] Add data screen for BMI
  - [X] Summary data screen for BMI
  - [X] History data screen for BMI
- - [ ] Add data screen for blood pressure
+ - [X] Add data screen for blood pressure
  - [X] Summary data screen for blood pressure
  - [X] History data screen for blood pressure 
- - [ ] Add data screen for blood glucose
+ - [X] Add data screen for blood glucose
  - [X] Summary data screen for blood glucose
  - [X] History data screen for blood glucose 
  - [ ] Export as PDF
