@@ -6,18 +6,20 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
+import 'package:phr/widgets/boxdevider_widget.dart';
 
-class BMIHistoryPage extends StatefulWidget {
-  const BMIHistoryPage({Key? key}) : super(key: key);
+class BloodPressureHistoryPage extends StatefulWidget {
+  const BloodPressureHistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<BMIHistoryPage> createState() => _BMIHistoryPageState();
+  State<BloodPressureHistoryPage> createState() => _BloodPressureHistoryPageState();
 }
 
-class _BMIHistoryPageState extends State<BMIHistoryPage> {
+class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
   AppController appController = Get.find<AppController>();
 
   @override
@@ -27,19 +29,15 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
         title: const Text("History"),
       ),
       body: FutureBuilder(
-        future: appController.loadBMI(),
-        builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
+        future: appController.loadBloodPressure(),
+        builder: (BuildContext context, AsyncSnapshot<Box<BloodPressure>> snapshot) {
           if (snapshot.hasData) {
             final box = snapshot.data;
             // final myBox = box!.values;
             final boxSorted = box!.values.toList();
             boxSorted.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
-            List<Bmi> myBox = List.from(boxSorted.reversed);
-
-            // myBox.forEach((element) {
-            //   log(element.key);
-            // });
+            List<BloodPressure> myBox = List.from(boxSorted.reversed);
 
             return MediaQuery.removePadding(
               context: context,
@@ -55,15 +53,13 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                           width: 90,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: listBmiColor[appController.bmiDecode(bmi: myBox[index].bmi)],
+                            color: listBloodPressureColor[appController.bloodPressureCalculation(systolic: myBox[index].systolic, diastolic: myBox[index].diastolic)],
                             //borderRadius: BorderRadius.circular(60),
                           ),
-                          child: BoxColumnDataWidget(
-                            title: 'BMI',
-                            value: myBox[index].bmi.toStringAsFixed(2),
+                          child: BoxDeviderWiget(
+                            value1: myBox[index].systolic.toStringAsFixed(0),
+                            value2: myBox[index].diastolic.toStringAsFixed(0),
                             valueColor: Colors.white,
-                            textColor: Colors.white,
-                            subTitle: 'kg./m^2',
                           ),
                         ),
                         Padding(
@@ -72,7 +68,7 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                bmiTypeLable[appController.bmiDecode(bmi: myBox[index].bmi)],
+                                bloodPressureTypeLable[appController.bloodPressureCalculation(systolic: myBox[index].systolic, diastolic: myBox[index].diastolic)],
                                 style: textTitleStyle,
                               ),
                               const SizedBox(height: 4.0),
@@ -103,7 +99,6 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                                         child: const Text("Yes"),
                                         onPressed: () {
                                           final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
-                                          log('delete key -> ' + key);
                                           box.delete(key).onError((error, stackTrace) => log(error.toString()));
                                           Get.back();
                                         },

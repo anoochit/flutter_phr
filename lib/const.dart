@@ -48,6 +48,14 @@ const List<Color> listBmiColor = [
   Colors.red,
 ];
 
+const List<Color> listBloodPressureColor = [
+  Colors.lightBlue,
+  Colors.green,
+  Colors.amber,
+  Colors.orange,
+  Colors.red,
+];
+
 const List<Color> listColor = [
   Colors.lightBlue,
   Colors.green,

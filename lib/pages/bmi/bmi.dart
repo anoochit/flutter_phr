@@ -118,7 +118,7 @@ class _BmiPageState extends State<BmiPage> {
                                       Text(
                                         bmiTypeLable[controller.bmiDecode(bmi: box.values.last.bmi)],
                                         style: TextStyle(
-                                          color: listBmiColor[2],
+                                          color: listBmiColor[controller.bmiDecode(bmi: box.values.last.bmi)],
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

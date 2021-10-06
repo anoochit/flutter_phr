@@ -136,7 +136,7 @@ class AppController extends GetxController {
     final box = await Hive.openBox<Bmi>('Bmi');
     final bmi = bmiCalculation(weight: weight, height: height);
     final level = bmiDecode(bmi: bmi);
-    box.put(dateTime.microsecondsSinceEpoch, Bmi(dateTime, height, weight, bmi, level));
+    box.put(dateTime.microsecondsSinceEpoch.toString(), Bmi(dateTime, height, weight, bmi, level));
     update();
   }
 
@@ -149,24 +149,25 @@ class AppController extends GetxController {
 
     for (int i = 0; i < 10; i++) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
+      final key = dateTime.microsecondsSinceEpoch.toString();
       final random = math.Random().nextInt(5);
 
       // bmi
       final boxBmi = await Hive.openBox<Bmi>('Bmi');
       final bmiValue = bmiCalculation(weight: 77 - random.toDouble(), height: 165);
       final bmiLevel = bmiDecode(bmi: bmiValue);
-      boxBmi.put(dateTime.microsecondsSinceEpoch.toString(), Bmi(dateTime, 165, 77 - random.toDouble(), bmiValue, bmiLevel));
+      boxBmi.put(key, Bmi(dateTime, 165, 77 - random.toDouble(), bmiValue, bmiLevel));
       log('sample bmi -> ${boxBmi.values.first.bmi}');
 
       // blood pressure
       final boxBp = await Hive.openBox<BloodPressure>('BloodPressure');
       final bpLevel = bloodPressureCalculation(systolic: 109 - random, diastolic: 74 - random);
-      boxBp.put(dateTime.microsecondsSinceEpoch.toString(), BloodPressure(dateTime, 109 - random, 74 - random, 80 - random, bpLevel, []));
+      boxBp.put(key, BloodPressure(dateTime, 109 - random, 74 - random, 80 - random, bpLevel, []));
       log('sample blood pressure sys -> ${boxBp.values.first.systolic}');
 
       // blood pressure
       final boxGl = await Hive.openBox<Glucose>('Glucose');
-      boxGl.put(dateTime.microsecondsSinceEpoch.toString(), Glucose(dateTime, 154 - random, []));
+      boxGl.put(key, Glucose(dateTime, 154 - random, []));
       log('sample glucose -> ${boxGl.values.first.unit}');
     }
   }
@@ -178,7 +179,7 @@ class AppController extends GetxController {
     final boxBmi = await Hive.openBox<Bmi>('Bmi');
     final boxBloodPressure = await Hive.openBox<BloodPressure>('BloodPressure');
     final boxGlucose = await Hive.openBox<Glucose>('Glucose');
-    boxSetting.clear();
+    //boxSetting.clear();
     boxBmi.clear();
     boxBloodPressure.clear();
     boxGlucose.clear();
