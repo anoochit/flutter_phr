@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/pages/home/home.dart';
+import 'package:phr/themes/theme.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class _SettingPageState extends State<SettingPage> {
                               borderRadius: BorderRadius.circular(24.0),
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.edit),
+                              icon: const Icon(Icons.camera_alt),
                               onPressed: () async {
                                 // Open image picker for choose image from gallery
                                 final ImagePicker imagePicker = ImagePicker();
@@ -72,32 +73,39 @@ class _SettingPageState extends State<SettingPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextFormField(
-                        controller: textNameController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                          hintText: 'Your Name',
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: TextFormField(
+                          controller: textNameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                            hintText: 'Your Name',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
                       ),
                     ),
-                    ElevatedButton(
-                      child: const Text("Save"),
-                      onPressed: () {
-                        if ((formKey.currentState!.validate()) && (appController.yourImage.isNotEmpty)) {
-                          log("save -> profile " + image!.path);
-                          // Save user profile and goto homepage
-                          appController.addProfile(name: textNameController.text, photo: image!.path);
-                          Get.off(() => const HomePage());
-                        }
-                      },
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: ElevatedButton(
+                        style: buttonStyleGreen,
+                        child: const Text("Save"),
+                        onPressed: () {
+                          if ((formKey.currentState!.validate()) && (appController.yourImage.isNotEmpty)) {
+                            log("save -> profile " + image!.path);
+                            // Save user profile and goto homepage
+                            appController.addProfile(name: textNameController.text, photo: image!.path);
+                            Get.off(() => const HomePage());
+                          }
+                        },
+                      ),
                     )
                   ],
                 );

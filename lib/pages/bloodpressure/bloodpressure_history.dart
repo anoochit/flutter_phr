@@ -99,7 +99,8 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                                         child: const Text("Yes"),
                                         onPressed: () {
                                           final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
-                                          box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          //box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          appController.deleteBloodPressure(key: key);
                                           Get.back();
                                         },
                                       ),

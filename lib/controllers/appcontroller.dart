@@ -226,6 +226,24 @@ class AppController extends GetxController {
     update();
   }
 
+  deleteBMI({required String key}) async {
+    final box = await Hive.openBox<Bmi>('Bmi');
+    box.delete(key);
+    update();
+  }
+
+  deleteBloodPressure({required String key}) async {
+    final box = await Hive.openBox<BloodPressure>('BloodPressure');
+    box.delete(key);
+    update();
+  }
+
+  deleteGluecose({required String key}) async {
+    final box = await Hive.openBox<Glucose>('Glucose');
+    box.delete(key);
+    update();
+  }
+
   // sample data
   Future<void> addSampleData() async {
     // user profile
@@ -233,7 +251,7 @@ class AppController extends GetxController {
     //boxProfile.put(0, Settings('Dave', ''));
     //log('sample profile -> ${boxProfile.values.first.name}');
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
       final key = dateTime.microsecondsSinceEpoch.toString();
       final random = math.Random().nextInt(5);

@@ -7,7 +7,7 @@ import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/models/glucose.dart';
-import 'package:phr/pages/glucose/add_bloodpressure.dart';
+import 'package:phr/pages/glucose/add_glucose.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';

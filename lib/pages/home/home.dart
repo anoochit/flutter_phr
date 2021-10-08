@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/pages/home/bloodpressureinfo_widget.dart';
 import 'package:phr/pages/home/bmiinfo_widget.dart';
+import 'package:phr/pages/profile/profile.dart';
 import 'package:phr/widgets/footer_widget.dart';
 import 'package:phr/pages/home/glucoseinfo_widget.dart';
 import 'package:phr/pages/home/menu_widget.dart';
@@ -37,11 +38,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 8,
         title: GetBuilder<AppController>(
           init: AppController(),
           builder: (controller) {
             log(controller.yourImage.toString());
             return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 (controller.yourImage.isNotEmpty)
                     ? CircleAvatar(
@@ -56,6 +59,12 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+        actions: [
+          IconButton(
+            onPressed: () => Get.to(() => ProfilePage()),
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -78,9 +87,6 @@ class _HomePageState extends State<HomePage> {
 
               // blood glucose info
               GlucoseInfoWidget(),
-
-              // footer widget
-              FooterWidget(),
             ],
           ),
         ),

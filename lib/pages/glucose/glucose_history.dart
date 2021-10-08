@@ -37,9 +37,9 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
 
             List<Glucose> myBox = List.from(boxSorted.reversed);
 
-            // myBox.forEach((element) {
-            //   log(element.key);
-            // });
+            myBox.forEach((element) {
+              log(element.key);
+            });
 
             return MediaQuery.removePadding(
               context: context,
@@ -59,7 +59,7 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
                             //borderRadius: BorderRadius.circular(60),
                           ),
                           child: BoxColumnDataWidget(
-                            title: 'Gluecose',
+                            title: 'Glucose',
                             value: myBox[index].unit.toStringAsFixed(0),
                             valueColor: Colors.white,
                             textColor: Colors.white,
@@ -104,7 +104,8 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
                                         onPressed: () {
                                           final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
                                           log('delete key -> ' + key);
-                                          box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          //box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          appController.deleteGluecose(key: key);
                                           Get.back();
                                         },
                                       ),

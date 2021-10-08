@@ -69,6 +69,11 @@ class GlucoseInfoWidget extends StatelessWidget {
                                             value: '${boxList.last.unit}',
                                             subTitle: "mg/dL",
                                           ),
+                                          // BoxColumnDataWidget(
+                                          //   title: "A1C",
+                                          //   value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
+                                          //   subTitle: "%",
+                                          // ),
                                         ],
                                       ),
                                       // graph

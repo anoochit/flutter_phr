@@ -104,7 +104,8 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                                         onPressed: () {
                                           final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
                                           log('delete key -> ' + key);
-                                          box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          //box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                          appController.deleteBMI(key: key);
                                           Get.back();
                                         },
                                       ),

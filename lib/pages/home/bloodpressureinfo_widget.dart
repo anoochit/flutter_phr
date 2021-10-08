@@ -55,11 +55,13 @@ class BloodPressureWidget extends StatelessWidget {
 
                                   final List<ChartData> chartDataSystolic = [];
                                   final List<ChartData> chartDataDiastolic = [];
+                                  final List<ChartData> chartDataPulse = [];
                                   for (var item in boxList) {
                                     chartDataSystolic.add(ChartData(name: 'Systolic', dateTime: item.dateTime, value: item.systolic.toDouble()));
                                     chartDataDiastolic.add(ChartData(name: 'Diastolic', dateTime: item.dateTime, value: item.diastolic.toDouble()));
+                                    chartDataPulse.add(ChartData(name: 'Pulse', dateTime: item.dateTime, value: item.pulse.toDouble()));
                                   }
-                                  final List<List<ChartData>> chartData = [chartDataSystolic, chartDataDiastolic];
+                                  final List<List<ChartData>> chartData = [chartDataSystolic, chartDataDiastolic, chartDataPulse];
 
                                   return Column(
                                     children: [
@@ -69,16 +71,19 @@ class BloodPressureWidget extends StatelessWidget {
                                           BoxColumnDataWidget(
                                             title: "SYS",
                                             value: '${boxList.last.systolic}',
+                                            //valueColor: listChartColor[0],
                                             subTitle: "mm Hg",
                                           ),
                                           BoxColumnDataWidget(
                                             title: "DIA",
                                             value: '${boxList.last.diastolic}',
+                                            //valueColor: listChartColor[1],
                                             subTitle: "mm Hg",
                                           ),
                                           BoxColumnDataWidget(
                                             title: "PUL",
-                                            value: boxList.last.pulse.toStringAsFixed(2),
+                                            value: boxList.last.pulse.toStringAsFixed(0),
+                                            //valueColor: listChartColor[2],
                                             subTitle: "bpm",
                                           ),
                                         ],

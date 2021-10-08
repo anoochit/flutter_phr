@@ -16,7 +16,7 @@ class SplineChartWidget extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         intervalType: DateTimeIntervalType.auto,
         //ateFormat: DateFormat('E d MMM y, HH:mm'),
-        dateFormat: DateFormat('d MMM'),
+        dateFormat: DateFormat('d MMM\nHH:mm'),
         autoScrollingDeltaType: DateTimeIntervalType.months,
       ),
       primaryYAxis: NumericAxis(

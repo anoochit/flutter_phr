@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     // Add sample data
-    appController.addSampleData();
+    //appController.addSampleData();
 
     // clear sample data
     //appController.clearSampleData();
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Personal Health Record',
-      theme: themeData,
+      theme: themeData(context),
       darkTheme: darkTheme,
       // Check setting has data if not goto setting page
       home: (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),

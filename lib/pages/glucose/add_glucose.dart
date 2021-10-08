@@ -3,25 +3,26 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/themes/theme.dart';
 
-class AddBloodPressurePage extends StatefulWidget {
-  const AddBloodPressurePage({Key? key}) : super(key: key);
+class AddGlucosePage extends StatefulWidget {
+  const AddGlucosePage({Key? key}) : super(key: key);
 
   @override
-  State<AddBloodPressurePage> createState() => _AddBloodPressurePageState();
+  State<AddGlucosePage> createState() => _AddGlucosePageState();
 }
 
-class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
+class _AddGlucosePageState extends State<AddGlucosePage> {
   final AppController appController = Get.find<AppController>();
   final formKey = GlobalKey<FormState>();
 
   final TextEditingController dateTextController = TextEditingController();
   final TextEditingController timeTextController = TextEditingController();
-  final TextEditingController systolicTextController = TextEditingController();
-  final TextEditingController diastolicTextController = TextEditingController();
-  final TextEditingController pulseTextController = TextEditingController();
+  final TextEditingController glucoseTextController = TextEditingController();
+
+  int? whenData = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Add Blood Pressure"),
+          title: const Text("Add Blood Glucose"),
         ),
         body: LayoutBuilder(builder: (context, constraints) {
           return SingleChildScrollView(
@@ -53,7 +54,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 16.0),
                             child: Text(
-                              "Enter systolic, diastolic and pulse",
+                              "Enter glucose",
                               style: textTitleStyle,
                             ),
                           ),
@@ -115,71 +116,79 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: TextFormField(
-                              controller: systolicTextController,
+                              controller: glucoseTextController,
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-                                hintText: 'Systolic (mm Hg)',
+                                hintText: 'Gluecose (mg/dL)',
                                 prefixIcon: const Icon(
-                                  Icons.favorite_outline,
+                                  Icons.icecream_outlined,
                                 ),
                               ),
                               keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter systolic';
+                                  return 'Please enter gluecose';
                                 }
                                 return null;
                               },
                             ),
                           ),
 
-                          // dia
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: TextFormField(
-                              controller: diastolicTextController,
-                              decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-                                hintText: 'Diastolic (mm Hg)',
-                                prefixIcon: const Icon(
-                                  Icons.favorite_outline,
-                                ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter diastolic';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-
-                          // pulse
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: TextFormField(
-                              controller: pulseTextController,
-                              decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-                                hintText: 'Pulse (bpm)',
-                                prefixIcon: const Icon(
-                                  Icons.favorite_outline,
-                                ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Radio<int>(
+                                        value: 0,
+                                        groupValue: whenData,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            whenData = value;
+                                          });
+                                        },
+                                      ),
+                                      Text(glucoseWhenLabel[0]),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio<int>(
+                                        value: 1,
+                                        groupValue: whenData,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            whenData = value;
+                                          });
+                                        },
+                                      ),
+                                      Text(glucoseWhenLabel[1])
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio<int>(
+                                        value: 2,
+                                        groupValue: whenData,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            whenData = value;
+                                          });
+                                        },
+                                      ),
+                                      Text(glucoseWhenLabel[2]),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter pulse';
-                                }
-                                return null;
-                              },
                             ),
                           ),
 
@@ -196,11 +205,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               onPressed: () {
                                 if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
                                   final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
-                                  final systolic = int.parse(systolicTextController.text.trim());
-                                  final diastolic = int.parse(diastolicTextController.text.trim());
-                                  final pulse = int.parse(pulseTextController.text.trim());
+                                  final glucose = int.parse(glucoseTextController.text.trim());
 
-                                  appController.addBloodPressure(dateTime: dateTime, systolic: systolic, diastolic: diastolic, pulse: pulse);
+                                  appController.addGluecose(dateTime: dateTime, glucose: glucose, when: whenData!.floor());
 
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved!")));
                                   Get.back();
