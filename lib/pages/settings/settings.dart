@@ -25,7 +25,6 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Form(
@@ -53,7 +52,7 @@ class _SettingPageState extends State<SettingPage> {
                           right: 1,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
+                              color: Colors.grey,
                               borderRadius: BorderRadius.circular(24.0),
                             ),
                             child: IconButton(

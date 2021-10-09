@@ -18,7 +18,6 @@ ThemeData themeData(context) {
       ),
     ),
     cardTheme: const CardTheme(
-      color: Colors.white,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(12.0)),

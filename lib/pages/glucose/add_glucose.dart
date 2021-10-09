@@ -209,7 +209,7 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
 
                                   appController.addGluecose(dateTime: dateTime, glucose: glucose, when: whenData!.floor());
 
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(milliseconds: 500), content: Text("Saved!")));
                                   Get.back();
                                 }
                               },

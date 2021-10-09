@@ -284,7 +284,7 @@ class AppController extends GetxController {
     final boxBmi = await Hive.openBox<Bmi>('Bmi');
     final boxBloodPressure = await Hive.openBox<BloodPressure>('BloodPressure');
     final boxGlucose = await Hive.openBox<Glucose>('Glucose');
-    //boxSetting.clear();
+    boxSetting.clear();
     boxBmi.clear();
     boxBloodPressure.clear();
     boxGlucose.clear();

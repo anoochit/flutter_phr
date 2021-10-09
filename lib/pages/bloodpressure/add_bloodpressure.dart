@@ -202,7 +202,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
 
                                   appController.addBloodPressure(dateTime: dateTime, systolic: systolic, diastolic: diastolic, pulse: pulse);
 
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(milliseconds: 500), content: Text("Saved!")));
                                   Get.back();
                                 }
                               },
