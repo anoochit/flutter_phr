@@ -6,15 +6,15 @@ class BoxColumnDataWidget extends StatelessWidget {
     required this.title,
     required this.value,
     required this.subTitle,
-    this.valueColor = Colors.black,
-    this.textColor = Colors.black,
+    this.valueColor,
+    this.textColor,
   }) : super(key: key);
 
   final String title;
   final String value;
   final String subTitle;
-  final Color valueColor;
-  final Color textColor;
+  final Color? valueColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {

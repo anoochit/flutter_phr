@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Personal Health Record',
       theme: themeData(context),
-      darkTheme: darkTheme,
+      darkTheme: themeDataDark(context),
       // Check setting has data if not goto setting page
       home: (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),
     );

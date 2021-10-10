@@ -93,7 +93,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'A1C'.toUpperCase(),
                                   value: controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1),
-                                  valueColor: listChartColor[0],
+                                  valueColor: listChartColor[1],
                                   subTitle: '%',
                                 ),
                               ],
@@ -140,7 +140,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: SizedBox(
-                                      height: constraints.maxWidth * 0.8,
+                                      height: constraints.maxWidth,
                                       child: SplineChartWidget(
                                         chartData: chartData,
                                       ),

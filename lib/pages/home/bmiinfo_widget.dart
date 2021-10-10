@@ -65,25 +65,28 @@ class BmiInfoWidget extends StatelessWidget {
 
                                   return Column(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          BoxColumnDataWidget(
-                                            title: "Weight".toUpperCase(),
-                                            value: '${box.values.last.weight}',
-                                            subTitle: "kg.",
-                                          ),
-                                          BoxColumnDataWidget(
-                                            title: "Height".toUpperCase(),
-                                            value: '${box.values.last.height}',
-                                            subTitle: "cm.",
-                                          ),
-                                          BoxColumnDataWidget(
-                                            title: "BMI".toUpperCase(),
-                                            value: box.values.last.bmi.toStringAsFixed(2),
-                                            subTitle: "kg./m^2",
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            BoxColumnDataWidget(
+                                              title: "Weight".toUpperCase(),
+                                              value: '${box.values.last.weight}',
+                                              subTitle: "kg.",
+                                            ),
+                                            BoxColumnDataWidget(
+                                              title: "Height".toUpperCase(),
+                                              value: '${box.values.last.height}',
+                                              subTitle: "cm.",
+                                            ),
+                                            BoxColumnDataWidget(
+                                              title: "BMI".toUpperCase(),
+                                              value: box.values.last.bmi.toStringAsFixed(2),
+                                              subTitle: "kg./m^2",
+                                            ),
+                                          ],
+                                        ),
                                       ),
 
                                       // graph

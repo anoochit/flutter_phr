@@ -48,7 +48,7 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                 itemCount: myBox.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
-                    color: Colors.white,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: Row(
                       children: [
                         Container(

@@ -61,20 +61,23 @@ class GlucoseInfoWidget extends StatelessWidget {
 
                                   return Column(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          BoxColumnDataWidget(
-                                            title: "GLUCOSE",
-                                            value: '${boxList.last.unit}',
-                                            subTitle: "mg/dL",
-                                          ),
-                                          // BoxColumnDataWidget(
-                                          //   title: "A1C",
-                                          //   value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
-                                          //   subTitle: "%",
-                                          // ),
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            BoxColumnDataWidget(
+                                              title: "GLUCOSE",
+                                              value: '${boxList.last.unit}',
+                                              subTitle: "mg/dL",
+                                            ),
+                                            // BoxColumnDataWidget(
+                                            //   title: "A1C",
+                                            //   value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
+                                            //   subTitle: "%",
+                                            // ),
+                                          ],
+                                        ),
                                       ),
                                       // graph
                                       SizedBox(

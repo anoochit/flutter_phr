@@ -65,28 +65,31 @@ class BloodPressureWidget extends StatelessWidget {
 
                                   return Column(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          BoxColumnDataWidget(
-                                            title: "SYS",
-                                            value: '${boxList.last.systolic}',
-                                            //valueColor: listChartColor[0],
-                                            subTitle: "mm Hg",
-                                          ),
-                                          BoxColumnDataWidget(
-                                            title: "DIA",
-                                            value: '${boxList.last.diastolic}',
-                                            //valueColor: listChartColor[1],
-                                            subTitle: "mm Hg",
-                                          ),
-                                          BoxColumnDataWidget(
-                                            title: "PUL",
-                                            value: boxList.last.pulse.toStringAsFixed(0),
-                                            //valueColor: listChartColor[2],
-                                            subTitle: "bpm",
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            BoxColumnDataWidget(
+                                              title: "SYS",
+                                              value: '${boxList.last.systolic}',
+                                              //valueColor: listChartColor[0],
+                                              subTitle: "mm Hg",
+                                            ),
+                                            BoxColumnDataWidget(
+                                              title: "DIA",
+                                              value: '${boxList.last.diastolic}',
+                                              //valueColor: listChartColor[1],
+                                              subTitle: "mm Hg",
+                                            ),
+                                            BoxColumnDataWidget(
+                                              title: "PUL",
+                                              value: boxList.last.pulse.toStringAsFixed(0),
+                                              //valueColor: listChartColor[2],
+                                              subTitle: "bpm",
+                                            ),
+                                          ],
+                                        ),
                                       ),
 
                                       // graph

@@ -46,7 +46,7 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                 itemCount: myBox.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
-                    color: Colors.white,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: Row(
                       children: [
                         Container(

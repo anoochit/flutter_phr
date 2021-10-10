@@ -108,47 +108,74 @@ class ProfilePage extends StatelessWidget {
   exportAsCSV({required BuildContext context}) async {
     // load BloodPressure data
     Box<BloodPressure> boxBp = await appController.loadBloodPressure();
+    final boxBpList = boxBp.values.toList();
+    boxBpList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     // load data to list
     List<List<String>> bpDocument = [
       <String>['Date', 'Systolic', 'Diastolic', 'Pulse', 'Type'],
     ];
-    for (var element in boxBp.values) {
-      //log(element.dateTime.toString());
-      bpDocument.add(<String>[element.dateTime.toString(), element.systolic.toString(), element.diastolic.toString(), element.pulse.toString(), bloodPressureTypeLabel[element.type]]);
+    for (var element in boxBpList) {
+      log(element.dateTime.toString());
+      bpDocument.add(
+        <String>[
+          element.dateTime.toString(),
+          element.systolic.toString(),
+          element.diastolic.toString(),
+          element.pulse.toString(),
+          bloodPressureTypeLabel[element.type],
+        ],
+      );
     }
     // export file BloodPressure
     await exportToCSV(csvDocument: bpDocument, name: 'bloodpressure');
 
     // load BMI data
     Box<Bmi> boxBmi = await appController.loadBMI();
+    final boxBmiList = boxBmi.values.toList();
+    boxBmiList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     // load data to list
     List<List<String>> bmiDocument = [
       <String>['Date', 'Weight', 'Height', 'BMI', 'Type'],
     ];
-    for (var element in boxBmi.values) {
-      //log(element.dateTime.toString());
-      bpDocument.add(<String>[element.dateTime.toString(), element.weight.toString(), element.height.toString(), element.bmi.toString(), bmiTypeLabel[appController.bmiDecode(bmi: element.bmi)]]);
+    for (var element in boxBmiList) {
+      log(element.dateTime.toString());
+      bmiDocument.add(
+        <String>[
+          element.dateTime.toString(),
+          element.weight.toStringAsFixed(2),
+          element.height.toStringAsFixed(2),
+          element.bmi.toStringAsFixed(2),
+          bmiTypeLabel[appController.bmiDecode(bmi: element.bmi)],
+        ],
+      );
     }
     // export file BloodPressure
     await exportToCSV(csvDocument: bmiDocument, name: 'bmi');
 
     // load Glucose data
     Box<Glucose> boxGlucode = await appController.loadGlucose();
+    final boxGlucoseList = boxGlucode.values.toList();
+    boxGlucoseList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     // load data to list
     List<List<String>> gluDocument = [
       <String>['Date', 'Glucose', 'Measure', 'Type'],
     ];
-    for (var element in boxGlucode.values) {
-      //log(element.dateTime.toString());
-      bpDocument.add(
-          <String>[element.dateTime.toString(), element.unit.toString(), glucoseWhenLabel[element.when], glucoseTypeLabel[appController.glucoseCalculation(unit: element.unit, when: element.when)]]);
+    for (var element in boxGlucoseList) {
+      log(element.dateTime.toString());
+      gluDocument.add(
+        <String>[
+          element.dateTime.toString(),
+          element.unit.toString(),
+          glucoseWhenLabel[element.when],
+          glucoseTypeLabel[appController.glucoseCalculation(unit: element.unit, when: element.when)],
+        ],
+      );
     }
     // export file BloodPressure
-    await exportToCSV(csvDocument: gluDocument, name: 'gluecose');
+    await exportToCSV(csvDocument: gluDocument, name: 'glucose');
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: const Text("Export to CSV complete"),
-      //duration: const Duration(milliseconds: 600),
       action: SnackBarAction(
           label: 'Open',
           onPressed: () {
@@ -158,7 +185,6 @@ class ProfilePage extends StatelessWidget {
 
     //final message = await OpenFile.open(filePath);
     //log(message.message.toString());
-
     //open share dialog
     //Share.shareFiles([filePath]);
   }
@@ -189,6 +215,7 @@ class ProfilePage extends StatelessWidget {
       useSafeArea: false,
       context: context,
       builder: (context) => Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Backup files"),
         ),

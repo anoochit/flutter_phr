@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-ThemeData themeData(context) {
+ThemeData themeData(BuildContext context) {
   return ThemeData(
     primarySwatch: Colors.blue,
     canvasColor: Colors.grey.shade200,
@@ -23,13 +23,23 @@ ThemeData themeData(context) {
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
       ),
     ),
-    textTheme: GoogleFonts.robotoTextTheme(
+    textTheme: GoogleFonts.ubuntuTextTheme(
       Theme.of(context).textTheme,
     ),
   );
 }
 
-final ThemeData darkTheme = ThemeData.dark();
+// FIXME : custome theme for dark mode
+ThemeData themeDataDark(BuildContext context) {
+  return ThemeData.dark().copyWith(
+    cardTheme: const CardTheme(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+      ),
+    ),
+  );
+}
 
 const TextStyle textTitleStyle = TextStyle(
   fontWeight: FontWeight.w500,
@@ -81,6 +91,18 @@ final buttonStyleBlue = ButtonStyle(
     RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
       side: const BorderSide(color: Colors.blue),
+    ),
+  ),
+);
+
+final buttonStyleAmber = ButtonStyle(
+  elevation: MaterialStateProperty.all(1),
+  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+      side: const BorderSide(color: Colors.amber),
     ),
   ),
 );
