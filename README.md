@@ -15,8 +15,10 @@ TODO
  - [X] Add data screen for blood glucose
  - [X] Summary data screen for blood glucose
  - [X] History data screen for blood glucose 
- - [ ] Export as PDF
- - [ ] Export as CSV
+ - [X] Export as PDF
+ - [X] Export as CSV
+ - [X] PDF viewer and share
+ - [X] CSV viewer and share
  - [ ] Export as image
 
 Screenshots
