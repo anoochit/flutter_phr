@@ -11,14 +11,11 @@ import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/glucose.dart';
-import 'package:phr/pages/profile/pdfviewer.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
-
   final AppController appController = Get.find<AppController>();
 
   @override
@@ -27,85 +24,89 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Profile"),
       ),
-      body: LayoutBuilder(builder: (context, constraints) {
-        return Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: SizedBox(
-            width: constraints.maxWidth,
-            child: Card(
-              child: Column(
-                children: [
-                  const SizedBox(height: 16.0),
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundImage: FileImage(
-                      File('${appController.yourImage}'),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: SizedBox(
+              width: constraints.maxWidth,
+              child: Card(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 16.0),
+                    CircleAvatar(
+                      radius: 48,
+                      backgroundImage: FileImage(
+                        File('${appController.yourImage}'),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    '${appController.yourName}',
-                    style: textTitleStyleBig,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        ListTile(
-                          leading: const Icon(Icons.file_download),
-                          title: const Text("Export CSV"),
-                          onTap: () {
-                            exportAsCSV(context: context);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.file_download),
-                          title: const Text("Export PDF"),
-                          onTap: () {
-                            exportAsPDF(context: context);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.info),
-                          title: const Text("About"),
-                          onTap: () {
-                            showAbout(context: context);
-                          },
-                        ),
-                      ],
+                    const SizedBox(height: 8.0),
+                    Text(
+                      '${appController.yourName}',
+                      style: textTitleStyleBig,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8.0),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.file_download),
+                            title: const Text("Export CSV"),
+                            onTap: () {
+                              exportAsCSV(context: context);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.file_download),
+                            title: const Text("Export PDF"),
+                            onTap: () {
+                              exportAsPDF(context: context);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.info),
+                            title: const Text("About"),
+                            onTap: () {
+                              showAbout(context: context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 
   showAbout({required BuildContext context}) {
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      String appName = packageInfo.appName;
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
+    PackageInfo.fromPlatform().then(
+      (PackageInfo packageInfo) {
+        String appName = packageInfo.appName;
+        String version = packageInfo.version;
+        String buildNumber = packageInfo.buildNumber;
 
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text("About"),
-          content: Text(appName + " v" + version + "+" + buildNumber),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        ),
-      );
-    });
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text("About"),
+            content: Text(appName + " v" + version + "+" + buildNumber),
+            actions: <Widget>[
+              TextButton(
+                child: const Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 
   exportAsCSV({required BuildContext context}) async {
@@ -170,21 +171,26 @@ class ProfilePage extends StatelessWidget {
           element.dateTime.toString(),
           element.unit.toString(),
           glucoseWhenLabel[element.when],
-          glucoseTypeLabel[appController.glucoseCalculation(unit: element.unit, when: element.when)],
+          glucoseTypeLabel[appController.glucoseCalculation(
+            unit: element.unit,
+            when: element.when,
+          )],
         ],
       );
     }
     // export file BloodPressure
     await exportToCSV(csvDocument: gluDocument, name: 'glucose');
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text("Export to CSV complete"),
-      action: SnackBarAction(
-          label: 'Open',
-          onPressed: () {
-            showBackupFiles(context: context, filter: '.csv');
-          }),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text("Export to CSV complete"),
+        action: SnackBarAction(
+            label: 'Open',
+            onPressed: () {
+              showBackupFiles(context: context, filter: '.csv');
+            }),
+      ),
+    );
 
     //final message = await OpenFile.open(filePath);
     //log(message.message.toString());
@@ -192,15 +198,27 @@ class ProfilePage extends StatelessWidget {
     //Share.shareFiles([filePath]);
   }
 
-  Future<String> exportToCSV({required List<List<String>> csvDocument, required String name}) async {
-    String csv = const ListToCsvConverter(fieldDelimiter: ',', eol: '\n', textDelimiter: '"', textEndDelimiter: '"').convert(csvDocument);
+  Future<String> exportToCSV(
+      {required List<List<String>> csvDocument, required String name}) async {
+    String csv = const ListToCsvConverter(
+      fieldDelimiter: ',',
+      eol: '\n',
+      textDelimiter: '"',
+      textEndDelimiter: '"',
+    ).convert(csvDocument);
 
     // get application directory
     Directory appDocDir = await getApplicationDocumentsDirectory();
     //Directory? appDocDir = await getExternalStorageDirectory();
     String appDocPath = appDocDir.path;
 
-    String filePath = appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
+    String filePath = appDocPath +
+        "/" +
+        DateFormat('yMMdd').format(DateTime.now()).toString() +
+        "_" +
+        name +
+        "_export" +
+        ".csv";
 
     // write file
     final File file = File(filePath);
@@ -211,7 +229,8 @@ class ProfilePage extends StatelessWidget {
     return filePath;
   }
 
-  Future<dynamic> showBackupFiles({required BuildContext context, required String filter}) async {
+  Future<dynamic> showBackupFiles(
+      {required BuildContext context, required String filter}) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
     final file = Directory(directory).listSync();
     return showDialog(
@@ -222,20 +241,23 @@ class ProfilePage extends StatelessWidget {
           title: const Text("Backup files"),
         ),
         body: ListView.builder(
-            itemCount: file.length,
-            itemBuilder: (BuildContext context, int index) {
-              if (file[index].toString().contains(filter)) {
-                return ListTile(
-                  leading: const Icon(Icons.note),
-                  title: Text(file[index].path.split('/').last),
-                  onTap: () {
-                    //open share dialog
-                    Share.shareFiles([file[index].path.toString()]);
-                  },
-                );
-              }
-              return Container();
-            }),
+          itemCount: file.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (file[index].toString().contains(filter)) {
+              return ListTile(
+                leading: const Icon(Icons.note),
+                title: Text(file[index].path.split('/').last),
+                onTap: () {
+                  //open share dialog
+                  Share.shareFiles(
+                    [file[index].path.toString()],
+                  );
+                },
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
@@ -244,7 +266,11 @@ class ProfilePage extends StatelessWidget {
   exportAsPDF({required BuildContext context}) async {
     // get directory
     final directory = (await getApplicationDocumentsDirectory()).path;
-    String filePath = directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_pdf_export" + ".pdf";
+    String filePath = directory +
+        "/" +
+        DateFormat('yMMdd').format(DateTime.now()).toString() +
+        "_pdf_export" +
+        ".pdf";
 
     // create a report as a pdf document
 

@@ -8,7 +8,6 @@ import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/pages/home/bloodpressureinfo_widget.dart';
 import 'package:phr/pages/home/bmiinfo_widget.dart';
 import 'package:phr/pages/profile/profile.dart';
-import 'package:phr/widgets/footer_widget.dart';
 import 'package:phr/pages/home/glucoseinfo_widget.dart';
 import 'package:phr/pages/home/menu_widget.dart';
 
@@ -48,7 +47,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 (controller.yourImage.isNotEmpty)
                     ? CircleAvatar(
-                        backgroundImage: FileImage(File(controller.yourImage.toString())),
+                        backgroundImage: FileImage(
+                          File(
+                            controller.yourImage.toString(),
+                          ),
+                        ),
                       )
                     : Container(),
                 const SizedBox(

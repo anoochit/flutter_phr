@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/themes/theme.dart';
 
@@ -33,7 +32,7 @@ class _AddBMIPageState extends State<AddBMIPage> {
       onTap: () {
         // unfocus textfield
         FocusScope.of(context).unfocus();
-        new TextEditingController().clear();
+        TextEditingController().clear();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -70,7 +69,8 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Date',
                                 prefixIcon: const Icon(
                                   Icons.calendar_today,
@@ -79,9 +79,17 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               readOnly: true,
                               onTap: () async {
                                 log("tab");
-                                var dateValue = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: 365)), lastDate: DateTime.now());
+                                var dateValue = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now()
+                                        .subtract(Duration(days: 365)),
+                                    lastDate: DateTime.now());
                                 try {
-                                  dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
+                                  dateTextController.text =
+                                      (DateFormat('yyyy-MM-dd')
+                                          .format(dateValue!)
+                                          .toString());
                                 } catch (e) {
                                   log("no select date");
                                 }
@@ -97,7 +105,8 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Time',
                                 prefixIcon: const Icon(
                                   Icons.schedule,
@@ -105,9 +114,12 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               ),
                               readOnly: true,
                               onTap: () async {
-                                var timeValue = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                                var timeValue = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now());
                                 try {
-                                  timeTextController.text = timeValue!.format(context);
+                                  timeTextController.text =
+                                      timeValue!.format(context);
                                 } catch (e) {
                                   log("no select time");
                                 }
@@ -123,7 +135,8 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Weight (kg.)',
                                 prefixIcon: const Icon(
                                   Icons.monitor_weight_outlined,
@@ -147,7 +160,8 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Height (cm)',
                                 prefixIcon: const Icon(
                                   Icons.emoji_people,
@@ -174,16 +188,30 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                 child: Text("Calculate & save data"),
                               ),
                               onPressed: () {
-                                if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
-                                  final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
-                                  final weight = double.parse(weightTextController.text.trim());
-                                  final height = double.parse(heightTextController.text.trim());
+                                if (formKey.currentState!.validate() &&
+                                    dateTextController.text.isNotEmpty &&
+                                    timeTextController.text.isNotEmpty) {
+                                  final dateTime = DateTime.parse(
+                                      dateTextController.text +
+                                          " " +
+                                          timeTextController.text);
+                                  final weight = double.parse(
+                                      weightTextController.text.trim());
+                                  final height = double.parse(
+                                      heightTextController.text.trim());
 
-                                  bmi = appController.bmiCalculation(weight: weight, height: height);
+                                  bmi = appController.bmiCalculation(
+                                      weight: weight, height: height);
                                   level = appController.bmiDecode(bmi: bmi);
 
-                                  appController.addBmi(dateTime: dateTime, height: height, weight: weight);
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(milliseconds: 500), content: Text("Saved!")));
+                                  appController.addBmi(
+                                      dateTime: dateTime,
+                                      height: height,
+                                      weight: weight);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          duration: Duration(milliseconds: 500),
+                                          content: Text("Saved!")));
                                   Get.back();
                                 }
                               },

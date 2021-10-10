@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,16 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
-import 'package:phr/models/bmi.dart';
 import 'package:phr/themes/theme.dart';
-import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/boxdevider_widget.dart';
 
 class BloodPressureHistoryPage extends StatefulWidget {
-  const BloodPressureHistoryPage({Key? key}) : super(key: key);
-
   @override
-  State<BloodPressureHistoryPage> createState() => _BloodPressureHistoryPageState();
+  State<BloodPressureHistoryPage> createState() =>
+      _BloodPressureHistoryPageState();
 }
 
 class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
@@ -30,7 +25,8 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
       ),
       body: FutureBuilder(
         future: appController.loadBloodPressure(),
-        builder: (BuildContext context, AsyncSnapshot<Box<BloodPressure>> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<Box<BloodPressure>> snapshot) {
           if (snapshot.hasData) {
             final box = snapshot.data;
             // final myBox = box!.values;
@@ -53,7 +49,11 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                           width: 90,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: listBloodPressureColor[appController.bloodPressureCalculation(systolic: myBox[index].systolic, diastolic: myBox[index].diastolic)],
+                            color: listBloodPressureColor[
+                                appController.bloodPressureCalculation(
+                              systolic: myBox[index].systolic,
+                              diastolic: myBox[index].diastolic,
+                            )],
                             //borderRadius: BorderRadius.circular(60),
                           ),
                           child: BoxDeviderWiget(
@@ -73,12 +73,14 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                               ),
                               const SizedBox(height: 4.0),
                               Text(
-                                DateFormat('dd MMM yyy').format(myBox[index].dateTime),
+                                DateFormat('dd MMM yyy')
+                                    .format(myBox[index].dateTime),
                                 style: textSubTitleStyle,
                               ),
                               const SizedBox(height: 4.0),
                               Text(
-                                DateFormat('HH:mm').format(myBox[index].dateTime),
+                                DateFormat('HH:mm')
+                                    .format(myBox[index].dateTime),
                                 style: textSubTitleStyle,
                               ),
                             ],
@@ -88,38 +90,44 @@ class _BloodPressureHistoryPageState extends State<BloodPressureHistoryPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text("Delete?"),
-                                    content: const Text("Do you want to delete?"),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text("Yes"),
-                                        onPressed: () {
-                                          final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
-                                          //box.delete(key).onError((error, stackTrace) => log(error.toString()));
-                                          appController.deleteBloodPressure(key: key);
-                                          Get.back();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text("No"),
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ).whenComplete(() {
-                                  setState(() {});
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.remove_circle,
-                                color: Colors.red,
-                              )),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Delete?"),
+                                  content: const Text("Do you want to delete?"),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text("Yes"),
+                                      onPressed: () {
+                                        final key = myBox[index]
+                                            .dateTime
+                                            .microsecondsSinceEpoch
+                                            .toString();
+                                        //box.delete(key).onError((error, stackTrace) => log(error.toString()));
+                                        appController.deleteBloodPressure(
+                                          key: key,
+                                        );
+                                        Get.back();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text("No"),
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ).whenComplete(() {
+                                setState(() {});
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.remove_circle,
+                              color: Colors.red,
+                            ),
+                          ),
                         )
                       ],
                     ),
