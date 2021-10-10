@@ -29,7 +29,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
       onTap: () {
         // unfocus textfield
         FocusScope.of(context).unfocus();
-        new TextEditingController().clear();
+        TextEditingController().clear();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -66,7 +66,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 hintText: 'Date',
                                 prefixIcon: const Icon(
                                   Icons.calendar_today,
@@ -75,9 +77,17 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               readOnly: true,
                               onTap: () async {
                                 log("tab");
-                                var dateValue = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: 365)), lastDate: DateTime.now());
+                                var dateValue = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now()
+                                        .subtract(Duration(days: 365)),
+                                    lastDate: DateTime.now());
                                 try {
-                                  dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
+                                  dateTextController.text =
+                                      (DateFormat('yyyy-MM-dd')
+                                          .format(dateValue!)
+                                          .toString());
                                 } catch (e) {
                                   log("no select date");
                                 }
@@ -93,7 +103,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 hintText: 'Time',
                                 prefixIcon: const Icon(
                                   Icons.schedule,
@@ -101,9 +113,12 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               ),
                               readOnly: true,
                               onTap: () async {
-                                var timeValue = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                                var timeValue = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now());
                                 try {
-                                  timeTextController.text = timeValue!.format(context);
+                                  timeTextController.text =
+                                      timeValue!.format(context);
                                 } catch (e) {
                                   log("no select time");
                                 }
@@ -119,7 +134,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 hintText: 'Systolic (mm Hg)',
                                 prefixIcon: const Icon(
                                   Icons.favorite_outline,
@@ -143,7 +160,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 hintText: 'Diastolic (mm Hg)',
                                 prefixIcon: const Icon(
                                   Icons.favorite_outline,
@@ -167,7 +186,9 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 hintText: 'Pulse (bpm)',
                                 prefixIcon: const Icon(
                                   Icons.favorite_outline,
@@ -194,15 +215,32 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                                 child: Text("Save"),
                               ),
                               onPressed: () {
-                                if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
-                                  final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
-                                  final systolic = int.parse(systolicTextController.text.trim());
-                                  final diastolic = int.parse(diastolicTextController.text.trim());
-                                  final pulse = int.parse(pulseTextController.text.trim());
+                                if (formKey.currentState!.validate() &&
+                                    dateTextController.text.isNotEmpty &&
+                                    timeTextController.text.isNotEmpty) {
+                                  final dateTime = DateTime.parse(
+                                      dateTextController.text +
+                                          " " +
+                                          timeTextController.text);
+                                  final systolic = int.parse(
+                                      systolicTextController.text.trim());
+                                  final diastolic = int.parse(
+                                      diastolicTextController.text.trim());
+                                  final pulse = int.parse(
+                                      pulseTextController.text.trim());
 
-                                  appController.addBloodPressure(dateTime: dateTime, systolic: systolic, diastolic: diastolic, pulse: pulse);
+                                  appController.addBloodPressure(
+                                      dateTime: dateTime,
+                                      systolic: systolic,
+                                      diastolic: diastolic,
+                                      pulse: pulse);
 
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(milliseconds: 500), content: Text("Saved!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      duration: Duration(milliseconds: 500),
+                                      content: Text("Saved!"),
+                                    ),
+                                  );
                                   Get.back();
                                 }
                               },

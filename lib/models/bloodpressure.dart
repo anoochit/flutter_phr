@@ -22,5 +22,6 @@ class BloodPressure extends HiveObject {
   @HiveField(5)
   List<String> tag;
 
-  BloodPressure(this.dateTime, this.systolic, this.diastolic, this.pulse, this.type, this.tag);
+  BloodPressure(this.dateTime, this.systolic, this.diastolic, this.pulse,
+      this.type, this.tag);
 }

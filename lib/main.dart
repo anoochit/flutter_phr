@@ -21,7 +21,9 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -51,7 +53,8 @@ class _MyAppState extends State<MyApp> {
       theme: themeData(context),
       darkTheme: themeDataDark(context),
       // Check setting has data if not goto setting page
-      home: (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),
+      home:
+          (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),
     );
   }
 }

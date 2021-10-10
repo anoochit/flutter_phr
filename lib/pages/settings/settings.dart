@@ -42,7 +42,8 @@ class _SettingPageState extends State<SettingPage> {
                             ? CircleAvatar(
                                 radius: 64,
                                 backgroundColor: Theme.of(context).primaryColor,
-                                backgroundImage: FileImage(File('${controller.yourImage}')),
+                                backgroundImage:
+                                    FileImage(File('${controller.yourImage}')),
                               )
                             : CircleAvatar(
                                 radius: 64,
@@ -60,7 +61,8 @@ class _SettingPageState extends State<SettingPage> {
                               onPressed: () async {
                                 // Open image picker for choose image from gallery
                                 final ImagePicker imagePicker = ImagePicker();
-                                image = await imagePicker.pickImage(source: ImageSource.gallery);
+                                image = await imagePicker.pickImage(
+                                    source: ImageSource.gallery);
                                 if (image != null) {
                                   log(image!.path.toString());
                                   controller.yourImage = RxString(image!.path);
@@ -79,7 +81,8 @@ class _SettingPageState extends State<SettingPage> {
                         child: TextFormField(
                           controller: textNameController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16.0)),
                             hintText: 'Your Name',
                           ),
                           validator: (value) {
@@ -97,10 +100,13 @@ class _SettingPageState extends State<SettingPage> {
                         style: buttonStyleGreen,
                         child: const Text("Save"),
                         onPressed: () {
-                          if ((formKey.currentState!.validate()) && (appController.yourImage.isNotEmpty)) {
+                          if ((formKey.currentState!.validate()) &&
+                              (appController.yourImage.isNotEmpty)) {
                             log("save -> profile " + image!.path);
                             // Save user profile and goto homepage
-                            appController.addProfile(name: textNameController.text, photo: image!.path);
+                            appController.addProfile(
+                                name: textNameController.text,
+                                photo: image!.path);
                             Get.off(() => const HomePage());
                           }
                         },

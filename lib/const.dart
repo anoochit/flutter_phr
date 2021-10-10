@@ -47,9 +47,24 @@ final glucoseWhenLabel = [
 ];
 
 final mainMenu = [
-  Menu("Body Mass Index", FontAwesomeIcons.weight, listColor[1], const BmiPage()),
-  Menu("Blood Pressure", FontAwesomeIcons.heartbeat, listColor[2], const BloodPressurePage()),
-  Menu("Blood Glucose", FontAwesomeIcons.candyCane, listColor[4], const GlucosePage()),
+  Menu(
+    "Body Mass Index",
+    FontAwesomeIcons.weight,
+    listColor[1],
+    const BmiPage(),
+  ),
+  Menu(
+    "Blood Pressure",
+    FontAwesomeIcons.heartbeat,
+    listColor[2],
+    const BloodPressurePage(),
+  ),
+  Menu(
+    "Blood Glucose",
+    FontAwesomeIcons.candyCane,
+    listColor[4],
+    const GlucosePage(),
+  ),
 ];
 
 late final Box<Settings> boxSettings;
