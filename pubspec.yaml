@@ -49,6 +49,8 @@ dependencies:
   csv: ^5.0.0
   google_fonts: ^2.1.0
   package_info_plus: ^1.3.0
+  syncfusion_flutter_pdf: ^19.3.44-beta
+  syncfusion_flutter_pdfviewer: ^19.3.44-beta
      
 dev_dependencies:
   flutter_test:

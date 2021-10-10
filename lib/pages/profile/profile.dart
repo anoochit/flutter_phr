@@ -11,6 +11,7 @@ import 'package:phr/controllers/appcontroller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/glucose.dart';
+import 'package:phr/pages/profile/pdfviewer.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
@@ -60,7 +61,9 @@ class ProfilePage extends StatelessWidget {
                         ListTile(
                           leading: const Icon(Icons.file_download),
                           title: const Text("Export PDF"),
-                          onTap: () {},
+                          onTap: () {
+                            exportAsPDF(context: context);
+                          },
                         ),
                         ListTile(
                           leading: const Icon(Icons.info),
@@ -215,7 +218,6 @@ class ProfilePage extends StatelessWidget {
       useSafeArea: false,
       context: context,
       builder: (context) => Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Backup files"),
         ),
@@ -224,6 +226,7 @@ class ProfilePage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               if (file[index].toString().contains(filter)) {
                 return ListTile(
+                  leading: const Icon(Icons.note),
                   title: Text(file[index].path.split('/').last),
                   onTap: () {
                     //open share dialog
@@ -235,5 +238,17 @@ class ProfilePage extends StatelessWidget {
             }),
       ),
     );
+  }
+
+  // TODO : Create a report as a pdf document, view, share.
+  exportAsPDF({required BuildContext context}) async {
+    // get directory
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    String filePath = directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_pdf_export" + ".pdf";
+
+    // create a report as a pdf document
+
+    // view a report
+    Get.to(() => PDFViewerPage(path: filePath));
   }
 }
