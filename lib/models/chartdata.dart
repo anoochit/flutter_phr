@@ -18,5 +18,9 @@ class ChartDataType {
   double value;
   Color color;
 
-  ChartDataType({required this.name, required this.type, required this.value, required this.color});
+  ChartDataType(
+      {required this.name,
+      required this.type,
+      required this.value,
+      required this.color});
 }

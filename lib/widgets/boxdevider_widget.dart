@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BoxDeviderWiget extends StatelessWidget {
-  const BoxDeviderWiget({Key? key, required this.value1, required this.value2, required this.valueColor}) : super(key: key);
+  const BoxDeviderWiget(
+      {Key? key,
+      required this.value1,
+      required this.value2,
+      required this.valueColor})
+      : super(key: key);
 
   final String value1;
   final String value2;

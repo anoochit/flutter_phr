@@ -43,7 +43,8 @@ class _BmiPageState extends State<BmiPage> {
               builder: (controller) {
                 return FutureBuilder(
                   future: controller.loadBMI(),
-                  builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
+                  builder:
+                      (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
                     if (snapshot.hasError) {
                       return const Center(
                         child: Text("Error"),
@@ -60,15 +61,29 @@ class _BmiPageState extends State<BmiPage> {
 
                         // convert iterable to list and sort
                         final boxList = box.values.toList();
-                        boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                        boxList
+                            .sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
                         for (var item in boxList) {
-                          chartDataWeight.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.weight));
-                          chartDataHeight.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.height));
-                          chartDataBMI.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.bmi));
+                          chartDataWeight.add(ChartData(
+                              name: 'Weight',
+                              dateTime: item.dateTime,
+                              value: item.weight));
+                          chartDataHeight.add(ChartData(
+                              name: 'Height',
+                              dateTime: item.dateTime,
+                              value: item.height));
+                          chartDataBMI.add(ChartData(
+                              name: 'BMI',
+                              dateTime: item.dateTime,
+                              value: item.bmi));
                         }
 
-                        final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
+                        final List<List<ChartData>> chartData = [
+                          chartDataWeight,
+                          chartDataHeight,
+                          chartDataBMI
+                        ];
 
                         // return bmi info
                         return Column(
@@ -109,7 +124,8 @@ class _BmiPageState extends State<BmiPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         "Result",
@@ -118,7 +134,8 @@ class _BmiPageState extends State<BmiPage> {
                                       Text(
                                         bmiTypeLabel[box.values.last.type],
                                         style: TextStyle(
-                                          color: listBmiColor[box.values.last.type],
+                                          color: listBmiColor[
+                                              box.values.last.type],
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

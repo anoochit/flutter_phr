@@ -5,7 +5,8 @@ import 'package:phr/models/chartdata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SplineChartWidget extends StatelessWidget {
-  const SplineChartWidget({Key? key, required this.chartData}) : super(key: key);
+  const SplineChartWidget({Key? key, required this.chartData})
+      : super(key: key);
 
   final List<List<ChartData>> chartData;
 

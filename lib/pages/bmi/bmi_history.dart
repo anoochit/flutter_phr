@@ -55,7 +55,8 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                           width: 90,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: listBmiColor[appController.bmiDecode(bmi: myBox[index].bmi)],
+                            color: listBmiColor[
+                                appController.bmiDecode(bmi: myBox[index].bmi)],
                             //borderRadius: BorderRadius.circular(60),
                           ),
                           child: BoxColumnDataWidget(
@@ -77,12 +78,14 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                               ),
                               const SizedBox(height: 4.0),
                               Text(
-                                DateFormat('dd MMM yyy').format(myBox[index].dateTime),
+                                DateFormat('dd MMM yyy')
+                                    .format(myBox[index].dateTime),
                                 style: textSubTitleStyle,
                               ),
                               const SizedBox(height: 4.0),
                               Text(
-                                DateFormat('HH:mm').format(myBox[index].dateTime),
+                                DateFormat('HH:mm')
+                                    .format(myBox[index].dateTime),
                                 style: textSubTitleStyle,
                               ),
                             ],
@@ -97,12 +100,16 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                                   context: context,
                                   builder: (context) => AlertDialog(
                                     title: const Text("Delete?"),
-                                    content: const Text("Do you want to delete?"),
+                                    content:
+                                        const Text("Do you want to delete?"),
                                     actions: [
                                       TextButton(
                                         child: const Text("Yes"),
                                         onPressed: () {
-                                          final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
+                                          final key = myBox[index]
+                                              .dateTime
+                                              .microsecondsSinceEpoch
+                                              .toString();
                                           log('delete key -> ' + key);
                                           //box.delete(key).onError((error, stackTrace) => log(error.toString()));
                                           appController.deleteBMI(key: key);

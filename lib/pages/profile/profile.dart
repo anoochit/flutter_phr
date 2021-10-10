@@ -229,8 +229,10 @@ class ProfilePage extends StatelessWidget {
     return filePath;
   }
 
-  Future<dynamic> showBackupFiles(
-      {required BuildContext context, required String filter}) async {
+  Future<dynamic> showBackupFiles({
+    required BuildContext context,
+    required String filter,
+  }) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
     final file = Directory(directory).listSync();
     return showDialog(
