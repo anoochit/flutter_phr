@@ -249,6 +249,7 @@ class ProfilePage extends StatelessWidget {
     // create a report as a pdf document
 
     // view a report
-    Get.to(() => PDFViewerPage(path: filePath));
+
+    //Get.to(() => PDFViewerPage(path: filePath));
   }
 }
