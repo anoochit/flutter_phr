@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phr/const.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
-import 'package:phr/pages/bloodpressure/add_bloodpressure.dart';
+import 'package:phr/pages/bloodpressure/add_blood_pressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/bar_chart.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
 
-import 'bloodpressure_history.dart';
+import 'blood_pressure_history.dart';
 
 class BloodPressurePage extends StatefulWidget {
   const BloodPressurePage({Key? key}) : super(key: key);
@@ -77,11 +77,14 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                           final itemPercent =
                               ((count.length / totalCount) * 100);
                           //log('% =>' + itemPercent.toString());
-                          chartType.add(ChartDataType(
+                          chartType.add(
+                            ChartDataType(
                               name: bloodPressureTypeLabel[i],
                               type: i,
                               value: itemPercent,
-                              color: listBloodPressureColor[i]));
+                              color: listBloodPressureColor[i],
+                            ),
+                          );
                         }
 
                         final List<List<ChartDataType>> chartDataType = [
@@ -90,18 +93,27 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
 
                         for (var item in boxList) {
                           // add chart data
-                          chartDataSys.add(ChartData(
+                          chartDataSys.add(
+                            ChartData(
                               name: 'Systolic',
                               dateTime: item.dateTime,
-                              value: item.systolic.toDouble()));
-                          chartDataDia.add(ChartData(
+                              value: item.systolic.toDouble(),
+                            ),
+                          );
+                          chartDataDia.add(
+                            ChartData(
                               name: 'Diastolic',
                               dateTime: item.dateTime,
-                              value: item.diastolic.toDouble()));
-                          chartDataPul.add(ChartData(
+                              value: item.diastolic.toDouble(),
+                            ),
+                          );
+                          chartDataPul.add(
+                            ChartData(
                               name: 'Pluse',
                               dateTime: item.dateTime,
-                              value: item.pulse.toDouble()));
+                              value: item.pulse.toDouble(),
+                            ),
+                          );
                         }
 
                         final List<List<ChartData>> chartData = [

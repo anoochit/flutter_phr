@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/pages/home/home.dart';
 import 'package:phr/themes/theme.dart';
 
@@ -38,17 +38,13 @@ class _SettingPageState extends State<SettingPage> {
                     const SizedBox(height: 140),
                     Stack(
                       children: [
-                        (controller.yourImage.isNotEmpty)
-                            ? CircleAvatar(
-                                radius: 64,
-                                backgroundColor: Theme.of(context).primaryColor,
-                                backgroundImage:
-                                    FileImage(File('${controller.yourImage}')),
-                              )
-                            : CircleAvatar(
-                                radius: 64,
-                                backgroundColor: Theme.of(context).primaryColor,
-                              ),
+                        CircleAvatar(
+                          radius: 64,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundImage: controller.yourImage.isNotEmpty
+                              ? FileImage(File('${controller.yourImage}'))
+                              : null,
+                        ),
                         Positioned(
                           right: 1,
                           child: Container(
@@ -82,7 +78,8 @@ class _SettingPageState extends State<SettingPage> {
                           controller: textNameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16.0)),
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
                             hintText: 'Your Name',
                           ),
                           validator: (value) {
@@ -105,8 +102,9 @@ class _SettingPageState extends State<SettingPage> {
                             log("save -> profile " + image!.path);
                             // Save user profile and goto homepage
                             appController.addProfile(
-                                name: textNameController.text,
-                                photo: image!.path);
+                              name: textNameController.text,
+                              photo: image!.path,
+                            );
                             Get.off(() => const HomePage());
                           }
                         },

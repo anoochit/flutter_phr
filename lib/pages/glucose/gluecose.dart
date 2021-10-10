@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phr/const.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/models/glucose.dart';
 import 'package:phr/pages/glucose/add_glucose.dart';

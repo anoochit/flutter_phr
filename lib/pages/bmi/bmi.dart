@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:phr/const.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/pages/bmi/add_bmi.dart';

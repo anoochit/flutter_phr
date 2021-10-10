@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:phr/models/bloodpressure_typeitem.dart';
 import 'package:phr/models/menu.dart';
 import 'package:phr/models/settings.dart';
-import 'package:phr/pages/bloodpressure/bloodpressure.dart';
+import 'package:phr/pages/bloodpressure/blood_pressure.dart';
 import 'package:phr/pages/bmi/bmi.dart';
 import 'package:phr/pages/glucose/gluecose.dart';
 

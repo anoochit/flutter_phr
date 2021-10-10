@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:phr/controllers/appcontroller.dart';
-import 'package:phr/pages/home/bloodpressureinfo_widget.dart';
-import 'package:phr/pages/home/bmiinfo_widget.dart';
+import 'package:phr/controllers/app_controller.dart';
+import 'package:phr/pages/home/blood_pressure_info_widget.dart';
+import 'package:phr/pages/home/bmi_info_widget.dart';
 import 'package:phr/pages/profile/profile.dart';
-import 'package:phr/pages/home/glucoseinfo_widget.dart';
+import 'package:phr/pages/home/glucose_info_widget.dart';
 import 'package:phr/pages/home/menu_widget.dart';
 
 class HomePage extends StatefulWidget {

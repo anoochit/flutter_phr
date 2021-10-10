@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
+import 'package:phr/models/bmi.dart';
 import 'package:phr/models/chartdata.dart';
-import 'package:phr/models/glucose.dart';
-import 'package:phr/pages/glucose/gluecose.dart';
+import 'package:phr/pages/bmi/bmi.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
-class GlucoseInfoWidget extends StatelessWidget {
-  const GlucoseInfoWidget({Key? key}) : super(key: key);
+class BmiInfoWidget extends StatelessWidget {
+  const BmiInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class GlucoseInfoWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Text("Blood Glucose", style: textTitleStyle),
+                        Text("Body Mass Index (BMI)", style: textTitleStyle),
                       ],
                     ),
 
@@ -37,9 +37,9 @@ class GlucoseInfoWidget extends StatelessWidget {
                         init: AppController(),
                         builder: (controller) {
                           return FutureBuilder(
-                            future: controller.loadGlucose(),
+                            future: controller.loadBMI(),
                             builder: (BuildContext context,
-                                AsyncSnapshot<Box<Glucose>> snapshot) {
+                                AsyncSnapshot<Box<Bmi>> snapshot) {
                               if (snapshot.hasError) {
                                 return const Center(
                                   child: Text("Error"),
@@ -55,15 +55,27 @@ class GlucoseInfoWidget extends StatelessWidget {
                                   boxList.sort((a, b) =>
                                       a.dateTime.compareTo(b.dateTime));
 
-                                  final List<ChartData> chartDataGlucose = [];
+                                  final List<ChartData> chartDataWeight = [];
+                                  final List<ChartData> chartDataHeight = [];
+                                  final List<ChartData> chartDataBMI = [];
                                   for (var item in boxList) {
-                                    chartDataGlucose.add(ChartData(
-                                        name: 'Glucose',
+                                    chartDataWeight.add(ChartData(
+                                        name: 'Weight',
                                         dateTime: item.dateTime,
-                                        value: item.unit.toDouble()));
+                                        value: item.weight));
+                                    chartDataHeight.add(ChartData(
+                                        name: 'Height',
+                                        dateTime: item.dateTime,
+                                        value: item.height));
+                                    chartDataBMI.add(ChartData(
+                                        name: 'BMI',
+                                        dateTime: item.dateTime,
+                                        value: item.bmi));
                                   }
                                   final List<List<ChartData>> chartData = [
-                                    chartDataGlucose
+                                    chartDataWeight,
+                                    chartDataHeight,
+                                    chartDataBMI
                                   ];
 
                                   return Column(
@@ -76,18 +88,27 @@ class GlucoseInfoWidget extends StatelessWidget {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             BoxColumnDataWidget(
-                                              title: "GLUCOSE",
-                                              value: '${boxList.last.unit}',
-                                              subTitle: "mg/dL",
+                                              title: "Weight".toUpperCase(),
+                                              value:
+                                                  '${box.values.last.weight}',
+                                              subTitle: "kg.",
                                             ),
-                                            // BoxColumnDataWidget(
-                                            //   title: "A1C",
-                                            //   value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
-                                            //   subTitle: "%",
-                                            // ),
+                                            BoxColumnDataWidget(
+                                              title: "Height".toUpperCase(),
+                                              value:
+                                                  '${box.values.last.height}',
+                                              subTitle: "cm.",
+                                            ),
+                                            BoxColumnDataWidget(
+                                              title: "BMI".toUpperCase(),
+                                              value: box.values.last.bmi
+                                                  .toStringAsFixed(2),
+                                              subTitle: "kg./m^2",
+                                            ),
                                           ],
                                         ),
                                       ),
+
                                       // graph
                                       SizedBox(
                                         width: constraints.maxWidth,
@@ -121,8 +142,8 @@ class GlucoseInfoWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // Navogation to bloodpressure page
-            Get.to(() => const GlucosePage());
+            // Navigation to bmi page
+            Get.to(() => const BmiPage());
           },
         );
       },

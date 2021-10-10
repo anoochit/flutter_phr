@@ -63,6 +63,11 @@ flutter_icons:
   ios: true
   image_path: 'assets/launcher.png'
 
+flutter_native_splash:
+  color: "#42a5f5"
+  image: assets/splash.png
+  color_dark: "#042a49"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
