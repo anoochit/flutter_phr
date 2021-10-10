@@ -11,10 +11,10 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/glucose.dart';
+import 'package:phr/pages/profile/csv_viewer.dart';
 import 'package:phr/pages/profile/pdf_viewer.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:share/share.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -147,7 +147,13 @@ class ProfilePage extends StatelessWidget {
       boxBpList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
       // load data to list
       List<List<String>> bpDocument = [
-        <String>['Date', 'Systolic', 'Diastolic', 'Pulse', 'Type'],
+        <String>[
+          'Date',
+          'Systolic',
+          'Diastolic',
+          'Pulse',
+          'Type',
+        ],
       ];
       for (var element in boxBpList) {
         log(element.dateTime.toString());
@@ -170,7 +176,13 @@ class ProfilePage extends StatelessWidget {
       boxBmiList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
       // load data to list
       List<List<String>> bmiDocument = [
-        <String>['Date', 'Weight', 'Height', 'BMI', 'Type'],
+        <String>[
+          'Date',
+          'Weight',
+          'Height',
+          'BMI',
+          'Type',
+        ],
       ];
       for (var element in boxBmiList) {
         log(element.dateTime.toString());
@@ -193,7 +205,12 @@ class ProfilePage extends StatelessWidget {
       boxGlucoseList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
       // load data to list
       List<List<String>> gluDocument = [
-        <String>['Date', 'Glucose', 'Measure', 'Type'],
+        <String>[
+          'Date',
+          'Glucose',
+          'Measure',
+          'Type',
+        ],
       ];
       for (var element in boxGlucoseList) {
         log(element.dateTime.toString());
@@ -322,7 +339,7 @@ class ProfilePage extends StatelessWidget {
       context: context,
       builder: (context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Backup files"),
+          title: const Text("Files"),
         ),
         body: ListView.builder(
           itemCount: file.length,
@@ -331,31 +348,19 @@ class ProfilePage extends StatelessWidget {
               return ListTile(
                 leading: const Icon(Icons.note),
                 title: Text(file[index].path.split('/').last),
-                onLongPress: () => Share.shareFiles(
-                  [file[index].path.toString()],
-                ),
                 onTap: () {
-                  //open share dialog
-                  if (filter == '.pdf') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => PDFViewerPage(
-                          path: file[index].path.toString(),
-                        ),
-                      ),
-                    );
-                  } else {
-                    // TODO: CSV Viewer
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (_) => CSVViewerPage(
-                    //       path: file[index].path.toString(),
-                    //     ),
-                    //   ),
-                    // );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => filter == '.pdf'
+                          ? PDFViewerPage(
+                              path: file[index].path.toString(),
+                            )
+                          : CSVViewerPage(
+                              path: file[index].path.toString(),
+                            ),
+                    ),
+                  );
                 },
               );
             }
