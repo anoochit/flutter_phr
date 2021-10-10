@@ -11,20 +11,30 @@ class BoxDeviderWiget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value1,
-          style: TextStyle(color: valueColor, fontSize: 20),
+          style: TextStyle(
+            color: valueColor,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Divider(
           indent: 16,
           color: valueColor,
-          thickness: 1.0,
+          thickness: 2.0,
           endIndent: 16,
         ),
         Text(
           value2,
-          style: TextStyle(color: valueColor, fontSize: 20),
+          style: TextStyle(
+            color: valueColor,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

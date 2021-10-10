@@ -35,8 +35,8 @@ class BoxColumnDataWidget extends StatelessWidget {
               value,
               style: TextStyle(
                 color: valueColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
