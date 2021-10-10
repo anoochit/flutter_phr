@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:phr/const.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/glucose.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';

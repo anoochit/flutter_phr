@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class AddBloodPressurePage extends StatefulWidget {

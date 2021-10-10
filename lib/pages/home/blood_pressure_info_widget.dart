@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:phr/controllers/appcontroller.dart';
+import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
-import 'package:phr/pages/bloodpressure/bloodpressure.dart';
+import 'package:phr/pages/bloodpressure/blood_pressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';

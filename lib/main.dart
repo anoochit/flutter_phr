@@ -6,7 +6,7 @@ import 'package:phr/models/settings.dart';
 import 'package:phr/pages/settings/settings.dart';
 import 'package:phr/themes/theme.dart';
 import 'const.dart';
-import 'controllers/appcontroller.dart';
+import 'controllers/app_controller.dart';
 import 'pages/home/home.dart';
 
 Future<void> main() async {
