@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:phr/common/show_capture.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
@@ -10,6 +11,7 @@ import 'package:phr/pages/bmi/bmi_history.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/spline_chart.dart';
 import 'package:phr/widgets/statsbox_widget.dart';
+import 'package:screenshot/screenshot.dart';
 
 class BmiPage extends StatefulWidget {
   const BmiPage({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class BmiPage extends StatefulWidget {
 }
 
 class _BmiPageState extends State<BmiPage> {
+  ScreenshotController screenshotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,28 +150,44 @@ class _BmiPageState extends State<BmiPage> {
                             ),
 
                             // graph
-                            Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Text(
-                                      "Statistic",
-                                      style: textTitleStyle,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      height: constraints.maxWidth,
-                                      child: SplineChartWidget(
-                                        chartData: chartData,
+                            Screenshot(
+                              controller: screenshotController,
+                              child: GestureDetector(
+                                onTap: () {
+                                  screenshotController
+                                      .capture(
+                                          delay: Duration(milliseconds: 10))
+                                      .then((capturedImage) async {
+                                    ShowCapturedWidget(context, capturedImage!);
+                                  }).catchError((onError) {
+                                    print(onError);
+                                  });
+                                },
+                                child: Card(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: Text(
+                                          "Statistic",
+                                          style: textTitleStyle,
+                                        ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          height: constraints.maxWidth,
+                                          child: SplineChartWidget(
+                                            chartData: chartData,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
 

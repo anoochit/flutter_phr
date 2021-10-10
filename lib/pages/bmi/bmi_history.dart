@@ -31,15 +31,11 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
         builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
           if (snapshot.hasData) {
             final box = snapshot.data;
-            // final myBox = box!.values;
+
             final boxSorted = box!.values.toList();
             boxSorted.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
             List<Bmi> myBox = List.from(boxSorted.reversed);
-
-            // myBox.forEach((element) {
-            //   log(element.key);
-            // });
 
             return MediaQuery.removePadding(
               context: context,
@@ -55,9 +51,9 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                           width: 90,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: listBmiColor[
-                                appController.bmiDecode(bmi: myBox[index].bmi)],
-                            //borderRadius: BorderRadius.circular(60),
+                            color: listBmiColor[appController.bmiDecode(
+                              bmi: myBox[index].bmi,
+                            )],
                           ),
                           child: BoxColumnDataWidget(
                             title: 'BMI',
@@ -95,43 +91,42 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text("Delete?"),
-                                    content:
-                                        const Text("Do you want to delete?"),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text("Yes"),
-                                        onPressed: () {
-                                          final key = myBox[index]
-                                              .dateTime
-                                              .microsecondsSinceEpoch
-                                              .toString();
-                                          log('delete key -> ' + key);
-                                          //box.delete(key).onError((error, stackTrace) => log(error.toString()));
-                                          appController.deleteBMI(key: key);
-                                          Get.back();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text("No"),
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ).whenComplete(() {
-                                  setState(() {});
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.remove_circle,
-                                color: Colors.red,
-                              )),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Delete?"),
+                                  content: const Text("Do you want to delete?"),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text("Yes"),
+                                      onPressed: () {
+                                        final key = myBox[index]
+                                            .dateTime
+                                            .microsecondsSinceEpoch
+                                            .toString();
+                                        log('delete key -> ' + key);
+                                        appController.deleteBMI(key: key);
+                                        Get.back();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text("No"),
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ).whenComplete(() {
+                                setState(() {});
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.remove_circle,
+                              color: Colors.red,
+                            ),
+                          ),
                         )
                       ],
                     ),
