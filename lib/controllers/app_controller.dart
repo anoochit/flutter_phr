@@ -50,8 +50,7 @@ class AppController extends GetxController {
   // 2 - pre-hyper
   // 3 - hyper state 1
   // 4 - hyper state 2
-  int bloodPressureCalculation(
-      {required int systolic, required int diastolic}) {
+  int bloodPressureCalculation({required int systolic, required int diastolic}) {
     log(systolic.toString() + "/" + diastolic.toString());
     if ((systolic <= 90) && (diastolic <= 60)) {
       log("bp status -> 0");
@@ -203,41 +202,27 @@ class AppController extends GetxController {
   }
 
   // add bmi
-  addBmi(
-      {required DateTime dateTime,
-      required double height,
-      required double weight}) async {
+  addBmi({required DateTime dateTime, required double height, required double weight}) async {
     final box = await Hive.openBox<Bmi>('Bmi');
     final bmi = bmiCalculation(weight: weight, height: height);
     final level = bmiDecode(bmi: bmi);
-    box.put(dateTime.microsecondsSinceEpoch.toString(),
-        Bmi(dateTime, height, weight, bmi, level));
+    box.put(dateTime.microsecondsSinceEpoch.toString(), Bmi(dateTime, height, weight, bmi, level));
     update();
   }
 
   // add blood pressure
-  addBloodPressure(
-      {required DateTime dateTime,
-      required int systolic,
-      required int diastolic,
-      required int pulse}) async {
+  addBloodPressure({required DateTime dateTime, required int systolic, required int diastolic, required int pulse}) async {
     final box = await Hive.openBox<BloodPressure>('BloodPressure');
-    final type =
-        bloodPressureCalculation(systolic: systolic, diastolic: diastolic);
-    box.put(dateTime.microsecondsSinceEpoch.toString(),
-        BloodPressure(dateTime, systolic, diastolic, pulse, type, []));
+    final type = bloodPressureCalculation(systolic: systolic, diastolic: diastolic);
+    box.put(dateTime.microsecondsSinceEpoch.toString(), BloodPressure(dateTime, systolic, diastolic, pulse, type, []));
     update();
   }
 
-  addGluecose(
-      {required DateTime dateTime,
-      required int glucose,
-      required int when}) async {
+  addGluecose({required DateTime dateTime, required int glucose, required int when}) async {
     final box = await Hive.openBox<Glucose>('Glucose');
     final level = glucoseCalculation(when: when, unit: glucose);
     //log('lv -> ' + level.toString());
-    box.put(dateTime.microsecondsSinceEpoch.toString(),
-        Glucose(dateTime, glucose, [], when, level));
+    box.put(dateTime.microsecondsSinceEpoch.toString(), Glucose(dateTime, glucose, [], when, level));
     update();
   }
 
@@ -259,6 +244,12 @@ class AppController extends GetxController {
     update();
   }
 
+  getDataOnly({required List<dynamic> box, required int total}) {
+    final onlyItem = box.reversed.take(total);
+    final onlyItemList = onlyItem.toList().reversed;
+    return onlyItemList.toList();
+  }
+
   // sample data
   Future<void> addSampleData() async {
     // user profile
@@ -266,28 +257,22 @@ class AppController extends GetxController {
     //boxProfile.put(0, Settings('Dave', ''));
     //log('sample profile -> ${boxProfile.values.first.name}');
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 30; i++) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
       final key = dateTime.microsecondsSinceEpoch.toString();
       final random = math.Random().nextInt(5);
 
       // bmi
       final boxBmi = await Hive.openBox<Bmi>('Bmi');
-      final bmiValue =
-          bmiCalculation(weight: 77 - random.toDouble(), height: 165);
+      final bmiValue = bmiCalculation(weight: 77 - random.toDouble(), height: 165);
       final bmiLevel = bmiDecode(bmi: bmiValue);
-      boxBmi.put(
-          key, Bmi(dateTime, 165, 77 - random.toDouble(), bmiValue, bmiLevel));
+      boxBmi.put(key, Bmi(dateTime, 165, 77 - random.toDouble(), bmiValue, bmiLevel));
       log('sample bmi -> ${boxBmi.values.first.bmi}');
 
       // blood pressure
       final boxBp = await Hive.openBox<BloodPressure>('BloodPressure');
-      final bpLevel = bloodPressureCalculation(
-          systolic: 109 - random, diastolic: 85 - random);
-      boxBp.put(
-          key,
-          BloodPressure(
-              dateTime, 109 - random, 85 - random, 80 - random, bpLevel, []));
+      final bpLevel = bloodPressureCalculation(systolic: 109 - random, diastolic: 85 - random);
+      boxBp.put(key, BloodPressure(dateTime, 109 - random, 85 - random, 80 - random, bpLevel, []));
       log('sample blood pressure sys -> ${boxBp.values.first.systolic}');
 
       // blood pressure
@@ -305,7 +290,7 @@ class AppController extends GetxController {
     final boxBmi = await Hive.openBox<Bmi>('Bmi');
     final boxBloodPressure = await Hive.openBox<BloodPressure>('BloodPressure');
     final boxGlucose = await Hive.openBox<Glucose>('Glucose');
-    boxSetting.clear();
+    //boxSetting.clear();
     boxBmi.clear();
     boxBloodPressure.clear();
     boxGlucose.clear();

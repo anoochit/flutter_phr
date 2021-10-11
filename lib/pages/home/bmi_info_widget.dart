@@ -38,8 +38,7 @@ class BmiInfoWidget extends StatelessWidget {
                         builder: (controller) {
                           return FutureBuilder(
                             future: controller.loadBMI(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<Box<Bmi>> snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
                               if (snapshot.hasError) {
                                 return const Center(
                                   child: Text("Error"),
@@ -51,58 +50,41 @@ class BmiInfoWidget extends StatelessWidget {
 
                                 if (box!.values.isNotEmpty) {
                                   // convert to list and sort
-                                  final boxList = box.values.toList();
-                                  boxList.sort((a, b) =>
-                                      a.dateTime.compareTo(b.dateTime));
+                                  var boxList = box.values.toList();
+                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                                  // FIXME: load data only last 28 day
+                                  boxList = controller.getDataOnly(box: boxList, total: 28);
 
                                   final List<ChartData> chartDataWeight = [];
                                   final List<ChartData> chartDataHeight = [];
                                   final List<ChartData> chartDataBMI = [];
                                   for (var item in boxList) {
-                                    chartDataWeight.add(ChartData(
-                                        name: 'Weight',
-                                        dateTime: item.dateTime,
-                                        value: item.weight));
-                                    chartDataHeight.add(ChartData(
-                                        name: 'Height',
-                                        dateTime: item.dateTime,
-                                        value: item.height));
-                                    chartDataBMI.add(ChartData(
-                                        name: 'BMI',
-                                        dateTime: item.dateTime,
-                                        value: item.bmi));
+                                    chartDataWeight.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.weight));
+                                    chartDataHeight.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.height));
+                                    chartDataBMI.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.bmi));
                                   }
-                                  final List<List<ChartData>> chartData = [
-                                    chartDataWeight,
-                                    chartDataHeight,
-                                    chartDataBMI
-                                  ];
+                                  final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
 
                                   return Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             BoxColumnDataWidget(
                                               title: "Weight".toUpperCase(),
-                                              value:
-                                                  '${box.values.last.weight}',
+                                              value: '${box.values.last.weight}',
                                               subTitle: "kg.",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "Height".toUpperCase(),
-                                              value:
-                                                  '${box.values.last.height}',
+                                              value: '${box.values.last.height}',
                                               subTitle: "cm.",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "BMI".toUpperCase(),
-                                              value: box.values.last.bmi
-                                                  .toStringAsFixed(2),
+                                              value: box.values.last.bmi.toStringAsFixed(2),
                                               subTitle: "kg./m^2",
                                             ),
                                           ],
@@ -122,8 +104,7 @@ class BmiInfoWidget extends StatelessWidget {
                                 } else {
                                   return const Center(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 32.0),
+                                      padding: EdgeInsets.symmetric(vertical: 32.0),
                                       child: Text("No data, tap to add data."),
                                     ),
                                   );

@@ -45,8 +45,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
               builder: (controller) {
                 return FutureBuilder(
                   future: controller.loadBloodPressure(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<Box<BloodPressure>> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<Box<BloodPressure>> snapshot) {
                     if (snapshot.hasError) {
                       return const Center(
                         child: Text("Error"),
@@ -62,20 +61,19 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                         final List<ChartData> chartDataPul = [];
 
                         // convert iterable to list and sort
-                        final boxList = box.values.toList();
-                        boxList
-                            .sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                        var boxList = box.values.toList();
+                        boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                        // FIXME: load data only last 28 day
+                        boxList = controller.getDataOnly(box: boxList, total: 28);
 
                         // generate type data
                         final List<ChartDataType> chartType = [];
                         final totalCount = boxList.length;
 
                         for (int i = 0; i < 4; i++) {
-                          final count =
-                              boxList.where((element) => element.type == i);
+                          final count = boxList.where((element) => element.type == i);
                           //log('x =>' + count.length.toString());
-                          final itemPercent =
-                              ((count.length / totalCount) * 100);
+                          final itemPercent = ((count.length / totalCount) * 100);
                           //log('% =>' + itemPercent.toString());
                           chartType.add(
                             ChartDataType(
@@ -87,9 +85,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                           );
                         }
 
-                        final List<List<ChartDataType>> chartDataType = [
-                          chartType
-                        ];
+                        final List<List<ChartDataType>> chartDataType = [chartType];
 
                         for (var item in boxList) {
                           // add chart data
@@ -116,11 +112,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                           );
                         }
 
-                        final List<List<ChartData>> chartData = [
-                          chartDataSys,
-                          chartDataDia,
-                          chartDataPul
-                        ];
+                        final List<List<ChartData>> chartData = [chartDataSys, chartDataDia, chartDataPul];
 
                         // return bmi info
                         return Column(
@@ -132,8 +124,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                   width: ((constraints.maxWidth - 8) / 3),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'systolic'.toUpperCase(),
-                                  value:
-                                      boxList.last.systolic.toStringAsFixed(0),
+                                  value: boxList.last.systolic.toStringAsFixed(0),
                                   valueColor: listChartColor[0],
                                   subTitle: 'mm Hg',
                                 ),
@@ -141,8 +132,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                   width: ((constraints.maxWidth - 8) / 3),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'diastolic'.toUpperCase(),
-                                  value:
-                                      boxList.last.diastolic.toStringAsFixed(0),
+                                  value: boxList.last.diastolic.toStringAsFixed(0),
                                   valueColor: listChartColor[1],
                                   subTitle: 'mm Hg',
                                 ),
@@ -163,19 +153,16 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         "Result",
                                         style: textTitleStyle,
                                       ),
                                       Text(
-                                        bloodPressureTypeLabel[
-                                            boxList.last.type],
+                                        bloodPressureTypeLabel[boxList.last.type],
                                         style: TextStyle(
-                                          color: listBloodPressureColor[
-                                              boxList.last.type],
+                                          color: listBloodPressureColor[boxList.last.type],
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

@@ -44,8 +44,7 @@ class _GlucosePageState extends State<GlucosePage> {
               builder: (controller) {
                 return FutureBuilder(
                   future: controller.loadGlucose(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<Box<Glucose>> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<Box<Glucose>> snapshot) {
                     if (snapshot.hasError) {
                       return const Center(
                         child: Text("Error"),
@@ -59,21 +58,17 @@ class _GlucosePageState extends State<GlucosePage> {
                         final List<ChartData> chartDataGlocose = [];
 
                         // convert iterable to list and sort
-                        final boxList = box.values.toList();
-                        boxList
-                            .sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                        var boxList = box.values.toList();
+                        boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                        // FIXME: load data only last 28 day
+                        boxList = controller.getDataOnly(box: boxList, total: 28);
 
                         for (var item in boxList) {
                           // add chart data
-                          chartDataGlocose.add(ChartData(
-                              name: 'Glucose',
-                              dateTime: item.dateTime,
-                              value: item.unit.toDouble()));
+                          chartDataGlocose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
                         }
 
-                        final List<List<ChartData>> chartData = [
-                          chartDataGlocose
-                        ];
+                        final List<List<ChartData>> chartData = [chartDataGlocose];
 
                         // boxList.forEach((i) {
                         //   log(i.level.toString());
@@ -97,9 +92,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                   width: ((constraints.maxWidth - 8) / 2),
                                   height: (constraints.maxWidth / 3) * 0.8,
                                   title: 'A1C'.toUpperCase(),
-                                  value: controller
-                                      .glucoseToA1C(unit: boxList.last.unit)
-                                      .toStringAsFixed(1),
+                                  value: controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1),
                                   valueColor: listChartColor[1],
                                   subTitle: '%',
                                 ),
@@ -112,21 +105,16 @@ class _GlucosePageState extends State<GlucosePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Result (" +
-                                            glucoseWhenLabel[
-                                                boxList.last.when] +
-                                            ")",
+                                        "Result (" + glucoseWhenLabel[boxList.last.when] + ")",
                                         style: textTitleStyle,
                                       ),
                                       Text(
                                         glucoseTypeLabel[boxList.last.level],
                                         style: TextStyle(
-                                          color: listGlucoseColor[
-                                              boxList.last.level],
+                                          color: listGlucoseColor[boxList.last.level],
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

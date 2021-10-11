@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -38,8 +40,7 @@ class BloodPressureWidget extends StatelessWidget {
                         builder: (controller) {
                           return FutureBuilder(
                             future: controller.loadBloodPressure(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<Box<BloodPressure>> snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot<Box<BloodPressure>> snapshot) {
                               if (snapshot.hasError) {
                                 return const Center(
                                   child: Text("Error"),
@@ -51,41 +52,27 @@ class BloodPressureWidget extends StatelessWidget {
 
                                 if (box!.values.isNotEmpty) {
                                   // convert to list and sort
-                                  final boxList = box.values.toList();
-                                  boxList.sort((a, b) =>
-                                      a.dateTime.compareTo(b.dateTime));
+                                  var boxList = box.values.toList();
+                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                                  // FIXME: load data only last 28 day
+                                  boxList = controller.getDataOnly(box: boxList, total: 28);
 
                                   final List<ChartData> chartDataSystolic = [];
                                   final List<ChartData> chartDataDiastolic = [];
                                   final List<ChartData> chartDataPulse = [];
                                   for (var item in boxList) {
-                                    chartDataSystolic.add(ChartData(
-                                        name: 'Systolic',
-                                        dateTime: item.dateTime,
-                                        value: item.systolic.toDouble()));
-                                    chartDataDiastolic.add(ChartData(
-                                        name: 'Diastolic',
-                                        dateTime: item.dateTime,
-                                        value: item.diastolic.toDouble()));
-                                    chartDataPulse.add(ChartData(
-                                        name: 'Pulse',
-                                        dateTime: item.dateTime,
-                                        value: item.pulse.toDouble()));
+                                    chartDataSystolic.add(ChartData(name: 'Systolic', dateTime: item.dateTime, value: item.systolic.toDouble()));
+                                    chartDataDiastolic.add(ChartData(name: 'Diastolic', dateTime: item.dateTime, value: item.diastolic.toDouble()));
+                                    chartDataPulse.add(ChartData(name: 'Pulse', dateTime: item.dateTime, value: item.pulse.toDouble()));
                                   }
-                                  final List<List<ChartData>> chartData = [
-                                    chartDataSystolic,
-                                    chartDataDiastolic,
-                                    chartDataPulse
-                                  ];
+                                  final List<List<ChartData>> chartData = [chartDataSystolic, chartDataDiastolic, chartDataPulse];
 
                                   return Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             BoxColumnDataWidget(
                                               title: "SYS",
@@ -95,15 +82,13 @@ class BloodPressureWidget extends StatelessWidget {
                                             ),
                                             BoxColumnDataWidget(
                                               title: "DIA",
-                                              value:
-                                                  '${boxList.last.diastolic}',
+                                              value: '${boxList.last.diastolic}',
                                               //valueColor: listChartColor[1],
                                               subTitle: "mm Hg",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "PUL",
-                                              value: boxList.last.pulse
-                                                  .toStringAsFixed(0),
+                                              value: boxList.last.pulse.toStringAsFixed(0),
                                               //valueColor: listChartColor[2],
                                               subTitle: "bpm",
                                             ),
@@ -124,8 +109,7 @@ class BloodPressureWidget extends StatelessWidget {
                                 } else {
                                   return const Center(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 32.0),
+                                      padding: EdgeInsets.symmetric(vertical: 32.0),
                                       child: Text("No data, tap to add data."),
                                     ),
                                   );
