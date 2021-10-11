@@ -31,32 +31,20 @@ ThemeData themeData(BuildContext context) {
 
 // FIXME : custome theme for dark mode
 ThemeData themeDataDark(BuildContext context) {
-  final textTheme = Theme.of(context).textTheme;
-
   return ThemeData.dark().copyWith(
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       elevation: 1.0,
       centerTitle: true,
-      titleTextStyle: TextStyle(
-        fontSize: 20.0,
+      titleTextStyle: GoogleFonts.ubuntu(
+        fontSize: 20,
       ),
     ),
-    textTheme: GoogleFonts.ubuntuTextTheme(textTheme).copyWith(
-      bodyText1: TextStyle(
-        color: Colors.white,
-      ),
-      bodyText2: TextStyle(
-        color: Colors.white,
-      ),
-      subtitle1: TextStyle(
-        color: Colors.white,
-      ),
-      headline6: TextStyle(
-        color: Colors.white,
-      ),
-      button: TextStyle(
-        color: Colors.white,
-      ),
+    textTheme: TextTheme(
+      bodyText1: GoogleFonts.ubuntu(),
+      bodyText2: GoogleFonts.ubuntu(),
+      subtitle1: GoogleFonts.ubuntu(),
+      headline6: GoogleFonts.ubuntu(),
+      button: GoogleFonts.ubuntu(),
     ),
     cardTheme: const CardTheme(
       clipBehavior: Clip.antiAlias,
