@@ -31,7 +31,33 @@ ThemeData themeData(BuildContext context) {
 
 // FIXME : custome theme for dark mode
 ThemeData themeDataDark(BuildContext context) {
+  final textTheme = Theme.of(context).textTheme;
+
   return ThemeData.dark().copyWith(
+    appBarTheme: const AppBarTheme(
+      elevation: 1.0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontSize: 20.0,
+      ),
+    ),
+    textTheme: GoogleFonts.ubuntuTextTheme(textTheme).copyWith(
+      bodyText1: TextStyle(
+        color: Colors.white,
+      ),
+      bodyText2: TextStyle(
+        color: Colors.white,
+      ),
+      subtitle1: TextStyle(
+        color: Colors.white,
+      ),
+      headline6: TextStyle(
+        color: Colors.white,
+      ),
+      button: TextStyle(
+        color: Colors.white,
+      ),
+    ),
     cardTheme: const CardTheme(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -106,5 +132,3 @@ final buttonStyleAmber = ButtonStyle(
     ),
   ),
 );
-
-const chipTextStyle = TextStyle(color: Colors.white);
