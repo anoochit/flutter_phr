@@ -1,0 +1,7 @@
+
+ 
+
+* You can record your weight, height, blood pressure, and glucose level.
+* App has a basic analysis for BMI, Hypertension stage, and diabetes. 
+* App provides history logs, you can use the data to discuss with the doctor for future medical care.
+* Your personal data store on your device so you can export data as CSV, PDF, or image files.

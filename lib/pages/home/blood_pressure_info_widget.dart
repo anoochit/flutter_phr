@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,7 +10,9 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class BloodPressureWidget extends StatelessWidget {
-  const BloodPressureWidget({Key? key}) : super(key: key);
+  const BloodPressureWidget({Key? key, this.showGraph = true}) : super(key: key);
+
+  final bool showGraph;
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +97,15 @@ class BloodPressureWidget extends StatelessWidget {
                                       ),
 
                                       // graph
-                                      SizedBox(
-                                        width: constraints.maxWidth,
-                                        height: constraints.maxWidth / 2,
-                                        child: SplineChartWidget(
-                                          chartData: chartData,
-                                        ),
-                                      )
+                                      (showGraph)
+                                          ? SizedBox(
+                                              width: constraints.maxWidth,
+                                              height: constraints.maxWidth / 2,
+                                              child: SplineChartWidget(
+                                                chartData: chartData,
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   );
                                 } else {

@@ -10,7 +10,9 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class GlucoseInfoWidget extends StatelessWidget {
-  const GlucoseInfoWidget({Key? key}) : super(key: key);
+  const GlucoseInfoWidget({Key? key, this.showGraph = true}) : super(key: key);
+
+  final bool showGraph;
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +84,15 @@ class GlucoseInfoWidget extends StatelessWidget {
                                         ),
                                       ),
                                       // graph
-                                      SizedBox(
-                                        width: constraints.maxWidth,
-                                        height: constraints.maxWidth / 2,
-                                        child: SplineChartWidget(
-                                          chartData: chartData,
-                                        ),
-                                      )
+                                      (showGraph)
+                                          ? SizedBox(
+                                              width: constraints.maxWidth,
+                                              height: constraints.maxWidth / 2,
+                                              child: SplineChartWidget(
+                                                chartData: chartData,
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   );
                                 } else {

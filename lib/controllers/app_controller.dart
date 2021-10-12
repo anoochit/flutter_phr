@@ -286,7 +286,7 @@ class AppController extends GetxController {
   // Clear sample data
   Future<void> clearSampleData() async {
     // user profile
-    final boxSetting = await Hive.openBox<Settings>('Settings');
+    //final boxSetting = await Hive.openBox<Settings>('Settings');
     final boxBmi = await Hive.openBox<Bmi>('Bmi');
     final boxBloodPressure = await Hive.openBox<BloodPressure>('BloodPressure');
     final boxGlucose = await Hive.openBox<Glucose>('Glucose');

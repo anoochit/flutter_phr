@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:phr/common/show_capture.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
@@ -135,40 +134,28 @@ class _BmiPageState extends State<BmiPage> {
                             ),
 
                             // graph
-                            Screenshot(
-                              controller: screenshotController,
-                              child: GestureDetector(
-                                onTap: () {
-                                  screenshotController.capture(delay: Duration(milliseconds: 10)).then((capturedImage) async {
-                                    ShowCapturedWidget(context, capturedImage!);
-                                  }).catchError((onError) {
-                                    print(onError);
-                                  });
-                                },
-                                child: Card(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(16.0),
-                                        child: Text(
-                                          "Statistic",
-                                          style: textTitleStyle,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                          height: constraints.maxWidth,
-                                          child: SplineChartWidget(
-                                            chartData: chartData,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                            Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Text(
+                                      "Statistic",
+                                      style: textTitleStyle,
+                                    ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: constraints.maxWidth,
+                                      child: SplineChartWidget(
+                                        chartData: chartData,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
 

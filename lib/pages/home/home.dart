@@ -10,6 +10,7 @@ import 'package:phr/pages/home/bmi_info_widget.dart';
 import 'package:phr/pages/profile/profile.dart';
 import 'package:phr/pages/home/glucose_info_widget.dart';
 import 'package:phr/pages/home/menu_widget.dart';
+import 'package:phr/pages/statistic/statistic.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -63,10 +64,27 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         actions: [
-          IconButton(
-            onPressed: () => Get.to(() => ProfilePage()),
-            icon: const Icon(Icons.settings),
-          ),
+          // IconButton(
+          //   onPressed: () => Get.to(() => ProfilePage()),
+          //   icon: const Icon(Icons.settings),
+          // ),
+
+          // popup menu buttons
+          PopupMenuButton(
+            itemBuilder: (context) => <PopupMenuEntry>[
+              PopupMenuItem(child: Text("Share"), value: 'share'),
+              PopupMenuItem(child: Text("Profile"), value: 'settings'),
+            ],
+            onSelected: (value) {
+              log('pop selected -> ' + value.toString());
+              // navigate to page
+              if (value == 'share') {
+                Get.to(() => StatisticPage());
+              } else {
+                Get.to(() => ProfilePage());
+              }
+            },
+          )
         ],
       ),
       body: SingleChildScrollView(

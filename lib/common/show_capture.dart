@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
-Future<dynamic> ShowCapturedWidget(BuildContext context, Uint8List capturedImage) {
+Future<dynamic> showCapturedWidget(BuildContext context, Uint8List capturedImage) {
   return showDialog(
     useSafeArea: false,
     context: context,

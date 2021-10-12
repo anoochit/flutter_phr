@@ -10,7 +10,9 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class BmiInfoWidget extends StatelessWidget {
-  const BmiInfoWidget({Key? key}) : super(key: key);
+  const BmiInfoWidget({Key? key, this.showGraph = true}) : super(key: key);
+
+  final bool showGraph;
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +94,15 @@ class BmiInfoWidget extends StatelessWidget {
                                       ),
 
                                       // graph
-                                      SizedBox(
-                                        width: constraints.maxWidth,
-                                        height: constraints.maxWidth / 2,
-                                        child: SplineChartWidget(
-                                          chartData: chartData,
-                                        ),
-                                      )
+                                      (showGraph)
+                                          ? SizedBox(
+                                              width: constraints.maxWidth,
+                                              height: constraints.maxWidth / 2,
+                                              child: SplineChartWidget(
+                                                chartData: chartData,
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   );
                                 } else {
