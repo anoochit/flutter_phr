@@ -130,8 +130,10 @@ class BloodPressureWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // Navogation to bloodpressure page
-            Get.to(() => const BloodPressurePage());
+            if (showGraph) {
+              // Navogation to bloodpressure page
+              Get.to(() => const BloodPressurePage());
+            }
           },
         );
       },

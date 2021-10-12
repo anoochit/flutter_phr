@@ -127,8 +127,10 @@ class BmiInfoWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // Navigation to bmi page
-            Get.to(() => const BmiPage());
+            if (showGraph) {
+              // Navigation to bmi page
+              Get.to(() => const BmiPage());
+            }
           },
         );
       },

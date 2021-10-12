@@ -117,8 +117,10 @@ class GlucoseInfoWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // Navogation to bloodpressure page
-            Get.to(() => const GlucosePage());
+            if (showGraph) {
+              // Navogation to bloodpressure page
+              Get.to(() => const GlucosePage());
+            }
           },
         );
       },
