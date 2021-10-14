@@ -86,7 +86,7 @@ class _StatisticPageState extends State<StatisticPage> {
                 ),
                 // buttons
                 Positioned(
-                  bottom: 16,
+                  bottom: 24,
                   child: SizedBox(
                     width: constraints.maxWidth,
                     child: Row(
@@ -94,22 +94,32 @@ class _StatisticPageState extends State<StatisticPage> {
                       children: [
                         ElevatedButton(
                           style: buttonStyleGreen,
-                          child: Text("Save & Share"),
+                          child: Text("Save"),
                           onPressed: () {
                             screenshotController.capture(delay: Duration(milliseconds: 100)).then((imageBytes) async {
                               // save to gallery
                               var result = await ImageGallerySaver.saveImage(imageBytes!);
                               log(result.toString());
-
+                              // show sanck bar
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Save image to gallery")));
+                            });
+                          },
+                        ),
+                        SizedBox(width: 8.0),
+                        ElevatedButton(
+                          style: buttonStyleBlue,
+                          child: Text("Share"),
+                          onPressed: () {
+                            screenshotController.capture(delay: Duration(milliseconds: 100)).then((imageBytes) async {
                               // share
                               var directory = await getTemporaryDirectory();
                               String filePath = directory.path + "/snapshot.png";
                               File file = File(filePath);
-                              await file.writeAsBytes(imageBytes);
+                              await file.writeAsBytes(imageBytes!);
                               Share.shareFiles([filePath]);
                             });
                           },
-                        ),
+                        )
                       ],
                     ),
                   ),

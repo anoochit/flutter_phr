@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/chartdata.dart';
@@ -77,16 +78,19 @@ class BmiInfoWidget extends StatelessWidget {
                                             BoxColumnDataWidget(
                                               title: "Weight".toUpperCase(),
                                               value: '${box.values.last.weight}',
+                                              valueColor: listChartColor[0],
                                               subTitle: "kg.",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "Height".toUpperCase(),
                                               value: '${box.values.last.height}',
+                                              valueColor: listChartColor[1],
                                               subTitle: "cm.",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "BMI".toUpperCase(),
                                               value: box.values.last.bmi.toStringAsFixed(2),
+                                              valueColor: listChartColor[2],
                                               subTitle: "kg./m^2",
                                             ),
                                           ],

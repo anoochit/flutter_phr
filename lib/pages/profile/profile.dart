@@ -58,9 +58,7 @@ class ProfilePage extends StatelessWidget {
                             onTap: () => exportAsCSV().then((value) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: value
-                                      ? Text("Export to CSVs complete")
-                                      : Text("Export to CSVs incomplete"),
+                                  content: value ? Text("Export to CSVs complete") : Text("Export to CSVs incomplete"),
                                   action: SnackBarAction(
                                     label: value ? 'Open' : 'Dismiss',
                                     onPressed: value
@@ -80,9 +78,7 @@ class ProfilePage extends StatelessWidget {
                             onTap: () => exportAsPDF().then((value) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: value
-                                      ? Text("Export to PDFs complete")
-                                      : Text("Export to PDFs incomplete"),
+                                  content: value ? Text("Export to PDFs complete") : Text("Export to PDFs incomplete"),
                                   action: SnackBarAction(
                                     label: value ? 'Open' : 'Dismiss',
                                     onPressed: value
@@ -251,13 +247,7 @@ class ProfilePage extends StatelessWidget {
     //Directory? appDocDir = await getExternalStorageDirectory();
     String appDocPath = appDocDir.path;
 
-    String filePath = appDocPath +
-        "/" +
-        DateFormat('yMMdd').format(DateTime.now()).toString() +
-        "_" +
-        name +
-        "_export" +
-        ".csv";
+    String filePath = appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
 
     // write file
     final File file = File(filePath);
@@ -273,13 +263,7 @@ class ProfilePage extends StatelessWidget {
     required String name,
   }) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
-    String filePath = directory +
-        "/" +
-        DateFormat('yMMdd').format(DateTime.now()).toString() +
-        "_" +
-        name +
-        "_pdf_export" +
-        ".pdf";
+    String filePath = directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_pdf_export" + ".pdf";
 
     final PdfDocument document = PdfDocument();
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/chartdata.dart';
@@ -77,19 +78,19 @@ class BloodPressureWidget extends StatelessWidget {
                                             BoxColumnDataWidget(
                                               title: "SYS",
                                               value: '${boxList.last.systolic}',
-                                              //valueColor: listChartColor[0],
+                                              valueColor: listChartColor[0],
                                               subTitle: "mm Hg",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "DIA",
                                               value: '${boxList.last.diastolic}',
-                                              //valueColor: listChartColor[1],
+                                              valueColor: listChartColor[1],
                                               subTitle: "mm Hg",
                                             ),
                                             BoxColumnDataWidget(
                                               title: "PUL",
                                               value: boxList.last.pulse.toStringAsFixed(0),
-                                              //valueColor: listChartColor[2],
+                                              valueColor: listChartColor[2],
                                               subTitle: "bpm",
                                             ),
                                           ],

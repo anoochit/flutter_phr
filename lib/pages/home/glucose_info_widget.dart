@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/chartdata.dart';
 import 'package:phr/models/glucose.dart';
@@ -73,13 +74,15 @@ class GlucoseInfoWidget extends StatelessWidget {
                                             BoxColumnDataWidget(
                                               title: "GLUCOSE",
                                               value: '${boxList.last.unit}',
+                                              valueColor: listChartColor[0],
                                               subTitle: "mg/dL",
                                             ),
-                                            // BoxColumnDataWidget(
-                                            //   title: "A1C",
-                                            //   value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
-                                            //   subTitle: "%",
-                                            // ),
+                                            BoxColumnDataWidget(
+                                              title: "A1C",
+                                              value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
+                                              valueColor: listChartColor[1],
+                                              subTitle: "%",
+                                            ),
                                           ],
                                         ),
                                       ),
