@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:phr/common/show_capture.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
@@ -37,169 +38,221 @@ class _BmiPageState extends State<BmiPage> {
           )
         ],
       ),
-      body: LayoutBuilder(builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: GetBuilder<AppController>(
-              init: AppController(),
-              builder: (controller) {
-                return FutureBuilder(
-                  future: controller.loadBMI(),
-                  builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("Error"),
-                      );
-                    }
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: GetBuilder<AppController>(
+                init: AppController(),
+                builder: (controller) {
+                  return FutureBuilder(
+                    future: controller.loadBMI(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Box<Bmi>> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("Error"),
+                        );
+                      }
 
-                    if (snapshot.hasData) {
-                      var box = snapshot.data!;
-                      if (box.values.isNotEmpty) {
-                        // chart data
-                        final List<ChartData> chartDataWeight = [];
-                        final List<ChartData> chartDataHeight = [];
-                        final List<ChartData> chartDataBMI = [];
+                      if (snapshot.hasData) {
+                        var box = snapshot.data!;
+                        if (box.values.isNotEmpty) {
+                          // chart data
+                          final List<ChartData> chartDataWeight = [];
+                          final List<ChartData> chartDataHeight = [];
+                          final List<ChartData> chartDataBMI = [];
 
-                        // convert iterable to list and sort
-                        var boxList = box.values.toList();
-                        boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-                        // FIXME: load data only last 28 day
-                        boxList = controller.getDataOnly(box: boxList, total: 28);
+                          // convert iterable to list and sort
+                          var boxList = box.values.toList();
+                          boxList.sort(
+                            (a, b) => a.dateTime.compareTo(b.dateTime),
+                          );
+                          // FIXME: load data only last 28 day
+                          boxList = controller.getDataOnly(
+                            box: boxList,
+                            total: 28,
+                          );
 
-                        for (var item in boxList) {
-                          chartDataWeight.add(ChartData(name: 'Weight', dateTime: item.dateTime, value: item.weight));
-                          chartDataHeight.add(ChartData(name: 'Height', dateTime: item.dateTime, value: item.height));
-                          chartDataBMI.add(ChartData(name: 'BMI', dateTime: item.dateTime, value: item.bmi));
-                        }
-
-                        final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
-
-                        // return bmi info
-                        return Column(
-                          children: [
-                            // statistics
-                            Row(
-                              children: [
-                                StatsBoxWidget(
-                                  width: ((constraints.maxWidth - 8) / 3),
-                                  height: (constraints.maxWidth / 3) * 0.8,
-                                  title: 'WEIGHT',
-                                  value: boxList.last.weight.toStringAsFixed(2),
-                                  valueColor: listChartColor[0],
-                                  subTitle: 'kg.',
-                                ),
-                                StatsBoxWidget(
-                                  width: ((constraints.maxWidth - 8) / 3),
-                                  height: (constraints.maxWidth / 3) * 0.8,
-                                  title: 'HEIGHT',
-                                  value: boxList.last.height.toStringAsFixed(1),
-                                  valueColor: listChartColor[1],
-                                  subTitle: 'cm.',
-                                ),
-                                StatsBoxWidget(
-                                  width: ((constraints.maxWidth - 8) / 3),
-                                  height: (constraints.maxWidth / 3) * 0.8,
-                                  title: 'BMI',
-                                  value: boxList.last.bmi.toStringAsFixed(2),
-                                  valueColor: listChartColor[2],
-                                  subTitle: 'kg./m^2',
-                                ),
-                              ],
-                            ),
-
-                            // result
-                            SizedBox(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        "Result",
-                                        style: textTitleStyle,
-                                      ),
-                                      Text(
-                                        bmiTypeLabel[box.values.last.type],
-                                        style: TextStyle(
-                                          color: listBmiColor[box.values.last.type],
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                          for (var item in boxList) {
+                            chartDataWeight.add(
+                              ChartData(
+                                name: 'Weight',
+                                dateTime: item.dateTime,
+                                value: item.weight,
                               ),
-                            ),
+                            );
+                            chartDataHeight.add(
+                              ChartData(
+                                name: 'Height',
+                                dateTime: item.dateTime,
+                                value: item.height,
+                              ),
+                            );
+                            chartDataBMI.add(
+                              ChartData(
+                                name: 'BMI',
+                                dateTime: item.dateTime,
+                                value: item.bmi,
+                              ),
+                            );
+                          }
 
-                            // graph
-                            Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
+                          final List<List<ChartData>> chartData = [
+                            chartDataWeight,
+                            chartDataHeight,
+                            chartDataBMI
+                          ];
+
+                          // return bmi info
+                          return Column(
+                            children: [
+                              // statistics
+                              Row(
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Text(
-                                      "Statistic",
-                                      style: textTitleStyle,
-                                    ),
+                                  StatsBoxWidget(
+                                    width: ((constraints.maxWidth - 8) / 3),
+                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    title: 'WEIGHT',
+                                    value:
+                                        boxList.last.weight.toStringAsFixed(2),
+                                    valueColor: listChartColor[0],
+                                    subTitle: 'kg.',
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      height: constraints.maxWidth,
-                                      child: SplineChartWidget(
-                                        chartData: chartData,
-                                      ),
-                                    ),
+                                  StatsBoxWidget(
+                                    width: ((constraints.maxWidth - 8) / 3),
+                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    title: 'HEIGHT',
+                                    value:
+                                        boxList.last.height.toStringAsFixed(1),
+                                    valueColor: listChartColor[1],
+                                    subTitle: 'cm.',
+                                  ),
+                                  StatsBoxWidget(
+                                    width: ((constraints.maxWidth - 8) / 3),
+                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    title: 'BMI',
+                                    value: boxList.last.bmi.toStringAsFixed(2),
+                                    valueColor: listChartColor[2],
+                                    subTitle: 'kg./m^2',
                                   ),
                                 ],
                               ),
-                            ),
 
-                            // history button
-                            const SizedBox(height: 4.0),
-                            SizedBox(
-                              width: constraints.maxWidth - 16,
-                              child: ElevatedButton(
-                                style: buttonStyleRed,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                                  child: Text("History"),
+                              // result
+                              SizedBox(
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          "Result",
+                                          style: textTitleStyle,
+                                        ),
+                                        Text(
+                                          bmiTypeLabel[box.values.last.type],
+                                          style: TextStyle(
+                                            color: listBmiColor[
+                                                box.values.last.type],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  Get.to(() => const BMIHistoryPage());
-                                },
                               ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        // return add data text
-                        return SizedBox(
-                          width: constraints.maxWidth,
-                          child: const Card(
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Text("No data, please add your data"),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                    }
 
-                    return Container();
-                  },
-                );
-              },
+                              // graph
+                              Screenshot(
+                                controller: screenshotController,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    screenshotController
+                                        .capture(
+                                      delay: Duration(milliseconds: 10),
+                                    )
+                                        .then((capturedImage) async {
+                                      ShowCapturedWidget(
+                                          context, capturedImage!);
+                                    }).catchError((onError) {
+                                      print(onError);
+                                    });
+                                  },
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.all(16.0),
+                                          child: Text(
+                                            "Statistic",
+                                            style: textTitleStyle,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: constraints.maxWidth,
+                                            child: SplineChartWidget(
+                                              chartData: chartData,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // history button
+                              const SizedBox(height: 4.0),
+                              SizedBox(
+                                width: constraints.maxWidth - 16,
+                                child: ElevatedButton(
+                                  style: buttonStyleRed,
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 16.0),
+                                    child: Text("History"),
+                                  ),
+                                  onPressed: () =>
+                                      Get.to(() => const BMIHistoryPage()),
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          // return add data text
+                          return SizedBox(
+                            width: constraints.maxWidth,
+                            child: const Card(
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Text("No data, please add your data"),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+
+                      return Container();
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

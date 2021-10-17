@@ -49,7 +49,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // title
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 16.0),
                             child: Text(
@@ -64,8 +63,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                             child: TextFormField(
                               controller: dateTextController,
                               decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -77,9 +74,17 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                               readOnly: true,
                               onTap: () async {
                                 log("tab");
-                                var dateValue = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: 365)), lastDate: DateTime.now());
+                                var dateValue = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now()
+                                        .subtract(Duration(days: 365)),
+                                    lastDate: DateTime.now());
                                 try {
-                                  dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
+                                  dateTextController.text =
+                                      (DateFormat('yyyy-MM-dd')
+                                          .format(dateValue!)
+                                          .toString());
                                 } catch (e) {
                                   log("no select date");
                                 }
@@ -93,8 +98,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                             child: TextFormField(
                               controller: timeTextController,
                               decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -110,13 +113,15 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                                   initialTime: TimeOfDay.now(),
                                   builder: (context, child) {
                                     return MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                      data: MediaQuery.of(context).copyWith(
+                                          alwaysUse24HourFormat: true),
                                       child: child!,
                                     );
                                   },
                                 );
                                 try {
-                                  timeTextController.text = timeValue!.format(context);
+                                  timeTextController.text =
+                                      timeValue!.format(context);
                                 } catch (e) {
                                   log("no select time");
                                 }
@@ -130,8 +135,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                             child: TextFormField(
                               controller: systolicTextController,
                               decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -156,8 +159,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                             child: TextFormField(
                               controller: diastolicTextController,
                               decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -182,8 +183,6 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                             child: TextFormField(
                               controller: pulseTextController,
                               decoration: InputDecoration(
-                                // filled: true,
-                                // fillColor: Colors.grey.shade200,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -213,13 +212,28 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                                 child: Text("Save"),
                               ),
                               onPressed: () {
-                                if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
-                                  final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
-                                  final systolic = int.parse(systolicTextController.text.trim());
-                                  final diastolic = int.parse(diastolicTextController.text.trim());
-                                  final pulse = int.parse(pulseTextController.text.trim());
+                                if (formKey.currentState!.validate() &&
+                                    dateTextController.text.isNotEmpty &&
+                                    timeTextController.text.isNotEmpty) {
+                                  final dateTime = DateTime.parse(
+                                      dateTextController.text +
+                                          " " +
+                                          timeTextController.text);
+                                  final systolic = int.parse(
+                                    systolicTextController.text.trim(),
+                                  );
+                                  final diastolic = int.parse(
+                                    diastolicTextController.text.trim(),
+                                  );
+                                  final pulse = int.parse(
+                                    pulseTextController.text.trim(),
+                                  );
 
-                                  appController.addBloodPressure(dateTime: dateTime, systolic: systolic, diastolic: diastolic, pulse: pulse);
+                                  appController.addBloodPressure(
+                                      dateTime: dateTime,
+                                      systolic: systolic,
+                                      diastolic: diastolic,
+                                      pulse: pulse);
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
