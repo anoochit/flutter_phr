@@ -48,8 +48,7 @@ class _BmiPageState extends State<BmiPage> {
                 builder: (controller) {
                   return FutureBuilder(
                     future: controller.loadBMI(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<Box<Bmi>> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
                       if (snapshot.hasError) {
                         return const Center(
                           child: Text("Error"),
@@ -99,11 +98,7 @@ class _BmiPageState extends State<BmiPage> {
                             );
                           }
 
-                          final List<List<ChartData>> chartData = [
-                            chartDataWeight,
-                            chartDataHeight,
-                            chartDataBMI
-                          ];
+                          final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
 
                           // return bmi info
                           return Column(
@@ -115,8 +110,7 @@ class _BmiPageState extends State<BmiPage> {
                                     width: ((constraints.maxWidth - 8) / 3),
                                     height: (constraints.maxWidth / 3) * 0.8,
                                     title: 'WEIGHT',
-                                    value:
-                                        boxList.last.weight.toStringAsFixed(2),
+                                    value: boxList.last.weight.toStringAsFixed(2),
                                     valueColor: listChartColor[0],
                                     subTitle: 'kg.',
                                   ),
@@ -124,8 +118,7 @@ class _BmiPageState extends State<BmiPage> {
                                     width: ((constraints.maxWidth - 8) / 3),
                                     height: (constraints.maxWidth / 3) * 0.8,
                                     title: 'HEIGHT',
-                                    value:
-                                        boxList.last.height.toStringAsFixed(1),
+                                    value: boxList.last.height.toStringAsFixed(1),
                                     valueColor: listChartColor[1],
                                     subTitle: 'cm.',
                                   ),
@@ -146,8 +139,7 @@ class _BmiPageState extends State<BmiPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text(
                                           "Result",
@@ -156,8 +148,7 @@ class _BmiPageState extends State<BmiPage> {
                                         Text(
                                           bmiTypeLabel[box.values.last.type],
                                           style: TextStyle(
-                                            color: listBmiColor[
-                                                box.values.last.type],
+                                            color: listBmiColor[box.values.last.type],
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -168,46 +159,28 @@ class _BmiPageState extends State<BmiPage> {
                               ),
 
                               // graph
-                              Screenshot(
-                                controller: screenshotController,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    screenshotController
-                                        .capture(
-                                      delay: Duration(milliseconds: 10),
-                                    )
-                                        .then((capturedImage) async {
-                                      ShowCapturedWidget(
-                                          context, capturedImage!);
-                                    }).catchError((onError) {
-                                      print(onError);
-                                    });
-                                  },
-                                  child: Card(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.all(16.0),
-                                          child: Text(
-                                            "Statistic",
-                                            style: textTitleStyle,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            height: constraints.maxWidth,
-                                            child: SplineChartWidget(
-                                              chartData: chartData,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                              Card(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Text(
+                                        "Statistic",
+                                        style: textTitleStyle,
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: constraints.maxWidth,
+                                        child: SplineChartWidget(
+                                          chartData: chartData,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
 
@@ -218,12 +191,10 @@ class _BmiPageState extends State<BmiPage> {
                                 child: ElevatedButton(
                                   style: buttonStyleRed,
                                   child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 16.0),
+                                    padding: EdgeInsets.symmetric(vertical: 16.0),
                                     child: Text("History"),
                                   ),
-                                  onPressed: () =>
-                                      Get.to(() => const BMIHistoryPage()),
+                                  onPressed: () => Get.to(() => const BMIHistoryPage()),
                                 ),
                               ),
                             ],
