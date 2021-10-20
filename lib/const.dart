@@ -88,6 +88,7 @@ const List<Color> listGlucoseColor = [
   Colors.green,
   Colors.amber,
   Colors.red,
+  Colors.grey,
 ];
 
 const List<Color> listColor = [

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -53,6 +55,7 @@ class _GlucosePageState extends State<GlucosePage> {
 
                     if (snapshot.hasData) {
                       var box = snapshot.data!;
+
                       if (box.values.isNotEmpty) {
                         // chart data
                         final List<ChartData> chartDataGlocose = [];
@@ -70,9 +73,10 @@ class _GlucosePageState extends State<GlucosePage> {
 
                         final List<List<ChartData>> chartData = [chartDataGlocose];
 
-                        // boxList.forEach((i) {
-                        //   log(i.level.toString());
-                        // });
+                        boxList.forEach((i) {
+                          //log(i.level.toString());
+                          //box.put(i.key, Glucose(i.dateTime, i.unit, [], i.when, controller.glucoseCalculation(when: i.when, unit: i.unit)));
+                        });
 
                         // return bmi info
                         return Column(

@@ -119,7 +119,7 @@ class AppController extends GetxController {
       if ((unit >= 80) && (unit <= 140)) {
         // normal
         return 0;
-      } else if ((unit >= 140) && (unit <= 160)) {
+      } else if ((unit >= 140) && (unit <= 200)) {
         // impaired
         return 1;
       } else if ((unit >= 200)) {

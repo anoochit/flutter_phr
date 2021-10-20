@@ -26,10 +26,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // set orientation
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     // load profile settings
     appController.loadSettings();
   }
