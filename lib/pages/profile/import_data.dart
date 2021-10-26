@@ -160,8 +160,10 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                           );
                                         }
                                       });
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
                                     } catch (e) {
                                       log('Error cannot import data');
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
                                     }
                                   } else {
                                     // import PHR
@@ -180,8 +182,10 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                             appController.addBmi(dateTime: timeStamp, height: height, weight: weight);
                                           }
                                         });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
                                       }
                                     }
 
@@ -206,8 +210,10 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                             );
                                           }
                                         });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
                                       }
                                     }
 
@@ -229,8 +235,10 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                             });
                                           }
                                         });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
                                       }
                                     }
                                   }
