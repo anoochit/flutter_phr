@@ -29,9 +29,9 @@ final bloodPressureTypeLabel = [
 final bloodPressureTypeGraphLabel = [
   "Hypo",
   "Normal",
-  "Pre-Hyper",
-  "Stage 1 Hyper",
-  "Stage 2 Hyper",
+  "Pre",
+  "Stage 1",
+  "Stage 2",
 ];
 
 final bmiTypeLabel = [

@@ -75,7 +75,6 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                           //log('x =>' + count.length.toString());
                           final itemPercent = ((count.length / totalCount) * 100);
                           //log('% =>' + itemPercent.toString());
-
                           chartType.add(
                             ChartDataType(
                               name: bloodPressureTypeGraphLabel[i],
