@@ -13,6 +13,7 @@ import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/models/bmi.dart';
 import 'package:phr/models/glucose.dart';
 import 'package:phr/pages/profile/csv_viewer.dart';
+import 'package:phr/pages/profile/import_data.dart';
 import 'package:phr/pages/profile/pdf_viewer.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -91,6 +92,13 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               );
                             }),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.file_upload),
+                            title: const Text("Import Data"),
+                            onTap: () {
+                              Get.to(() => ImportDataPage());
+                            },
                           ),
                           ListTile(
                             leading: const Icon(Icons.info),

@@ -26,6 +26,14 @@ final bloodPressureTypeLabel = [
   "Stage 2 Hypertension",
 ];
 
+final bloodPressureTypeGraphLabel = [
+  "Hypo",
+  "Normal",
+  "Pre-Hyper",
+  "Stage 1 Hyper",
+  "Stage 2 Hyper",
+];
+
 final bmiTypeLabel = [
   "Underweight",
   "Normal weight",

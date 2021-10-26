@@ -70,14 +70,15 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
                         final List<ChartDataType> chartType = [];
                         final totalCount = boxList.length;
 
-                        for (int i = 0; i < 4; i++) {
+                        for (int i = 0; i < 5; i++) {
                           final count = boxList.where((element) => element.type == i);
                           //log('x =>' + count.length.toString());
                           final itemPercent = ((count.length / totalCount) * 100);
                           //log('% =>' + itemPercent.toString());
+
                           chartType.add(
                             ChartDataType(
-                              name: bloodPressureTypeLabel[i],
+                              name: bloodPressureTypeGraphLabel[i],
                               type: i,
                               value: itemPercent,
                               color: listBloodPressureColor[i],
