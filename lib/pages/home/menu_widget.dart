@@ -26,7 +26,10 @@ class MenuWidget extends StatelessWidget {
                       size: (constraints.maxWidth / 3) * 0.4,
                       color: item.color,
                     ),
-                    Text(item.title, style: textTitleStyle)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: FittedBox(child: Text(item.title, style: textTitleStyle)),
+                    )
                   ],
                 ),
               ),

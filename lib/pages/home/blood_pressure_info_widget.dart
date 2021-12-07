@@ -102,9 +102,7 @@ class BloodPressureWidget extends StatelessWidget {
                                           ? SizedBox(
                                               width: constraints.maxWidth,
                                               height: constraints.maxWidth / 2,
-                                              child: SplineChartWidget(
-                                                chartData: chartData,
-                                              ),
+                                              child: SplineChartWidget(chartData: chartData, legend: false),
                                             )
                                           : Container()
                                     ],

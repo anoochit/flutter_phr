@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:phr/common/show_capture.dart';
 import 'package:phr/const.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/models/bmi.dart';
@@ -48,7 +47,8 @@ class _BmiPageState extends State<BmiPage> {
                 builder: (controller) {
                   return FutureBuilder(
                     future: controller.loadBMI(),
-                    builder: (BuildContext context, AsyncSnapshot<Box<Bmi>> snapshot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Box<Bmi>> snapshot) {
                       if (snapshot.hasError) {
                         return const Center(
                           child: Text("Error"),
@@ -98,7 +98,11 @@ class _BmiPageState extends State<BmiPage> {
                             );
                           }
 
-                          final List<List<ChartData>> chartData = [chartDataWeight, chartDataHeight, chartDataBMI];
+                          final List<List<ChartData>> chartData = [
+                            chartDataWeight,
+                            chartDataHeight,
+                            chartDataBMI
+                          ];
 
                           // return bmi info
                           return Column(
@@ -108,23 +112,25 @@ class _BmiPageState extends State<BmiPage> {
                                 children: [
                                   StatsBoxWidget(
                                     width: ((constraints.maxWidth - 8) / 3),
-                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    height: (constraints.maxWidth / 3),
                                     title: 'WEIGHT',
-                                    value: boxList.last.weight.toStringAsFixed(2),
+                                    value:
+                                        boxList.last.weight.toStringAsFixed(2),
                                     valueColor: listChartColor[0],
                                     subTitle: 'kg.',
                                   ),
                                   StatsBoxWidget(
                                     width: ((constraints.maxWidth - 8) / 3),
-                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    height: (constraints.maxWidth / 3),
                                     title: 'HEIGHT',
-                                    value: boxList.last.height.toStringAsFixed(1),
+                                    value:
+                                        boxList.last.height.toStringAsFixed(1),
                                     valueColor: listChartColor[1],
                                     subTitle: 'cm.',
                                   ),
                                   StatsBoxWidget(
                                     width: ((constraints.maxWidth - 8) / 3),
-                                    height: (constraints.maxWidth / 3) * 0.8,
+                                    height: (constraints.maxWidth / 3),
                                     title: 'BMI',
                                     value: boxList.last.bmi.toStringAsFixed(2),
                                     valueColor: listChartColor[2],
@@ -139,7 +145,8 @@ class _BmiPageState extends State<BmiPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text(
                                           "Result",
@@ -148,7 +155,8 @@ class _BmiPageState extends State<BmiPage> {
                                         Text(
                                           bmiTypeLabel[box.values.last.type],
                                           style: TextStyle(
-                                            color: listBmiColor[box.values.last.type],
+                                            color: listBmiColor[
+                                                box.values.last.type],
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -177,6 +185,7 @@ class _BmiPageState extends State<BmiPage> {
                                         height: constraints.maxWidth,
                                         child: SplineChartWidget(
                                           chartData: chartData,
+                                          legend: true,
                                         ),
                                       ),
                                     ),
@@ -191,10 +200,12 @@ class _BmiPageState extends State<BmiPage> {
                                 child: ElevatedButton(
                                   style: buttonStyleRed,
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 16.0),
                                     child: Text("History"),
                                   ),
-                                  onPressed: () => Get.to(() => const BMIHistoryPage()),
+                                  onPressed: () =>
+                                      Get.to(() => const BMIHistoryPage()),
                                 ),
                               ),
                             ],

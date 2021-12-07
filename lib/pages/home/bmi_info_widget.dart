@@ -104,6 +104,7 @@ class BmiInfoWidget extends StatelessWidget {
                                               height: constraints.maxWidth / 2,
                                               child: SplineChartWidget(
                                                 chartData: chartData,
+                                                legend: false,
                                               ),
                                             )
                                           : Container()

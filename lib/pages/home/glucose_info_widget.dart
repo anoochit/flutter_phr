@@ -59,8 +59,10 @@ class GlucoseInfoWidget extends StatelessWidget {
                                   boxList = controller.getDataOnly(box: boxList, total: 28);
 
                                   final List<ChartData> chartDataGlucose = [];
+                                  //final List<ChartData> chartDataA1C = [];
                                   for (var item in boxList) {
                                     chartDataGlucose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
+                                    //chartDataA1C.add(ChartData(name: 'A1C', dateTime: item.dateTime, value: controller.glucoseToA1C(unit: item.unit)));
                                   }
                                   final List<List<ChartData>> chartData = [chartDataGlucose];
 
@@ -93,6 +95,7 @@ class GlucoseInfoWidget extends StatelessWidget {
                                               height: constraints.maxWidth / 2,
                                               child: SplineChartWidget(
                                                 chartData: chartData,
+                                                legend: false,
                                               ),
                                             )
                                           : Container()

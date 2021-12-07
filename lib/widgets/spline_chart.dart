@@ -5,19 +5,23 @@ import 'package:phr/models/chartdata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SplineChartWidget extends StatelessWidget {
-  const SplineChartWidget({Key? key, required this.chartData})
-      : super(key: key);
+  const SplineChartWidget({Key? key, required this.chartData, required this.legend}) : super(key: key);
 
   final List<List<ChartData>> chartData;
+  final bool legend;
 
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      palette: listChartColor,
+      //palette: listChartColor,
+      // legend: Legend(
+      //   isVisible: false,
+      //   toggleSeriesVisibility: true,
+      // ),
       primaryXAxis: DateTimeAxis(
         intervalType: DateTimeIntervalType.auto,
         //ateFormat: DateFormat('E d MMM y, HH:mm'),
-        dateFormat: DateFormat('d MMM\nHH:mm'),
+        dateFormat: DateFormat('d MMM'),
         autoScrollingDeltaType: DateTimeIntervalType.months,
       ),
       primaryYAxis: NumericAxis(
@@ -36,7 +40,7 @@ class SplineChartWidget extends StatelessWidget {
             dataSource: chartData[series],
             xValueMapper: (ChartData data, _) => data.dateTime,
             yValueMapper: (ChartData data, _) => data.value,
-            //color: listChartColor[series],
+            color: listChartColor[series],
             enableTooltip: true,
             markerSettings: const MarkerSettings(
               isVisible: false,

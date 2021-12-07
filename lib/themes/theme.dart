@@ -23,7 +23,7 @@ ThemeData themeData(BuildContext context) {
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
       ),
     ),
-    textTheme: GoogleFonts.ubuntuTextTheme(
+    textTheme: GoogleFonts.latoTextTheme(
       Theme.of(context).textTheme,
     ),
   );
@@ -35,16 +35,16 @@ ThemeData themeDataDark(BuildContext context) {
     appBarTheme: AppBarTheme(
       elevation: 1.0,
       centerTitle: true,
-      titleTextStyle: GoogleFonts.ubuntu(
+      titleTextStyle: GoogleFonts.lato(
         fontSize: 20,
       ),
     ),
     textTheme: TextTheme(
-      bodyText1: GoogleFonts.ubuntu(),
-      bodyText2: GoogleFonts.ubuntu(),
-      subtitle1: GoogleFonts.ubuntu(),
-      headline6: GoogleFonts.ubuntu(),
-      button: GoogleFonts.ubuntu(),
+      bodyText1: GoogleFonts.lato(),
+      bodyText2: GoogleFonts.lato(),
+      subtitle1: GoogleFonts.lato(),
+      headline6: GoogleFonts.lato(),
+      button: GoogleFonts.lato(),
     ),
     cardTheme: const CardTheme(
       clipBehavior: Clip.antiAlias,

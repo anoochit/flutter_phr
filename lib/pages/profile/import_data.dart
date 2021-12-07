@@ -107,6 +107,7 @@ class _ImportDataPageState extends State<ImportDataPage> {
                   // choose backup file
                   ((appDropDown == 'bp') || ((appDropDown == 'phr') && (dataDropDown != null)))
                       ? ElevatedButton(
+                          style: buttonStyleBlue,
                           onPressed: () async {
                             // choose backup file only .csv
                             FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
@@ -137,13 +138,14 @@ class _ImportDataPageState extends State<ImportDataPage> {
                               List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter(fieldDelimiter: ',', eol: '\n', textDelimiter: '"', textEndDelimiter: '"').convert(csvData.toString());
                               log('total rows -> ' + rowsAsListOfValues.length.toString());
                               return ElevatedButton(
+                                style: buttonStyleGreen,
                                 onPressed: () {
                                   // import from blood pressure log
                                   if (appDropDown == "bp") {
                                     // import blood pressure data
                                     try {
                                       rowsAsListOfValues.forEach((element) {
-                                        log('${element}');
+                                        log('$element');
                                         DateTime? timeStamp = DateTime.tryParse(element[0]);
                                         // check first row
                                         if (timeStamp != null) {
@@ -172,7 +174,7 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                       log("import data from PHR -> BMI");
                                       try {
                                         rowsAsListOfValues.forEach((element) {
-                                          log('${element}');
+                                          log('$element');
                                           // check first row
                                           DateTime? timeStamp = DateTime.tryParse(element[0]);
                                           if (timeStamp != null) {
@@ -193,7 +195,7 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                       log("import data from PHR -> BP");
                                       try {
                                         rowsAsListOfValues.forEach((element) {
-                                          log('${element}');
+                                          log('$element');
                                           DateTime? timeStamp = DateTime.tryParse(element[0]);
                                           // check first row
                                           if (timeStamp != null) {
@@ -221,7 +223,7 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                       log("import data from PHR -> BG");
                                       try {
                                         rowsAsListOfValues.forEach((element) {
-                                          log('${element}');
+                                          log('$element');
                                           DateTime? timeStamp = DateTime.tryParse(element[0]);
                                           // check first row
                                           if (timeStamp != null) {

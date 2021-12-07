@@ -252,9 +252,7 @@ class ProfilePage extends StatelessWidget {
 
     // get application directory
     Directory appDocDir = await getApplicationDocumentsDirectory();
-    //Directory? appDocDir = await getExternalStorageDirectory();
     String appDocPath = appDocDir.path;
-
     String filePath = appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
 
     // write file

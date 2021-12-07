@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/pages/home/blood_pressure_info_widget.dart';
