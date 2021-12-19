@@ -19,7 +19,7 @@ TODO
 - [x] Export as CSV
 - [x] PDF viewer and share
 - [x] CSV viewer and share
-- [ ] Export as image
+- [x] Export as image
 
 Screenshots
 
