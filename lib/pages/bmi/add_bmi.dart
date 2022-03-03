@@ -78,7 +78,11 @@ class _AddBMIPageState extends State<AddBMIPage> {
                               readOnly: true,
                               onTap: () async {
                                 log("tab");
-                                var dateValue = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: 365)), lastDate: DateTime.now());
+                                var dateValue = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now().subtract(Duration(days: 365)),
+                                    lastDate: DateTime.now());
                                 try {
                                   dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
                                 } catch (e) {
@@ -182,7 +186,9 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                 child: Text("Save"),
                               ),
                               onPressed: () {
-                                if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
+                                if (formKey.currentState!.validate() &&
+                                    dateTextController.text.isNotEmpty &&
+                                    timeTextController.text.isNotEmpty) {
                                   final dateTime = DateTime.parse(
                                     dateTextController.text + " " + timeTextController.text,
                                   );
