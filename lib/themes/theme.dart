@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData themeData(BuildContext context) {
   return ThemeData(
+    useMaterial3: true,
     primarySwatch: Colors.blue,
     canvasColor: Colors.grey.shade200,
     appBarTheme: const AppBarTheme(
