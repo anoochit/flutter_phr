@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData themeData(BuildContext context) {
   return ThemeData(
     useMaterial3: true,
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.grey,
     canvasColor: Colors.grey.shade200,
     appBarTheme: const AppBarTheme(
       foregroundColor: Colors.black,
@@ -32,7 +32,9 @@ ThemeData themeData(BuildContext context) {
 
 // FIXME : custome theme for dark mode
 ThemeData themeDataDark(BuildContext context) {
-  return ThemeData.dark().copyWith(
+  return ThemeData.dark(
+    useMaterial3: true,
+  ).copyWith(
     appBarTheme: AppBarTheme(
       elevation: 1.0,
       centerTitle: true,

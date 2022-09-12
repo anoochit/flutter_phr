@@ -253,7 +253,8 @@ class ProfilePage extends StatelessWidget {
     // get application directory
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
-    String filePath = appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
+    String filePath =
+        appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
 
     // write file
     final File file = File(filePath);
@@ -269,7 +270,8 @@ class ProfilePage extends StatelessWidget {
     required String name,
   }) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
-    String filePath = directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_pdf_export" + ".pdf";
+    String filePath =
+        directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_pdf_export" + ".pdf";
 
     final PdfDocument document = PdfDocument();
 
@@ -312,7 +314,9 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
-    File(filePath).writeAsBytes(document.save());
+    final content = await document.save();
+
+    File(filePath).writeAsBytes(content);
 
     document.dispose();
 
