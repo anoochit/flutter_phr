@@ -1,4 +1,4 @@
-package net.redlinesoft.phr
+package com.example.phr
 
 import io.flutter.embedding.android.FlutterActivity
 

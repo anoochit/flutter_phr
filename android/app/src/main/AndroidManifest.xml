@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.redlinesoft.phr">
+    package="com.example.phr">
    <application
         android:label="phr"
         android:name="${applicationName}"

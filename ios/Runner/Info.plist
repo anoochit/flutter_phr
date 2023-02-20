@@ -31,7 +31,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -41,8 +42,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This lets you create your avatar with this app.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
