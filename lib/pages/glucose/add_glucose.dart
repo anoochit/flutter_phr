@@ -67,7 +67,8 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Date',
                                 prefixIcon: const Icon(
                                   Icons.calendar_today,
@@ -76,9 +77,17 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                               readOnly: true,
                               onTap: () async {
                                 log("tab");
-                                var dateValue = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: 365)), lastDate: DateTime.now());
+                                var dateValue = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now()
+                                        .subtract(const Duration(days: 365)),
+                                    lastDate: DateTime.now());
                                 try {
-                                  dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
+                                  dateTextController.text =
+                                      (DateFormat('yyyy-MM-dd')
+                                          .format(dateValue!)
+                                          .toString());
                                 } catch (e) {
                                   log("no select date");
                                 }
@@ -94,7 +103,8 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Time',
                                 prefixIcon: const Icon(
                                   Icons.schedule,
@@ -107,13 +117,16 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                                   initialTime: TimeOfDay.now(),
                                   builder: (context, child) {
                                     return MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                      data: MediaQuery.of(context).copyWith(
+                                          alwaysUse24HourFormat: true),
                                       child: child!,
                                     );
                                   },
                                 );
                                 try {
-                                  timeTextController.text = timeValue!.format(context);
+                                  timeTextController.text =
+                                      // ignore: use_build_context_synchronously
+                                      timeValue!.format(context);
                                 } catch (e) {
                                   log("no select time");
                                 }
@@ -129,7 +142,8 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                               decoration: InputDecoration(
                                 // filled: true,
                                 // fillColor: Colors.grey.shade200,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
                                 hintText: 'Gluecose (mg/dL)',
                                 prefixIcon: const Icon(
                                   Icons.icecream_outlined,
@@ -212,13 +226,23 @@ class _AddGlucosePageState extends State<AddGlucosePage> {
                                 child: Text("Save"),
                               ),
                               onPressed: () {
-                                if (formKey.currentState!.validate() && dateTextController.text.isNotEmpty && timeTextController.text.isNotEmpty) {
-                                  final dateTime = DateTime.parse(dateTextController.text + " " + timeTextController.text);
-                                  final glucose = int.parse(glucoseTextController.text.trim());
+                                if (formKey.currentState!.validate() &&
+                                    dateTextController.text.isNotEmpty &&
+                                    timeTextController.text.isNotEmpty) {
+                                  final dateTime = DateTime.parse(
+                                      "${dateTextController.text} ${timeTextController.text}");
+                                  final glucose = int.parse(
+                                      glucoseTextController.text.trim());
 
-                                  appController.addGluecose(dateTime: dateTime, glucose: glucose, when: whenData!.floor());
+                                  appController.addGluecose(
+                                      dateTime: dateTime,
+                                      glucose: glucose,
+                                      when: whenData!.floor());
 
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(milliseconds: 500), content: Text("Saved!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          duration: Duration(milliseconds: 500),
+                                          content: Text("Saved!")));
                                   Get.back();
                                 }
                               },

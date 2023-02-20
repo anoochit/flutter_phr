@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +20,8 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class ProfilePage extends StatelessWidget {
   final AppController appController = Get.find<AppController>();
+
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,9 @@ class ProfilePage extends StatelessWidget {
                             onTap: () => exportAsCSV().then((value) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: value ? Text("Export to CSVs complete") : Text("Export to CSVs incomplete"),
+                                  content: value
+                                      ? const Text("Export to CSVs complete")
+                                      : const Text("Export to CSVs incomplete"),
                                   action: SnackBarAction(
                                     label: value ? 'Open' : 'Dismiss',
                                     onPressed: value
@@ -79,7 +82,9 @@ class ProfilePage extends StatelessWidget {
                             onTap: () => exportAsPDF().then((value) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: value ? Text("Export to PDFs complete") : Text("Export to PDFs incomplete"),
+                                  content: value
+                                      ? const Text("Export to PDFs complete")
+                                      : const Text("Export to PDFs incomplete"),
                                   action: SnackBarAction(
                                     label: value ? 'Open' : 'Dismiss',
                                     onPressed: value
@@ -97,7 +102,7 @@ class ProfilePage extends StatelessWidget {
                             leading: const Icon(Icons.file_upload),
                             title: const Text("Import Data"),
                             onTap: () {
-                              Get.to(() => ImportDataPage());
+                              Get.to(() => const ImportDataPage());
                             },
                           ),
                           ListTile(
@@ -131,7 +136,7 @@ class ProfilePage extends StatelessWidget {
           context: context,
           builder: (_) => AlertDialog(
             title: const Text("About"),
-            content: Text(appName + " v" + version + "+" + buildNumber),
+            content: Text("$appName v$version+$buildNumber"),
             actions: <Widget>[
               TextButton(
                 child: const Text("Close"),
@@ -254,7 +259,7 @@ class ProfilePage extends StatelessWidget {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
     String filePath =
-        appDocPath + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_export" + ".csv";
+        "$appDocPath/${DateFormat('yMMdd').format(DateTime.now())}_${name}_export.csv";
 
     // write file
     final File file = File(filePath);
@@ -271,7 +276,7 @@ class ProfilePage extends StatelessWidget {
   }) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
     String filePath =
-        directory + "/" + DateFormat('yMMdd').format(DateTime.now()).toString() + "_" + name + "_pdf_export" + ".pdf";
+        "$directory/${DateFormat('yMMdd').format(DateTime.now())}_${name}_pdf_export.pdf";
 
     final PdfDocument document = PdfDocument();
 
@@ -329,6 +334,7 @@ class ProfilePage extends StatelessWidget {
   }) async {
     final directory = (await getApplicationDocumentsDirectory()).path;
     final file = Directory(directory).listSync();
+    // ignore: use_build_context_synchronously
     return showDialog(
       useSafeArea: false,
       context: context,

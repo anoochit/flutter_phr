@@ -8,6 +8,7 @@ import 'package:phr/models/bloodpressure.dart';
 import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxdevider_widget.dart';
 
+// ignore: use_key_in_widget_constructors
 class BloodPressureHistoryPage extends StatefulWidget {
   @override
   State<BloodPressureHistoryPage> createState() =>

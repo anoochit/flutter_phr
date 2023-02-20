@@ -81,10 +81,14 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                 var dateValue = await showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime.now().subtract(Duration(days: 365)),
+                                    firstDate: DateTime.now()
+                                        .subtract(const Duration(days: 365)),
                                     lastDate: DateTime.now());
                                 try {
-                                  dateTextController.text = (DateFormat('yyyy-MM-dd').format(dateValue!).toString());
+                                  dateTextController.text =
+                                      (DateFormat('yyyy-MM-dd')
+                                          .format(dateValue!)
+                                          .toString());
                                 } catch (e) {
                                   log("no select date");
                                 }
@@ -113,13 +117,16 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                   initialTime: TimeOfDay.now(),
                                   builder: (context, child) {
                                     return MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                      data: MediaQuery.of(context).copyWith(
+                                          alwaysUse24HourFormat: true),
                                       child: child!,
                                     );
                                   },
                                 );
                                 try {
-                                  timeTextController.text = timeValue!.format(context);
+                                  timeTextController.text =
+                                      // ignore: use_build_context_synchronously
+                                      timeValue!.format(context);
                                 } catch (e) {
                                   log("no select time");
                                 }
@@ -190,7 +197,7 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                     dateTextController.text.isNotEmpty &&
                                     timeTextController.text.isNotEmpty) {
                                   final dateTime = DateTime.parse(
-                                    dateTextController.text + " " + timeTextController.text,
+                                    "${dateTextController.text} ${timeTextController.text}",
                                   );
                                   final weight = double.parse(
                                     weightTextController.text.trim(),
@@ -199,7 +206,8 @@ class _AddBMIPageState extends State<AddBMIPage> {
                                     heightTextController.text.trim(),
                                   );
 
-                                  bmi = appController.bmiCalculation(weight: weight, height: height);
+                                  bmi = appController.bmiCalculation(
+                                      weight: weight, height: height);
                                   level = appController.bmiDecode(bmi: bmi);
 
                                   appController.addBmi(

@@ -6,8 +6,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDFViewerPage extends StatelessWidget {
   const PDFViewerPage({
+    Key? key,
     required this.path,
-  });
+  }) : super(key: key);
 
   final String path;
 
@@ -21,7 +22,7 @@ class PDFViewerPage extends StatelessWidget {
             onPressed: () => Share.shareFiles(
               [path],
             ),
-            icon: Icon(Icons.share),
+            icon: const Icon(Icons.share),
           )
         ],
       ),

@@ -105,7 +105,7 @@ class _BMIHistoryPageState extends State<BMIHistoryPage> {
                                             .dateTime
                                             .microsecondsSinceEpoch
                                             .toString();
-                                        log('delete key -> ' + key);
+                                        log('delete key -> $key');
                                         appController.deleteBMI(key: key);
                                         Get.back();
                                       },

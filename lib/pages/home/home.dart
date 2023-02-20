@@ -71,14 +71,14 @@ class _HomePageState extends State<HomePage> {
           // popup menu buttons
           PopupMenuButton(
             itemBuilder: (context) => <PopupMenuEntry>[
-              PopupMenuItem(child: Text("Share"), value: 'share'),
-              PopupMenuItem(child: Text("Profile"), value: 'settings'),
+              const PopupMenuItem(value: 'share', child: Text("Share")),
+              const PopupMenuItem(value: 'settings', child: Text("Profile")),
             ],
             onSelected: (value) {
-              log('pop selected -> ' + value.toString());
+              log('pop selected -> $value');
               // navigate to page
               if (value == 'share') {
-                Get.to(() => StatisticPage());
+                Get.to(() => const StatisticPage());
               } else {
                 Get.to(() => ProfilePage());
               }

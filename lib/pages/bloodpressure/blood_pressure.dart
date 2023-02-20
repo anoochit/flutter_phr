@@ -17,6 +17,7 @@ class BloodPressurePage extends StatefulWidget {
   const BloodPressurePage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BloodPressurePageState createState() => _BloodPressurePageState();
 }
 

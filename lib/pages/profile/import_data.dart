@@ -10,9 +10,10 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class ImportDataPage extends StatefulWidget {
-  ImportDataPage({Key? key}) : super(key: key);
+  const ImportDataPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ImportDataPageState createState() => _ImportDataPageState();
 }
 
@@ -27,20 +28,21 @@ class _ImportDataPageState extends State<ImportDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Import Data"),
+        title: const Text("Import Data"),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Card(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Column(
                 children: [
                   Row(
                     children: [
                       // title
-                      Text(
+                      const Text(
                         "Application : ",
                         style: textTitleStyle,
                       ),
@@ -48,20 +50,20 @@ class _ImportDataPageState extends State<ImportDataPage> {
                       // dropdown field
                       DropdownButton<String>(
                         value: appDropDown,
-                        hint: Text('Choose application'),
+                        hint: const Text('Choose application'),
                         onChanged: (value) {
                           setState(() {
                             appDropDown = value.toString();
                           });
                         },
-                        items: [
+                        items: const [
                           DropdownMenuItem(
-                            child: Text("Blood Pressure Log"),
                             value: "bp",
+                            child: Text("Blood Pressure Log"),
                           ),
                           DropdownMenuItem(
-                            child: Text("Personal Health Record"),
                             value: "phr",
+                            child: Text("Personal Health Record"),
                           ),
                         ],
                       ),
@@ -71,7 +73,7 @@ class _ImportDataPageState extends State<ImportDataPage> {
                       ? Row(
                           children: [
                             // title
-                            Text(
+                            const Text(
                               "Data : ",
                               style: textTitleStyle,
                             ),
@@ -79,24 +81,24 @@ class _ImportDataPageState extends State<ImportDataPage> {
                             // dropdown field
                             DropdownButton(
                               value: dataDropDown,
-                              hint: Text('Choose data'),
+                              hint: const Text('Choose data'),
                               onChanged: (value) {
                                 setState(() {
                                   dataDropDown = value.toString();
                                 });
                               },
-                              items: [
+                              items: const [
                                 DropdownMenuItem(
-                                  child: Text("Body Mass Index"),
                                   value: "bmi",
+                                  child: Text("Body Mass Index"),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("Blood Pressure"),
                                   value: "bp",
+                                  child: Text("Blood Pressure"),
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("Blood Glucose"),
                                   value: "bg",
+                                  child: Text("Blood Glucose"),
                                 ),
                               ],
                             )
@@ -105,23 +107,26 @@ class _ImportDataPageState extends State<ImportDataPage> {
                       : Container(),
 
                   // choose backup file
-                  ((appDropDown == 'bp') || ((appDropDown == 'phr') && (dataDropDown != null)))
+                  ((appDropDown == 'bp') ||
+                          ((appDropDown == 'phr') && (dataDropDown != null)))
                       ? ElevatedButton(
                           style: buttonStyleBlue,
                           onPressed: () async {
                             // choose backup file only .csv
-                            FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
+                            FilePickerResult? filePickerResult =
+                                await FilePicker.platform.pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['csv'],
                             );
                             if (filePickerResult != null) {
-                              log('backup file ->' + filePickerResult.paths.single.toString());
+                              log('backup file ->${filePickerResult.paths.single}');
                               setState(() {
-                                backupFile = filePickerResult.paths.single.toString();
+                                backupFile =
+                                    filePickerResult.paths.single.toString();
                               });
                             }
                           },
-                          child: Text("Choose backup file"),
+                          child: const Text("Choose backup file"),
                         )
                       : Container(),
 
@@ -135,8 +140,14 @@ class _ImportDataPageState extends State<ImportDataPage> {
                             if (snapshot.hasData) {
                               var csvData = snapshot.data;
                               //log(csvData.toString());
-                              List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter(fieldDelimiter: ',', eol: '\n', textDelimiter: '"', textEndDelimiter: '"').convert(csvData.toString());
-                              log('total rows -> ' + rowsAsListOfValues.length.toString());
+                              List<List<dynamic>> rowsAsListOfValues =
+                                  const CsvToListConverter(
+                                          fieldDelimiter: ',',
+                                          eol: '\n',
+                                          textDelimiter: '"',
+                                          textEndDelimiter: '"')
+                                      .convert(csvData.toString());
+                              log('total rows -> ${rowsAsListOfValues.length}');
                               return ElevatedButton(
                                 style: buttonStyleGreen,
                                 onPressed: () {
@@ -144,13 +155,15 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                   if (appDropDown == "bp") {
                                     // import blood pressure data
                                     try {
-                                      rowsAsListOfValues.forEach((element) {
+                                      for (var element in rowsAsListOfValues) {
                                         log('$element');
-                                        DateTime? timeStamp = DateTime.tryParse(element[0]);
+                                        DateTime? timeStamp =
+                                            DateTime.tryParse(element[0]);
                                         // check first row
                                         if (timeStamp != null) {
                                           // start import
-                                          DateTime timeStamp = DateTime.parse(element[0]);
+                                          DateTime timeStamp =
+                                              DateTime.parse(element[0]);
                                           int sys = element[1];
                                           int dia = element[2];
                                           int pul = element[3];
@@ -161,11 +174,17 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                             pulse: pul,
                                           );
                                         }
-                                      });
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
+                                      }
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  "Import data complete!")));
                                     } catch (e) {
                                       log('Error cannot import data');
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text("Cannot import data!")));
                                     }
                                   } else {
                                     // import PHR
@@ -173,34 +192,49 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                     if (dataDropDown == "bmi") {
                                       log("import data from PHR -> BMI");
                                       try {
-                                        rowsAsListOfValues.forEach((element) {
+                                        for (var element
+                                            in rowsAsListOfValues) {
                                           log('$element');
                                           // check first row
-                                          DateTime? timeStamp = DateTime.tryParse(element[0]);
+                                          DateTime? timeStamp =
+                                              DateTime.tryParse(element[0]);
                                           if (timeStamp != null) {
-                                            DateTime timeStamp = DateTime.parse(element[0]);
+                                            DateTime timeStamp =
+                                                DateTime.parse(element[0]);
                                             double weight = element[1];
                                             double height = element[2];
-                                            appController.addBmi(dateTime: timeStamp, height: height, weight: weight);
+                                            appController.addBmi(
+                                                dateTime: timeStamp,
+                                                height: height,
+                                                weight: weight);
                                           }
-                                        });
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Cannot import data!")));
                                       }
                                     }
 
                                     if (dataDropDown == "bp") {
                                       log("import data from PHR -> BP");
                                       try {
-                                        rowsAsListOfValues.forEach((element) {
+                                        for (var element
+                                            in rowsAsListOfValues) {
                                           log('$element');
-                                          DateTime? timeStamp = DateTime.tryParse(element[0]);
+                                          DateTime? timeStamp =
+                                              DateTime.tryParse(element[0]);
                                           // check first row
                                           if (timeStamp != null) {
                                             // start import
-                                            DateTime timeStamp = DateTime.parse(element[0]);
+                                            DateTime timeStamp =
+                                                DateTime.parse(element[0]);
                                             int sys = element[1];
                                             int dia = element[2];
                                             int pul = element[3];
@@ -211,41 +245,62 @@ class _ImportDataPageState extends State<ImportDataPage> {
                                               pulse: pul,
                                             );
                                           }
-                                        });
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Cannot import data!")));
                                       }
                                     }
 
                                     if (dataDropDown == "bg") {
                                       log("import data from PHR -> BG");
                                       try {
-                                        rowsAsListOfValues.forEach((element) {
+                                        for (var element
+                                            in rowsAsListOfValues) {
                                           log('$element');
-                                          DateTime? timeStamp = DateTime.tryParse(element[0]);
+                                          DateTime? timeStamp =
+                                              DateTime.tryParse(element[0]);
                                           // check first row
                                           if (timeStamp != null) {
                                             // start import
-                                            DateTime timeStamp = DateTime.parse(element[0]);
+                                            DateTime timeStamp =
+                                                DateTime.parse(element[0]);
                                             int unit = element[1];
-                                            glucoseWhenLabel.asMap().forEach((key, value) {
+                                            glucoseWhenLabel
+                                                .asMap()
+                                                .forEach((key, value) {
                                               if (value == element[2]) {
-                                                appController.addGluecose(dateTime: timeStamp, glucose: unit, when: key);
+                                                appController.addGluecose(
+                                                    dateTime: timeStamp,
+                                                    glucose: unit,
+                                                    when: key);
                                               }
                                             });
                                           }
-                                        });
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Import data complete!")));
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Import data complete!")));
                                       } catch (e) {
                                         log('Error cannot import data');
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Cannot import data!")));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Cannot import data!")));
                                       }
                                     }
                                   }
                                 },
-                                child: Text("Import all ${rowsAsListOfValues.length} rows"),
+                                child: Text(
+                                    "Import all ${rowsAsListOfValues.length} rows"),
                               );
                             }
                             return Container();

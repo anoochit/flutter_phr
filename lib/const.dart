@@ -57,13 +57,13 @@ final glucoseWhenLabel = [
 final mainMenu = [
   Menu(
     "Body Mass Index",
-    FontAwesomeIcons.weight,
+    FontAwesomeIcons.weightScale,
     listColor[1],
     const BmiPage(),
   ),
   Menu(
     "Blood Pressure",
-    FontAwesomeIcons.heartbeat,
+    FontAwesomeIcons.heartPulse,
     listColor[2],
     const BloodPressurePage(),
   ),

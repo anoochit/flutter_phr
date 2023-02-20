@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -78,7 +80,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime.now()
-                                        .subtract(Duration(days: 365)),
+                                        .subtract(const Duration(days: 365)),
                                     lastDate: DateTime.now());
                                 try {
                                   dateTextController.text =
@@ -216,9 +218,7 @@ class _AddBloodPressurePageState extends State<AddBloodPressurePage> {
                                     dateTextController.text.isNotEmpty &&
                                     timeTextController.text.isNotEmpty) {
                                   final dateTime = DateTime.parse(
-                                      dateTextController.text +
-                                          " " +
-                                          timeTextController.text);
+                                      "${dateTextController.text} ${timeTextController.text}");
                                   final systolic = int.parse(
                                     systolicTextController.text.trim(),
                                   );

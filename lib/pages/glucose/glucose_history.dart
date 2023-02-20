@@ -40,9 +40,9 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
 
             List<Glucose> myBox = List.from(boxSorted.reversed);
 
-            myBox.forEach((element) {
+            for (var element in myBox) {
               log(element.key);
-            });
+            }
 
             return MediaQuery.removePadding(
               context: context,
@@ -80,7 +80,8 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
                               ),
                               const SizedBox(height: 4.0),
                               Text(
-                                DateFormat('dd MMM yyy, HH:mm').format(myBox[index].dateTime),
+                                DateFormat('dd MMM yyy, HH:mm')
+                                    .format(myBox[index].dateTime),
                                 style: textSubTitleStyle,
                               ),
                               const SizedBox(height: 4.0),
@@ -100,15 +101,20 @@ class _GlucoseHistoryPageState extends State<GlucoseHistoryPage> {
                                   context: context,
                                   builder: (context) => AlertDialog(
                                     title: const Text("Delete?"),
-                                    content: const Text("Do you want to delete?"),
+                                    content:
+                                        const Text("Do you want to delete?"),
                                     actions: [
                                       TextButton(
                                         child: const Text("Yes"),
                                         onPressed: () {
-                                          final key = myBox[index].dateTime.microsecondsSinceEpoch.toString();
-                                          log('delete key -> ' + key);
+                                          final key = myBox[index]
+                                              .dateTime
+                                              .microsecondsSinceEpoch
+                                              .toString();
+                                          log('delete key -> $key');
                                           //box.delete(key).onError((error, stackTrace) => log(error.toString()));
-                                          appController.deleteGluecose(key: key);
+                                          appController.deleteGluecose(
+                                              key: key);
                                           Get.back();
                                         },
                                       ),

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,11 +41,11 @@ ThemeData themeDataDark(BuildContext context) {
       ),
     ),
     textTheme: TextTheme(
-      bodyText1: GoogleFonts.lato(),
-      bodyText2: GoogleFonts.lato(),
-      subtitle1: GoogleFonts.lato(),
-      headline6: GoogleFonts.lato(),
-      button: GoogleFonts.lato(),
+      bodyLarge: GoogleFonts.lato(),
+      bodyMedium: GoogleFonts.lato(),
+      titleMedium: GoogleFonts.lato(),
+      titleLarge: GoogleFonts.lato(),
+      labelLarge: GoogleFonts.lato(),
     ),
     cardTheme: const CardTheme(
       clipBehavior: Clip.antiAlias,

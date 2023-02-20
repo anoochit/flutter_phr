@@ -16,6 +16,7 @@ class GlucosePage extends StatefulWidget {
   const GlucosePage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _GlucosePageState createState() => _GlucosePageState();
 }
 
@@ -84,7 +85,7 @@ class _GlucosePageState extends State<GlucosePage> {
                         final List<ChartData> chartTypeAfterEating = [];
                         final List<ChartData> chartTypeAfter23HrsEating = [];
 
-                        boxList.forEach((element) {
+                        for (var element in boxList) {
                           if (element.when == 0) {
                             chartTypeFasting.add(ChartData(
                                 name: 'Fasting',
@@ -101,7 +102,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                 dateTime: element.dateTime,
                                 value: double.parse(element.unit.toString())));
                           }
-                        });
+                        }
 
                         final List<List<ChartData>> chartDataType = [];
 
@@ -154,10 +155,7 @@ class _GlucosePageState extends State<GlucosePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Result (" +
-                                            glucoseWhenLabel[
-                                                boxList.last.when] +
-                                            ")",
+                                        "Result (${glucoseWhenLabel[boxList.last.when]})",
                                         style: textTitleStyle,
                                       ),
                                       Text(

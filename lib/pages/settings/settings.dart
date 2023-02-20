@@ -35,11 +35,12 @@ class _SettingPageState extends State<SettingPage> {
                 textNameController.text = appController.yourName.toString();
                 return Card(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24.0, horizontal: 16.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
+                        const Text(
                           "Setup your profile",
                           style: textTitleStyleBig,
                         ),
@@ -48,8 +49,12 @@ class _SettingPageState extends State<SettingPage> {
                           children: [
                             CircleAvatar(
                               radius: 64,
-                              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.6),
-                              backgroundImage: controller.yourImage.isNotEmpty ? FileImage(File('${controller.yourImage}')) : null,
+                              backgroundColor: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.6),
+                              backgroundImage: controller.yourImage.isNotEmpty
+                                  ? FileImage(File('${controller.yourImage}'))
+                                  : null,
                             ),
                             Positioned(
                               right: 1,
@@ -62,11 +67,14 @@ class _SettingPageState extends State<SettingPage> {
                                   icon: const Icon(Icons.camera_alt),
                                   onPressed: () async {
                                     // Open image picker for choose image from gallery
-                                    final ImagePicker imagePicker = ImagePicker();
-                                    image = await imagePicker.pickImage(source: ImageSource.gallery);
+                                    final ImagePicker imagePicker =
+                                        ImagePicker();
+                                    image = await imagePicker.pickImage(
+                                        source: ImageSource.gallery);
                                     if (image != null) {
                                       log(image!.path.toString());
-                                      controller.yourImage = RxString(image!.path);
+                                      controller.yourImage =
+                                          RxString(image!.path);
                                       controller.update();
                                     }
                                   },
@@ -102,8 +110,9 @@ class _SettingPageState extends State<SettingPage> {
                             style: buttonStyleGreen,
                             child: const Text("Save"),
                             onPressed: () {
-                              if ((formKey.currentState!.validate()) && (appController.yourImage.isNotEmpty)) {
-                                log("save -> profile " + image!.path);
+                              if ((formKey.currentState!.validate()) &&
+                                  (appController.yourImage.isNotEmpty)) {
+                                log("save -> profile ${image!.path}");
                                 // Save user profile and goto homepage
                                 appController.addProfile(
                                   name: textNameController.text,

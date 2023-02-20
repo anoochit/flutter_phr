@@ -8,8 +8,9 @@ import 'package:share/share.dart';
 
 class CSVViewerPage extends StatelessWidget {
   const CSVViewerPage({
+    Key? key,
     required this.path,
-  });
+  }) : super(key: key);
 
   final String path;
 
@@ -23,15 +24,13 @@ class CSVViewerPage extends StatelessWidget {
             onPressed: () => Share.shareFiles(
               [path],
             ),
-            icon: Icon(Icons.share),
+            icon: const Icon(Icons.share),
           )
         ],
       ),
-      body: Center(
-        child: Container(
-          child: Text(
-            'To view, please export this',
-          ),
+      body: const Center(
+        child: Text(
+          'To view, please export this',
         ),
       ),
     );
@@ -42,7 +41,7 @@ class CSVViewerPage extends StatelessWidget {
     return await csvFile
         .transform(utf8.decoder)
         .transform(
-          CsvToListConverter(),
+          const CsvToListConverter(),
         )
         .toList();
   }

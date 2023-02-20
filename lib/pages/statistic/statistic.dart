@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
@@ -15,7 +17,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class StatisticPage extends StatefulWidget {
-  StatisticPage({Key? key}) : super(key: key);
+  const StatisticPage({Key? key}) : super(key: key);
 
   @override
   _StatisticPageState createState() => _StatisticPageState();
@@ -27,17 +29,14 @@ class _StatisticPageState extends State<StatisticPage> {
   late Uint8List imageFile;
   ScreenshotController screenshotController = ScreenshotController();
 
-  // TODO : use imersive ui to full screen
   @override
   void initState() {
     super.initState();
-    // TODO : set to full screen
   }
 
   @override
   void dispose() {
     super.dispose();
-    // TODO : set normal screen
   }
 
   @override
@@ -56,30 +55,32 @@ class _StatisticPageState extends State<StatisticPage> {
                     child: Column(
                       children: [
                         // sizedbox
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
 
                         // profile image
                         CircleAvatar(
                           radius: 40,
-                          backgroundImage: FileImage(File('${appController.yourImage}')),
+                          backgroundImage:
+                              FileImage(File('${appController.yourImage}')),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
 
                         // profile name
-                        Text('${appController.yourName}', style: textTitleStyleBig),
-                        SizedBox(height: 16),
+                        Text('${appController.yourName}',
+                            style: textTitleStyleBig),
+                        const SizedBox(height: 16),
 
                         // BMI statistic
-                        BmiInfoWidget(showGraph: false),
+                        const BmiInfoWidget(showGraph: false),
 
                         // Blood pressure statistic
-                        BloodPressureWidget(showGraph: false),
+                        const BloodPressureWidget(showGraph: false),
 
                         // Blood glucose statistic
-                        GlucoseInfoWidget(showGraph: false),
+                        const GlucoseInfoWidget(showGraph: false),
 
                         // spacer
-                        Spacer()
+                        const Spacer()
                       ],
                     ),
                   ),
@@ -94,26 +95,36 @@ class _StatisticPageState extends State<StatisticPage> {
                       children: [
                         ElevatedButton(
                           style: buttonStyleGreen,
-                          child: Text("Save"),
+                          child: const Text("Save"),
                           onPressed: () {
-                            screenshotController.capture(delay: Duration(milliseconds: 100)).then((imageBytes) async {
+                            screenshotController
+                                .capture(
+                                    delay: const Duration(milliseconds: 100))
+                                .then((imageBytes) async {
                               // save to gallery
-                              var result = await ImageGallerySaver.saveImage(imageBytes!);
+                              var result = await ImageGallerySaver.saveImage(
+                                  imageBytes!);
                               log(result.toString());
                               // show sanck bar
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Save image to gallery")));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Save image to gallery")));
                             });
                           },
                         ),
-                        SizedBox(width: 8.0),
+                        const SizedBox(width: 8.0),
                         ElevatedButton(
                           style: buttonStyleBlue,
-                          child: Text("Share"),
+                          child: const Text("Share"),
                           onPressed: () {
-                            screenshotController.capture(delay: Duration(milliseconds: 100)).then((imageBytes) async {
+                            screenshotController
+                                .capture(
+                                    delay: const Duration(milliseconds: 100))
+                                .then((imageBytes) async {
                               // share
                               var directory = await getTemporaryDirectory();
-                              String filePath = directory.path + "/snapshot.png";
+                              String filePath =
+                                  "${directory.path}/snapshot.png";
                               File file = File(filePath);
                               await file.writeAsBytes(imageBytes!);
                               Share.shareFiles([filePath]);

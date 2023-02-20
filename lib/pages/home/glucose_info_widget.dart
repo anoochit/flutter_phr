@@ -41,7 +41,8 @@ class GlucoseInfoWidget extends StatelessWidget {
                         builder: (controller) {
                           return FutureBuilder(
                             future: controller.loadGlucose(),
-                            builder: (BuildContext context, AsyncSnapshot<Box<Glucose>> snapshot) {
+                            builder: (BuildContext context,
+                                AsyncSnapshot<Box<Glucose>> snapshot) {
                               if (snapshot.hasError) {
                                 return const Center(
                                   child: Text("Error"),
@@ -54,24 +55,33 @@ class GlucoseInfoWidget extends StatelessWidget {
                                 if (box!.values.isNotEmpty) {
                                   // convert to list and sort
                                   var boxList = box.values.toList();
-                                  boxList.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+                                  boxList.sort((a, b) =>
+                                      a.dateTime.compareTo(b.dateTime));
                                   // FIXME: load data only last 28 day
-                                  boxList = controller.getDataOnly(box: boxList, total: 28);
+                                  boxList = controller.getDataOnly(
+                                      box: boxList, total: 28);
 
                                   final List<ChartData> chartDataGlucose = [];
                                   //final List<ChartData> chartDataA1C = [];
                                   for (var item in boxList) {
-                                    chartDataGlucose.add(ChartData(name: 'Glucose', dateTime: item.dateTime, value: item.unit.toDouble()));
+                                    chartDataGlucose.add(ChartData(
+                                        name: 'Glucose',
+                                        dateTime: item.dateTime,
+                                        value: item.unit.toDouble()));
                                     //chartDataA1C.add(ChartData(name: 'A1C', dateTime: item.dateTime, value: controller.glucoseToA1C(unit: item.unit)));
                                   }
-                                  final List<List<ChartData>> chartData = [chartDataGlucose];
+                                  final List<List<ChartData>> chartData = [
+                                    chartDataGlucose
+                                  ];
 
                                   return Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             BoxColumnDataWidget(
                                               title: "GLUCOSE",
@@ -81,7 +91,10 @@ class GlucoseInfoWidget extends StatelessWidget {
                                             ),
                                             BoxColumnDataWidget(
                                               title: "A1C",
-                                              value: '${controller.glucoseToA1C(unit: boxList.last.unit).toStringAsFixed(1)}',
+                                              value: controller
+                                                  .glucoseToA1C(
+                                                      unit: boxList.last.unit)
+                                                  .toStringAsFixed(1),
                                               valueColor: listChartColor[1],
                                               subTitle: "%",
                                             ),
@@ -104,7 +117,8 @@ class GlucoseInfoWidget extends StatelessWidget {
                                 } else {
                                   return const Center(
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 32.0),
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 32.0),
                                       child: Text("No data, tap to add data."),
                                     ),
                                   );
