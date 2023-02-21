@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.phr">
+    package="net.redlinesoft.phr">
    <application
-        android:label="phr"
+        android:label="PHR"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
