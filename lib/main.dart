@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -46,15 +47,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      builder: (context, child) =>
-          MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!),
-      debugShowCheckedModeBanner: false,
-      title: 'Personal Health Record',
-      theme: themeData(context),
-      darkTheme: themeDataDark(context),
-      // Check setting has data if not goto setting page
-      home: (boxSettings.values.isEmpty) ? const SettingPage() : const HomePage(),
-    );
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      return GetMaterialApp(
+        builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!),
+        debugShowCheckedModeBanner: false,
+        title: 'Personal Health Record',
+        theme: themeData(context, lightDynamic),
+        darkTheme: themeDataDark(context, darkDynamic),
+        // Check setting has data if not goto setting page
+        home: (boxSettings.values.isEmpty)
+            ? const SettingPage()
+            : const HomePage(),
+      );
+    });
   }
 }

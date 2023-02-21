@@ -1,58 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-ThemeData themeData(BuildContext context) {
+ThemeData themeData(BuildContext context, ColorScheme? lightDynamic) {
   return ThemeData(
     useMaterial3: true,
-    primarySwatch: Colors.grey,
-    canvasColor: Colors.grey.shade200,
-    appBarTheme: const AppBarTheme(
-      foregroundColor: Colors.black,
-      backgroundColor: Colors.white,
-      elevation: 1.0,
-      centerTitle: true,
-      titleTextStyle: TextStyle(
-        color: Colors.black,
-        fontSize: 20.0,
-      ),
-    ),
-    cardTheme: const CardTheme(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-      ),
-    ),
-    textTheme: GoogleFonts.latoTextTheme(
-      Theme.of(context).textTheme,
-    ),
+    colorScheme: lightDynamic,
   );
 }
 
-// FIXME : custome theme for dark mode
-ThemeData themeDataDark(BuildContext context) {
-  return ThemeData.dark(
+ThemeData themeDataDark(BuildContext context, ColorScheme? darkDynamic) {
+  return ThemeData(
     useMaterial3: true,
-  ).copyWith(
-    appBarTheme: AppBarTheme(
-      elevation: 1.0,
-      centerTitle: true,
-      titleTextStyle: GoogleFonts.lato(
-        fontSize: 20,
-      ),
-    ),
-    textTheme: TextTheme(
-      bodyLarge: GoogleFonts.lato(),
-      bodyMedium: GoogleFonts.lato(),
-      titleMedium: GoogleFonts.lato(),
-      titleLarge: GoogleFonts.lato(),
-      labelLarge: GoogleFonts.lato(),
-    ),
-    cardTheme: const CardTheme(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-      ),
-    ),
+    colorScheme: darkDynamic,
   );
 }
 
