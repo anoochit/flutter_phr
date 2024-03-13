@@ -11,7 +11,7 @@ import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
 
 class GlucoseHistoryPage extends StatefulWidget {
-  const GlucoseHistoryPage({Key? key}) : super(key: key);
+  const GlucoseHistoryPage({super.key});
 
   @override
   State<GlucoseHistoryPage> createState() => _GlucoseHistoryPageState();

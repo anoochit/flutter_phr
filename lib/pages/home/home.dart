@@ -12,7 +12,7 @@ import 'package:phr/pages/home/menu_widget.dart';
 import 'package:phr/pages/statistic/statistic.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -86,12 +86,12 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          padding: EdgeInsets.symmetric(horizontal: 4.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               // your info
               //YourInfoWidget(),
               SizedBox(height: 8.0),

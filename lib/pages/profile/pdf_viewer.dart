@@ -6,9 +6,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDFViewerPage extends StatelessWidget {
   const PDFViewerPage({
-    Key? key,
+    super.key,
     required this.path,
-  }) : super(key: key);
+  });
 
   final String path;
 

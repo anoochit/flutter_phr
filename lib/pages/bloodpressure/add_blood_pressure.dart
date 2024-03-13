@@ -9,7 +9,7 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class AddBloodPressurePage extends StatefulWidget {
-  const AddBloodPressurePage({Key? key}) : super(key: key);
+  const AddBloodPressurePage({super.key});
 
   @override
   State<AddBloodPressurePage> createState() => _AddBloodPressurePageState();

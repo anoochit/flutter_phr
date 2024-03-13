@@ -11,7 +11,7 @@ import 'package:phr/themes/theme.dart';
 import 'package:phr/widgets/boxcolumndata_widget.dart';
 
 class BMIHistoryPage extends StatefulWidget {
-  const BMIHistoryPage({Key? key}) : super(key: key);
+  const BMIHistoryPage({super.key});
 
   @override
   State<BMIHistoryPage> createState() => _BMIHistoryPageState();

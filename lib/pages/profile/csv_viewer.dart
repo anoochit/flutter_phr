@@ -8,9 +8,9 @@ import 'package:share/share.dart';
 
 class CSVViewerPage extends StatelessWidget {
   const CSVViewerPage({
-    Key? key,
+    super.key,
     required this.path,
-  }) : super(key: key);
+  });
 
   final String path;
 

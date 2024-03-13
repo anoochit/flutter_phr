@@ -11,7 +11,7 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class GlucoseInfoWidget extends StatelessWidget {
-  const GlucoseInfoWidget({Key? key, this.showGraph = true}) : super(key: key);
+  const GlucoseInfoWidget({super.key, this.showGraph = true});
 
   final bool showGraph;
 
@@ -28,9 +28,9 @@ class GlucoseInfoWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     // title
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text("Blood Glucose", style: textTitleStyle),
                       ],
                     ),

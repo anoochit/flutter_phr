@@ -10,7 +10,7 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class ImportDataPage extends StatefulWidget {
-  const ImportDataPage({Key? key}) : super(key: key);
+  const ImportDataPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api

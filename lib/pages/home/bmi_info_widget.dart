@@ -11,7 +11,7 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class BmiInfoWidget extends StatelessWidget {
-  const BmiInfoWidget({Key? key, this.showGraph = true}) : super(key: key);
+  const BmiInfoWidget({super.key, this.showGraph = true});
 
   final bool showGraph;
 
@@ -28,9 +28,9 @@ class BmiInfoWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     // title
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text("Body Mass Index (BMI)", style: textTitleStyle),
                       ],
                     ),

@@ -11,7 +11,7 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 import 'package:phr/widgets/spline_chart.dart';
 
 class BloodPressureWidget extends StatelessWidget {
-  const BloodPressureWidget({Key? key, this.showGraph = true}) : super(key: key);
+  const BloodPressureWidget({super.key, this.showGraph = true});
 
   final bool showGraph;
 
@@ -28,9 +28,9 @@ class BloodPressureWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     // title
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text("Blood Pressure", style: textTitleStyle),
                       ],
                     ),

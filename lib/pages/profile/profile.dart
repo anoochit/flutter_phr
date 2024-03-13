@@ -21,7 +21,7 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 class ProfilePage extends StatelessWidget {
   final AppController appController = Get.find<AppController>();
 
-  ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
