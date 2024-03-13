@@ -13,7 +13,7 @@ import 'package:phr/widgets/statsbox_widget.dart';
 import 'package:screenshot/screenshot.dart';
 
 class BmiPage extends StatefulWidget {
-  const BmiPage({Key? key}) : super(key: key);
+  const BmiPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api

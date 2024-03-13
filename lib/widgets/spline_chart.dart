@@ -5,7 +5,8 @@ import 'package:phr/models/chartdata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SplineChartWidget extends StatelessWidget {
-  const SplineChartWidget({Key? key, required this.chartData, required this.legend}) : super(key: key);
+  const SplineChartWidget(
+      {super.key, required this.chartData, required this.legend});
 
   final List<List<ChartData>> chartData;
   final bool legend;
@@ -24,7 +25,7 @@ class SplineChartWidget extends StatelessWidget {
         dateFormat: DateFormat('d MMM'),
         autoScrollingDeltaType: DateTimeIntervalType.months,
       ),
-      primaryYAxis: NumericAxis(
+      primaryYAxis: const NumericAxis(
         autoScrollingMode: AutoScrollingMode.start,
       ),
       tooltipBehavior: TooltipBehavior(
@@ -33,7 +34,7 @@ class SplineChartWidget extends StatelessWidget {
       zoomPanBehavior: ZoomPanBehavior(
         enablePinching: false,
       ),
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         for (int series = 0; series < chartData.length; series++)
           LineSeries<ChartData, DateTime>(
             name: chartData[series].first.name,

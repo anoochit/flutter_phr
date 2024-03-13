@@ -2,12 +2,13 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:phr/models/settings.dart';
-import 'package:phr/pages/settings/settings.dart';
-import 'package:phr/themes/theme.dart';
+
 import 'const.dart';
 import 'controllers/app_controller.dart';
+import 'models/settings.dart';
 import 'pages/home/home.dart';
+import 'pages/settings/settings.dart';
+import 'themes/theme.dart';
 
 Future<void> main() async {
   // initial boxes
@@ -22,8 +23,8 @@ Future<void> main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();

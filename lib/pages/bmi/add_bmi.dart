@@ -7,7 +7,7 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class AddBMIPage extends StatefulWidget {
-  const AddBMIPage({Key? key}) : super(key: key);
+  const AddBMIPage({super.key});
 
   @override
   State<AddBMIPage> createState() => _AddBMIPageState();

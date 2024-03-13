@@ -4,7 +4,7 @@ import 'package:phr/const.dart';
 import 'package:phr/themes/theme.dart';
 
 class MenuWidget extends StatelessWidget {
-  const MenuWidget({Key? key}) : super(key: key);
+  const MenuWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class StatisticPage extends StatefulWidget {
-  const StatisticPage({Key? key}) : super(key: key);
+  const StatisticPage({super.key});
 
   @override
   _StatisticPageState createState() => _StatisticPageState();

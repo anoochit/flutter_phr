@@ -3,14 +3,14 @@ import 'package:phr/widgets/boxcolumndata_widget.dart';
 
 class StatsBoxWidget extends StatelessWidget {
   const StatsBoxWidget({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     required this.title,
     required this.value,
     required this.valueColor,
     required this.subTitle,
-  }) : super(key: key);
+  });
 
   final double width;
   final double height;

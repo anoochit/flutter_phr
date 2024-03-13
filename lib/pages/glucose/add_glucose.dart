@@ -8,7 +8,7 @@ import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/themes/theme.dart';
 
 class AddGlucosePage extends StatefulWidget {
-  const AddGlucosePage({Key? key}) : super(key: key);
+  const AddGlucosePage({super.key});
 
   @override
   State<AddGlucosePage> createState() => _AddGlucosePageState();

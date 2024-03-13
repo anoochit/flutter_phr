@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class BoxColumnDataWidget extends StatelessWidget {
   const BoxColumnDataWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.subTitle,
     this.valueColor,
     this.textColor,
-  }) : super(key: key);
+  });
 
   final String title;
   final String value;

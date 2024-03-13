@@ -14,7 +14,7 @@ import 'package:phr/widgets/statsbox_widget.dart';
 import 'blood_pressure_history.dart';
 
 class BloodPressurePage extends StatefulWidget {
-  const BloodPressurePage({Key? key}) : super(key: key);
+  const BloodPressurePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
