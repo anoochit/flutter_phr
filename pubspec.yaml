@@ -56,7 +56,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.0
-  package_rename: ^1.0.0+1
+  # package_rename: ^1.0.0+1
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -68,14 +68,14 @@ flutter_native_splash:
   image: assets/splash.png
   color_dark: "#042a49"
 
-package_rename_config:
-  android:
-    app_name: "PHR"
-    package_name: "net.redlinesoft.phr"
-  ios:
-    app_name: "PHR"
-    bundle_name: "net.redlinesoft.PHR"
-    package_name: "net.redlinesoft.phr"
+# package_rename_config:
+#   android:
+#     app_name: "PHR"
+#     package_name: "net.redlinesoft.phr"
+#   ios:
+#     app_name: "PHR"
+#     bundle_name: "net.redlinesoft.PHR"
+#     package_name: "net.redlinesoft.phr"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
