@@ -1,7 +1,5 @@
 on:
   push:
-    branches:
-      - master    
     tags:
       - "v*"
 env:
@@ -60,7 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.TOKEN}}
         with:
-          files: | 
+          files: |
             build\app\outputs\flutter-apk\app-armeabi-v7a-release.apk
             build\app\outputs\flutter-apk\app-arm64-v8a-release.apk
             build\app\outputs\flutter-apk\app-x86_64-release.apk
