@@ -17,7 +17,7 @@ description: A new Flutter project.
 version: 1.13.0+14
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.9.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -43,7 +43,7 @@ dependencies:
   package_info_plus: ^8.3.1
   path_provider: ^2.0.9
   screenshot: ^3.0.0
-  share: ^2.0.4
+  share_plus: ^11.1.0
   syncfusion_flutter_charts: ^30.2.6+1
   syncfusion_flutter_pdf: ^30.2.6
   syncfusion_flutter_pdfviewer: ^30.2.6

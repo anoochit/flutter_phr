@@ -9,13 +9,13 @@ import 'package:get/get.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
 
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/pages/home/blood_pressure_info_widget.dart';
 import 'package:phr/pages/home/bmi_info_widget.dart';
 import 'package:phr/pages/home/glucose_info_widget.dart';
 import 'package:phr/themes/theme.dart';
+import 'package:share_plus/share_plus.dart';
 
 class StatisticPage extends StatefulWidget {
   const StatisticPage({super.key});
@@ -61,14 +61,17 @@ class _StatisticPageState extends State<StatisticPage> {
                         // profile image
                         CircleAvatar(
                           radius: 40,
-                          backgroundImage:
-                              FileImage(File('${appController.yourImage}')),
+                          backgroundImage: FileImage(
+                            File('${appController.yourImage}'),
+                          ),
                         ),
                         const SizedBox(height: 8),
 
                         // profile name
-                        Text('${appController.yourName}',
-                            style: textTitleStyleBig),
+                        Text(
+                          '${appController.yourName}',
+                          style: textTitleStyleBig,
+                        ),
                         const SizedBox(height: 16),
 
                         // BMI statistic
@@ -81,7 +84,7 @@ class _StatisticPageState extends State<StatisticPage> {
                         const GlucoseInfoWidget(showGraph: false),
 
                         // spacer
-                        const Spacer()
+                        const Spacer(),
                       ],
                     ),
                   ),
@@ -100,18 +103,22 @@ class _StatisticPageState extends State<StatisticPage> {
                           onPressed: () {
                             screenshotController
                                 .capture(
-                                    delay: const Duration(milliseconds: 100))
+                                  delay: const Duration(milliseconds: 100),
+                                )
                                 .then((imageBytes) async {
-                              // save to gallery
-                              var result =
-                                  await ImageGallerySaverPlus.saveImage(
-                                      imageBytes!);
-                              log(result.toString());
-                              // show sanck bar
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Save image to gallery")));
-                            });
+                                  // save to gallery
+                                  var result =
+                                      await ImageGallerySaverPlus.saveImage(
+                                        imageBytes!,
+                                      );
+                                  log(result.toString());
+                                  // show sanck bar
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Save image to gallery"),
+                                    ),
+                                  );
+                                });
                           },
                         ),
                         const SizedBox(width: 8.0),
@@ -121,22 +128,27 @@ class _StatisticPageState extends State<StatisticPage> {
                           onPressed: () {
                             screenshotController
                                 .capture(
-                                    delay: const Duration(milliseconds: 100))
+                                  delay: const Duration(milliseconds: 100),
+                                )
                                 .then((imageBytes) async {
-                              // share
-                              var directory = await getTemporaryDirectory();
-                              String filePath =
-                                  "${directory.path}/snapshot.png";
-                              File file = File(filePath);
-                              await file.writeAsBytes(imageBytes!);
-                              Share.shareFiles([filePath]);
-                            });
+                                  // share
+                                  var directory = await getTemporaryDirectory();
+                                  String filePath =
+                                      "${directory.path}/snapshot.png";
+                                  File file = File(filePath);
+                                  await file.writeAsBytes(imageBytes!);
+                                  final params = ShareParams(
+                                    title: 'Share file',
+                                    files: [XFile(filePath)],
+                                  );
+                                  await SharePlus.instance.share(params);
+                                });
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             );
           },

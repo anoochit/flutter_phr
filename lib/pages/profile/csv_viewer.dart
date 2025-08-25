@@ -4,13 +4,10 @@ import 'dart:convert';
 import 'package:csv/csv.dart';
 
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CSVViewerPage extends StatelessWidget {
-  const CSVViewerPage({
-    super.key,
-    required this.path,
-  });
+  const CSVViewerPage({super.key, required this.path});
 
   final String path;
 
@@ -21,18 +18,19 @@ class CSVViewerPage extends StatelessWidget {
         title: const Text("CSV Viewer"),
         actions: [
           IconButton(
-            onPressed: () => Share.shareFiles(
-              [path],
-            ),
+            onPressed: () async {
+              //  SharePlus.shareFiles([path])
+              final params = ShareParams(
+                title: 'Share file',
+                files: [XFile(path)],
+              );
+              await SharePlus.instance.share(params);
+            },
             icon: const Icon(Icons.share),
-          )
+          ),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'To view, please export this',
-        ),
-      ),
+      body: const Center(child: Text('To view, please export this')),
     );
   }
 
@@ -40,9 +38,7 @@ class CSVViewerPage extends StatelessWidget {
     final csvFile = File(path).openRead();
     return await csvFile
         .transform(utf8.decoder)
-        .transform(
-          const CsvToListConverter(),
-        )
+        .transform(const CsvToListConverter())
         .toList();
   }
 }

@@ -1,14 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDFViewerPage extends StatelessWidget {
-  const PDFViewerPage({
-    super.key,
-    required this.path,
-  });
+  const PDFViewerPage({super.key, required this.path});
 
   final String path;
 
@@ -19,16 +16,19 @@ class PDFViewerPage extends StatelessWidget {
         title: const Text("PDF Viewer"),
         actions: [
           IconButton(
-            onPressed: () => Share.shareFiles(
-              [path],
-            ),
+            onPressed: () async {
+              //  SharePlus.shareFiles([path])
+              final params = ShareParams(
+                title: 'Share file',
+                files: [XFile(path)],
+              );
+              await SharePlus.instance.share(params);
+            },
             icon: const Icon(Icons.share),
-          )
+          ),
         ],
       ),
-      body: SfPdfViewer.file(
-        File(path),
-      ),
+      body: SfPdfViewer.file(File(path)),
     );
   }
 }
