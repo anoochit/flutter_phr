@@ -6,15 +6,16 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share/share.dart';
+
 import 'package:phr/controllers/app_controller.dart';
 import 'package:phr/pages/home/blood_pressure_info_widget.dart';
 import 'package:phr/pages/home/bmi_info_widget.dart';
 import 'package:phr/pages/home/glucose_info_widget.dart';
 import 'package:phr/themes/theme.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
 
 class StatisticPage extends StatefulWidget {
   const StatisticPage({super.key});
@@ -102,8 +103,9 @@ class _StatisticPageState extends State<StatisticPage> {
                                     delay: const Duration(milliseconds: 100))
                                 .then((imageBytes) async {
                               // save to gallery
-                              var result = await ImageGallerySaver.saveImage(
-                                  imageBytes!);
+                              var result =
+                                  await ImageGallerySaverPlus.saveImage(
+                                      imageBytes!);
                               log(result.toString());
                               // show sanck bar
                               ScaffoldMessenger.of(context).showSnackBar(
