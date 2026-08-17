@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:phr/const.dart';
 import 'package:phr/themes/theme.dart';
@@ -21,7 +22,7 @@ class MenuWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
+                    FaIcon(
                       item.image,
                       size: (constraints.maxWidth / 3) * 0.4,
                       color: item.color,

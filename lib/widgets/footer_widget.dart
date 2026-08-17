@@ -12,7 +12,7 @@ class FooterWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("Made with "),
-          Icon(
+          FaIcon(
             FontAwesomeIcons.solidHeart,
             color: Colors.red,
             size: 18.0,

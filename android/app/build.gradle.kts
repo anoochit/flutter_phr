@@ -34,19 +34,25 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = 35
+        targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
     // keystore information
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            //storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storeFile = file("key.jks")
-            storePassword = keystoreProperties["storePassword"] as String
+        val sFile = keystoreProperties.getProperty("storeFile")
+        val sPassword = keystoreProperties.getProperty("storePassword")
+        val kAlias = keystoreProperties.getProperty("keyAlias")
+        val kPassword = keystoreProperties.getProperty("keyPassword")
+
+        if (sFile != null && sPassword != null && kAlias != null && kPassword != null) {
+            create("release") {
+                storeFile = file(sFile)
+                storePassword = sPassword
+                keyAlias = kAlias
+                keyPassword = kPassword
+            }
         }
     }
 
